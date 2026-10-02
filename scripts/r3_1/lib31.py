@@ -203,10 +203,11 @@ def wl_dir(root, seg, scenario, intensity, seed):
     return os.path.join(root, seg["name"], scenario, f"i{intensity:g}", f"s{seed}")
 
 
-def build_workload(bank: Bank, pres, seg, scenario, intensity, seed, out, det_thr):
+def build_workload(bank: Bank, pres, seg, scenario, intensity, seed, out, det_thr, plan=None):
     import cv2
     g2 = {"sequence": f"{seg['seq_key']:04d}", "first_frame": seg["first"], "last_frame": seg["first"] + seg["n"] - 1}
-    plan = bw2.display_plan(g2, "replay_exact" if scenario == "replay_shift" else scenario, intensity, seed)
+    if plan is None:
+        plan = bw2.display_plan(g2, "replay_exact" if scenario == "replay_shift" else scenario, intensity, seed)
     if scenario == "replay_shift":  # every replayed session uses one of the shifted/cropped/mixed variants 20-25
         rs = bw2.seg_rng(seed, seg["name"], scenario, intensity, "shiftvar")
         sv = {}
