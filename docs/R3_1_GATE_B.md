@@ -33,3 +33,20 @@ around the R3 validation-selected point.
 baselines. Pending: MEVA and LOGO confirmation (expected to be consistent given the margin, but not yet shown).
 Outcome-A-style claims on the scheduler are off the table; the contribution pivots to the security side (O3/O4) with the
 availability-preserving gate evaluated against rate-limit baselines, subject to Gates C/D.
+
+## Operating points (KITTI validation, clean+noisy pooled; `results/r3_1/validation/operating_points_kitti_val.csv`)
+Energy is **modeled** (assumed power model), host timing is not Portenta timing. Configs are the best ≤ 0.25-duty point of each family from the sweep above (selected on this same validation set — optimistic).
+
+| method | UR timely | UR track (eventually) | UR burst | UR frame | duty | modeled energy J/min | J per detected track | first-wake share | redundant | empty |
+|---|---|---|---|---|---|---|---|---|---|---|
+| always-on | 1 | 1 | 1 | 1 | 1.00 | 25.3 | 0.76 | 0.19 | 0.65 | 0.10 |
+| legacy event (2 s cooldown) | 0.63 | 0.92 | 0.69 | 0.23 | 0.23 | 9.7 | 0.32 | 0.64 | 0.11 | 0.09 |
+| MOG2 event | 0.61 | 0.84 | 0.65 | 0.19 | 0.20 | 9.0 | 0.32 | 0.73 | 0.03 | 0.04 |
+| R2 robust event | 0.54 | 0.94 | 0.57 | 0.25 | 0.23 | 9.8 | 0.31 | 0.59 | 0.21 | 0.08 |
+| R3.1 scheduler (noise-norm) | 0.15 | 0.32 | 0.17 | 0.20 | 0.23 | 9.7 | 0.91 | 0.28 | 0.60 | 0.07 |
+| R3 scheduler (lowest duty) | 0.50 | 0.97 | 0.51 | 0.82 | 0.66 | 20.3 | 0.63 | 0.29 | 0.62 | 0.03 |
+
+* No method reaches UR_timely ≥ 0.90 at duty ≤ 0.25 (best 0.63): a **negative result for the utility target**. Event-style triggers keep ≈ 0.9 of tracks *eventually* but late (mean track latency ≈ 2.5 s vs 1.5 s).
+* The scheduler spends its wakes on *redundant refreshes* (62 % of wakes) — the value of its per-frame coverage (UR_frame 0.82) is real but costs duty 0.66.
+* The legacy event trigger gives a ≈ 62 % modeled-energy reduction vs always-on at UR_timely 0.63.
+* (Bug caught while producing this table: always-on rows were duplicated when merging two result files, halving all UR; fixed before use.)
