@@ -1,0 +1,43 @@
+config,variant,frames,started,success,transformation
+cooldown+grad_replay,0,172,0,0.0,exact
+cooldown+grad_replay,1,39,1,0.02564102564102564,bright x0.85
+cooldown+grad_replay,2,37,1,0.02702702702702703,bright x1.15
+cooldown+grad_replay,3,33,0,0.0,noise s6
+cooldown+grad_replay,4,27,0,0.0,jpeg q40
+cooldown+grad_replay,5,60,0,0.0,"shift 3,2 px"
+cooldown+grad_replay,6,30,0,0.0,bright+noise+jpeg
+cooldown+grad_replay,7,60,0,0.0,shift -4 px + noise
+cooldown+grad_replay,20,29,0,0.0,shift 10 px
+cooldown+grad_replay,21,26,1,0.038461538461538464,"shift 24,8 px"
+cooldown+grad_replay,22,25,1,0.04,shift 48 px
+cooldown+grad_replay,23,46,2,0.043478260869565216,crop 95%
+cooldown+grad_replay,24,15,1,0.06666666666666667,crop 90%
+cooldown+grad_replay,25,31,3,0.0967741935483871,shift24+crop95+gain+noise
+cooldown+r3_replay,0,172,0,0.0,exact
+cooldown+r3_replay,1,39,0,0.0,bright x0.85
+cooldown+r3_replay,2,37,2,0.05405405405405406,bright x1.15
+cooldown+r3_replay,3,33,0,0.0,noise s6
+cooldown+r3_replay,4,27,0,0.0,jpeg q40
+cooldown+r3_replay,5,60,5,0.08333333333333333,"shift 3,2 px"
+cooldown+r3_replay,6,30,0,0.0,bright+noise+jpeg
+cooldown+r3_replay,7,60,1,0.016666666666666666,shift -4 px + noise
+cooldown+r3_replay,20,29,4,0.13793103448275862,shift 10 px
+cooldown+r3_replay,21,26,2,0.07692307692307693,"shift 24,8 px"
+cooldown+r3_replay,22,25,1,0.04,shift 48 px
+cooldown+r3_replay,23,46,3,0.06521739130434782,crop 95%
+cooldown+r3_replay,24,15,1,0.06666666666666667,crop 90%
+cooldown+r3_replay,25,31,3,0.0967741935483871,shift24+crop95+gain+noise
+cooldown_only,0,172,7,0.040697674418604654,exact
+cooldown_only,1,39,3,0.07692307692307693,bright x0.85
+cooldown_only,2,37,3,0.08108108108108109,bright x1.15
+cooldown_only,3,33,1,0.030303030303030304,noise s6
+cooldown_only,4,27,2,0.07407407407407407,jpeg q40
+cooldown_only,5,60,6,0.1,"shift 3,2 px"
+cooldown_only,6,30,1,0.03333333333333333,bright+noise+jpeg
+cooldown_only,7,60,2,0.03333333333333333,shift -4 px + noise
+cooldown_only,20,29,4,0.13793103448275862,shift 10 px
+cooldown_only,21,26,2,0.07692307692307693,"shift 24,8 px"
+cooldown_only,22,25,1,0.04,shift 48 px
+cooldown_only,23,46,3,0.06521739130434782,crop 95%
+cooldown_only,24,15,1,0.06666666666666667,crop 90%
+cooldown_only,25,31,3,0.0967741935483871,shift24+crop95+gain+noise
