@@ -690,6 +690,77 @@ static void test_ugs_gate() {
     }
 }
 
+
+static UgsGateFrame shifted(const UgsGateFrame& f, int dx, int dy) {
+    UgsGateFrame o = f;
+    o.med = -1;
+    for (int y = 0; y < 8; ++y)
+        for (int x = 0; x < 24; ++x) {
+            const int sx = std::min(23, std::max(0, x - dx)), sy = std::min(7, std::max(0, y - dy));
+            o.thumb[y * 24 + x] = f.thumb[sy * 24 + sx];
+        }
+    return o;
+}
+
+static void test_ugs_gate_r31() {
+    std::printf("test_ugs_gate_r31\n");
+    UgsGateParams p;
+    p.budget_on = false;
+    auto run = [&](UgsGateParams q, int dx, int dy) {
+        UgsGate<256> g(q);
+        double t = 0.0;
+        for (int i = 0; i < 60; ++i, t += 100.0) {
+            UgsGateFrame f = gframe(t, 1 + i / 3, 40);
+            g.decide(f, true);
+            g.observe(f);
+        }
+        return g.decide(shifted(gframe(t, 2, 40), dx, dy), true);
+    };
+    UgsGateParams q = p;
+    q.shift_tol = 1;
+    q.shift_try = 192;
+    CHECK(run(p, 0, 0).reason == UG_REPLAY);   // exact stale frame: blocked either way
+    CHECK(run(q, 0, 0).reason == UG_REPLAY);
+    CHECK(run(p, 1, 0).accept);                // one-block displaced replay slips through R3
+    CHECK(!run(q, 1, 0).accept && run(q, 1, 1).reason == UG_REPLAY);  // tolerated with shift_tol
+    // shift tolerance does not turn a live, different scene into a replay
+    {
+        UgsGate<256> g(q);
+        double t = 0.0;
+        int blocked = 0;
+        for (int i = 0; i < 90; ++i, t += 100.0) {  // object advancing one block per 0.5 s
+            UgsGateFrame f = gframe(t, 1 + i / 5, 40);
+            blocked += !g.decide(f, true).accept;
+            g.observe(f);
+        }
+        CHECK(blocked == 0);
+    }
+    // per-content bucket: one region cannot drain the global budget; another region still passes
+    {
+        UgsGateParams b = p;
+        b.budget_on = true;
+        b.replay_on = false;
+        b.capacity = 10.0;
+        b.refill_per_s = 0.0;
+        b.novelty_capacity = 0.0;
+        b.content_on = 1;
+        b.content_capacity = 3.0;
+        b.content_refill_per_s = 0.0;
+        UgsGate<256> g(b);
+        int acc0 = 0, acc1 = 0;
+        for (int i = 0; i < 8; ++i) acc0 += g.decide(gframe(i, 1, 40), false, 0).accept;
+        for (int i = 0; i < 3; ++i) acc1 += g.decide(gframe(10 + i, 2, 40), false, 1).accept;
+        CHECK(acc0 == 3);  // spam on region 0 stops at the content capacity
+        CHECK(acc1 == 3);  // region 1 unaffected (global budget has 4 tokens left)
+        UgsGateParams off = b;
+        off.content_on = 0;
+        UgsGate<256> h(off);
+        int a = 0;
+        for (int i = 0; i < 12; ++i) a += h.decide(gframe(i, 1, 40), false, 0).accept;
+        CHECK(a == 10);    // without the content bucket one region takes the whole global budget
+    }
+}
+
 int main() {
     test_rng();
     test_energy_tracker();
@@ -701,6 +772,7 @@ int main() {
     test_robust_gate();
     test_ugs_scheduler();
     test_ugs_r31();
+    test_ugs_gate_r31();
     test_ugs_gate();
     std::printf("unit_tests: %d passed, %d failed\n", g_pass, g_fail);
     return g_fail == 0 ? 0 : 1;

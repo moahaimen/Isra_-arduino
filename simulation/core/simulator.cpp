@@ -149,6 +149,11 @@ UgsGateParams ugs_gate_params_from(const SimConfig& c) {
     p.refill_per_s = c.ug_refill_per_s;
     p.novelty_capacity = c.ug_novelty_capacity;
     p.novelty_refill_per_s = c.ug_novelty_refill_per_s;
+    p.shift_tol = c.ug_shift_tol;
+    p.shift_try = c.ug_shift_try;
+    p.content_on = c.ug_content_on;
+    p.content_capacity = c.ug_content_capacity;
+    p.content_refill_per_s = c.ug_content_refill_per_s;
     return p;
 }
 
@@ -433,7 +438,7 @@ void Simulator::on_sec_done(double t, int64_t idx) {
     ObsRecord& r = rec_[static_cast<size_t>(idx)];
     SecurityDecision d;
     if (ugs_gate_) {
-        UgsGateDecision ud = ugate_.decide(ugs_frame_of(idx), r.novel);
+        UgsGateDecision ud = ugate_.decide(ugs_frame_of(idx), r.novel, r.region_mask ? __builtin_ctz(static_cast<unsigned>(r.region_mask)) : -1);
         d.accept = ud.accept;
         d.reason = ud.reason;
         d.matched_age_ms = ud.matched_age_ms;

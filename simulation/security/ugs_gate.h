@@ -52,6 +52,16 @@ struct UgsGateParams {
     double refill_per_s = 1.0;
     double novelty_capacity = 3.0;
     double novelty_refill_per_s = 0.2;
+    // ---- R3.1 mechanisms (default OFF = exact R3 behaviour) ----
+    // shift_tol: a frame also matches a stored frame displaced by up to one thumbnail block (4 px of the
+    //   96x32 M4 image) in x and/or y; the changed count over the overlap is scaled to 192 blocks. Only tried
+    //   when the unshifted count is <= shift_try (bounds the M4 cost to 8 extra comparisons per near match).
+    int shift_tol = 0;
+    int shift_try = 40;
+    // content bucket: per content region token bucket (capacity / refill) in addition to the global one.
+    int content_on = 0;
+    double content_capacity = 4.0;
+    double content_refill_per_s = 0.5;
 };
 
 struct UgsGateFrame {
@@ -76,6 +86,7 @@ public:
         cap_ = p_.history < 1 ? 1 : (p_.history > MAX_HISTORY ? MAX_HISTORY : p_.history);
         tok_ = p_.capacity;
         ntok_ = p_.novelty_capacity;
+        for (int i = 0; i < NB; ++i) ctok_[i] = p_.content_capacity;
     }
 
     // Every observed frame, after decide() if the frame was a request.
@@ -84,7 +95,7 @@ public:
         commit_frame(f);
     }
 
-    UgsGateDecision decide(UgsGateFrame f, bool novel) {
+    UgsGateDecision decide(UgsGateFrame f, bool novel, int region = -1) {
         UgsGateDecision d;
         refill(f.t_ms);
         const Cls& c = classify(f);
@@ -97,8 +108,15 @@ public:
             return d;
         }
         if (p_.budget_on) {
+            const bool cb = p_.content_on && region >= 0 && region < NB;
+            if (cb && !novel && ctok_[region] < 1.0) {
+                d.accept = false;
+                d.reason = UG_RATE_LIMIT;
+                return d;
+            }
             if (tok_ >= 1.0) {
                 tok_ -= 1.0;
+                if (cb && !novel) ctok_[region] -= 1.0;
             } else if (novel && ntok_ >= 1.0) {
                 ntok_ -= 1.0;
                 d.used_novelty_budget = true;
@@ -112,14 +130,34 @@ public:
 
     // Changed-block count after gain normalisation to a median of 128.
     int changed(const UgsGateFrame& a, const UgsGateFrame& b) const {
+        const int n0 = changed0(a, b, 0, 0);
+        if (!p_.shift_tol || n0 > p_.shift_try || n0 == 0) return n0;
+        int best = n0;
+        for (int dy = -1; dy <= 1; ++dy)
+            for (int dx = -1; dx <= 1; ++dx) {
+                if (!dx && !dy) continue;
+                const int n = changed0(a, b, dx, dy);
+                if (n < best) best = n;
+            }
+        return best;
+    }
+    // changed blocks between a(x,y) and b(x+dx,y+dy) over the overlap, scaled to 192 blocks
+    int changed0(const UgsGateFrame& a, const UgsGateFrame& b, int dx, int dy) const {
         const double ga = 128.0 / (a.med + 1e-6), gb = 128.0 / (b.med + 1e-6);
-        int n = 0;
-        for (int k = 0; k < 192; ++k) {
-            const double x = a.thumb[k] * ga, y = b.thumb[k] * gb;
-            const double diff = x > y ? x - y : y - x;
-            if (diff > p_.d_abs + p_.d_rel * y) ++n;
+        int n = 0, cnt = 0;
+        for (int yy = 0; yy < 8; ++yy) {
+            const int y2 = yy + dy;
+            if (y2 < 0 || y2 >= 8) continue;
+            for (int xx = 0; xx < 24; ++xx) {
+                const int x2 = xx + dx;
+                if (x2 < 0 || x2 >= 24) continue;
+                const double x = a.thumb[yy * 24 + xx] * ga, y = b.thumb[y2 * 24 + x2] * gb;
+                const double diff = x > y ? x - y : y - x;
+                if (diff > p_.d_abs + p_.d_rel * y) ++n;
+                ++cnt;
+            }
         }
-        return n;
+        return (dx || dy) ? static_cast<int>(n * 192.0 / cnt + 0.5) : n;
     }
 
     bool in_session() const { return in_session_; }
@@ -140,6 +178,8 @@ private:
     UgsGateFrame pre_ref_{};  // last live frame before the current replay session
     bool in_session_ = false;
     Cls cls_;
+    static const int NB = 8;
+    double ctok_[NB] = {4, 4, 4, 4, 4, 4, 4, 4};
     double tok_ = 0.0, ntok_ = 0.0, last_ = 0.0;
     bool init_ = false;
 
@@ -216,6 +256,10 @@ private:
         last_ = t;
         tok_ += dt * p_.refill_per_s;
         if (tok_ > p_.capacity) tok_ = p_.capacity;
+        for (int i = 0; i < NB; ++i) {
+            ctok_[i] += dt * p_.content_refill_per_s;
+            if (ctok_[i] > p_.content_capacity) ctok_[i] = p_.content_capacity;
+        }
         ntok_ += dt * p_.novelty_refill_per_s;
         if (ntok_ > p_.novelty_capacity) ntok_ = p_.novelty_capacity;
     }
