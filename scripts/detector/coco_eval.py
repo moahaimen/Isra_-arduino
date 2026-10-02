@@ -104,6 +104,7 @@ def coco_map(frames: pd.DataFrame, gt: pd.DataFrame, pred: pd.DataFrame, classes
         ap50 = float(np.mean(p50[p50 > -1])) if (p50 > -1).any() else float("nan")
         per[classes[cid]] = {"AP50": ap50, "AP50_95": ap}
     return {"mAP50": float(ev.stats[1]), "mAP50_95": float(ev.stats[0]), "per_class": per,
+            "AP_small": float(ev.stats[3]), "AP_medium": float(ev.stats[4]), "AP_large": float(ev.stats[5]),
             "n_detections": len(dets)}
 
 

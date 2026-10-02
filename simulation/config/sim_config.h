@@ -61,12 +61,46 @@ struct SimConfig {
     double content_cooldown_ms = 1000.0;
     double content_overlap_thr = 0.3;
     double region_ttl_ms = 3000.0;
+    // R3 utility-gated scheduler (simulation/watcher/ugs_scheduler.h)
+    double ugs_sigma_floor = 0.02;
+    double ugs_s_floor = 0.10;
+    double ugs_z0 = 1.0;
+    double ugs_e_max = 4.0;
+    double ugs_rho = 0.7;
+    double ugs_a_on = 5.0;
+    double ugs_a_off = 2.0;
+    double ugs_dt_retry_ms = 300.0;
+    int ugs_k_retry = 3;
+    double ugs_dt_track_ms = 1000.0;
+    double ugs_dt_barren_ms = 2000.0;
+    double ugs_barren_cap_ms = 16000.0;
+    double ugs_region_ttl_ms = 10000.0;
+    int ugs_max_inflight = 2;
+    double ugs_awake_factor = 0.5;
+    bool ugs_feedback = true;        // ablation: false = no M7 result feedback (every region treated as unverified)
+    bool ugs_novelty = true;         // ablation: false = all content shares one region (no novelty)
+    bool ugs_persistence = true;     // ablation: false = rho 0 and a_on = e_max (single-frame activation)
+    // R3 gate (simulation/security/ugs_gate.h)
+    bool ug_replay = true;
+    double ug_min_age_ms = 2000.0;
+    int ug_fg_min = 12;
+    double ug_d_abs = 6.0;
+    double ug_d_rel = 0.08;
+    int ug_k_match = 2;
+    int ug_k_jump = 2;
+    int ug_margin = 2;
+    int ug_history = 256;
+    bool ug_budget = true;
+    double ug_capacity = 10.0;
+    double ug_refill_per_s = 1.0;
+    double ug_novelty_capacity = 3.0;
+    double ug_novelty_refill_per_s = 0.2;
     // MOG2 background-subtraction trigger (literature baseline)
     double mog2_threshold = 0.02;
 
     // --- security gate -------------------------------------------------------
     bool security = false;
-    std::string security_kind = "legacy";  // legacy (R1 gate) | robust (R2 gate)
+    std::string security_kind = "legacy";  // legacy (R1 gate) | robust (R2 gate) | ugs (R3 gate)
     bool rate_limit_enabled = true;
     int rate_limit = 20;
     double rate_window_ms = 60000.0;

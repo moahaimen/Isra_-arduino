@@ -18,9 +18,12 @@ import json
 import os
 
 
-def convert(voc_root: str, out: str) -> dict:
+def convert(voc_root: str, out: str, select_split: bool = False) -> dict:
     counts = {}
-    for split, files, img_dir in (("trainval", ("train.json", "valid.json"), "train"), ("test", ("test.json",), "test")):
+    parts = (("trainval", ("train.json", "valid.json"), "train"), ("test", ("test.json",), "test"))
+    if select_split:  # full-schedule recipe: train on VOC07 train, select checkpoints on VOC07 val
+        parts = (("train", ("train.json",), "train"), ("val", ("valid.json",), "train"))
+    for split, files, img_dir in parts:
         os.makedirs(os.path.join(out, "images", split), exist_ok=True)
         os.makedirs(os.path.join(out, "labels", split), exist_ok=True)
         n_img = n_box = 0
@@ -50,8 +53,9 @@ def convert(voc_root: str, out: str) -> dict:
         counts[split] = {"images": n_img, "boxes": n_box}
     names = ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
              "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
-    with open(os.path.join(out, "voc2007.yaml"), "w") as f:
-        f.write(f"path: {out}\ntrain: images/trainval\nval: images/test\nnames:\n")
+    name, tr, va = ("voc2007_select.yaml", "train", "val") if select_split else ("voc2007.yaml", "trainval", "test")
+    with open(os.path.join(out, name), "w") as f:
+        f.write(f"path: {out}\ntrain: images/{tr}\nval: images/{va}\nnames:\n")
         for i, n in enumerate(names):
             f.write(f"  {i}: {n}\n")
     return counts
@@ -61,5 +65,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--voc-root", default="/home/claude/data_r2/voc")
     ap.add_argument("--out", default="/home/claude/data_r2/voc_yolo")
+    ap.add_argument("--select-split", action="store_true", help="train=VOC07 train, val=VOC07 val (no test)")
     a = ap.parse_args()
-    print(json.dumps(convert(a.voc_root, a.out)))
+    print(json.dumps(convert(a.voc_root, a.out, a.select_split)))

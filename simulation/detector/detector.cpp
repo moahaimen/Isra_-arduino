@@ -94,6 +94,7 @@ struct TraceRow {
     int s2_predicted_class = CLS_NONE;
     double s2_ms = 0.0;
     int s2_num_boxes = 0;
+    uint64_t s1_cells = 0, s2_cells = 0;
 };
 
 class TraceReplayDetector : public DetectorBackend {
@@ -117,6 +118,7 @@ public:
         s.confidence = row.confidence;
         s.predicted_class = row.predicted_class;
         s.num_boxes = row.num_boxes;
+        s.det_cells = row.s1_cells;
         s.latency_ms = simulated_ ? Rng::keyed(cfg_.seed, "det_s1", in.key).lognormal_median(cfg_.inference_ms,
                                                                                             cfg_.inference_sigma)
                                   : row.inference_ms;
@@ -137,6 +139,7 @@ public:
         s.confidence = row.s2_confidence;
         s.predicted_class = row.s2_predicted_class;
         s.num_boxes = row.s2_num_boxes;
+        s.det_cells = row.s2_cells;
         s.latency_ms = simulated_ ? Rng::keyed(cfg_.seed, "det_s2", in.key).lognormal_median(cfg_.second_pass_cost_ms,
                                                                                             cfg_.inference_sigma)
                                   : row.s2_ms;
@@ -209,6 +212,8 @@ private:
                 r.s2_ms = num("second_pass_ms", cfg_.second_pass_cost_ms);
                 r.s2_num_boxes = static_cast<int>(num("second_pass_num_boxes", r.num_boxes));
             }
+            if (m.count("s1_cells") && !m["s1_cells"].empty()) r.s1_cells = std::strtoull(m["s1_cells"].c_str(), nullptr, 16);
+            if (m.count("s2_cells") && !m["s2_cells"].empty()) r.s2_cells = std::strtoull(m["s2_cells"].c_str(), nullptr, 16);
             rows_[id] = r;
         }
     }

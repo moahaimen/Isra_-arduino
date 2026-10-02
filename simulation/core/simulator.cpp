@@ -95,6 +95,52 @@ RobustGateParams robust_gate_params_from(const SimConfig& c) {
     return p;
 }
 
+UgsParams ugs_params_from(const SimConfig& c) {
+    UgsParams p;
+    p.w_motion = c.w_motion;
+    p.w_visual = c.w_visual;
+    p.w_temporal = c.w_temporal;
+    p.w_consistency = c.w_consistency;
+    p.bg_window = c.robust_bg_window;
+    p.bg_min = c.robust_bg_min;
+    p.sigma_floor = c.ugs_sigma_floor;
+    p.s_floor = c.ugs_s_floor;
+    p.z0 = c.ugs_z0;
+    p.e_max = c.ugs_e_max;
+    p.rho = c.ugs_persistence ? c.ugs_rho : 0.0;
+    p.a_on = c.ugs_persistence ? c.ugs_a_on : c.ugs_e_max * 0.5;
+    p.a_off = c.ugs_persistence ? c.ugs_a_off : c.ugs_e_max * 0.25;
+    p.dt_retry_ms = c.ugs_dt_retry_ms;
+    p.k_retry = c.ugs_k_retry;
+    p.dt_track_ms = c.ugs_dt_track_ms;
+    p.dt_barren_ms = c.ugs_dt_barren_ms;
+    p.barren_cap_ms = c.ugs_barren_cap_ms;
+    p.overlap_thr = c.ugs_novelty ? c.content_overlap_thr : 0.0;
+    p.region_ttl_ms = c.ugs_region_ttl_ms;
+    p.max_inflight = c.ugs_max_inflight;
+    p.awake_factor = c.ugs_awake_factor;
+    return p;
+}
+
+UgsGateParams ugs_gate_params_from(const SimConfig& c) {
+    UgsGateParams p;
+    p.replay_on = c.ug_replay;
+    p.min_age_ms = c.ug_min_age_ms;
+    p.fg_min = c.ug_fg_min;
+    p.d_abs = c.ug_d_abs;
+    p.d_rel = c.ug_d_rel;
+    p.k_match = c.ug_k_match;
+    p.k_jump = c.ug_k_jump;
+    p.margin = c.ug_margin;
+    p.history = c.ug_history;
+    p.budget_on = c.ug_budget;
+    p.capacity = c.ug_capacity;
+    p.refill_per_s = c.ug_refill_per_s;
+    p.novelty_capacity = c.ug_novelty_capacity;
+    p.novelty_refill_per_s = c.ug_novelty_refill_per_s;
+    return p;
+}
+
 Simulator::Simulator(const SimConfig& cfg, const Workload& wl, const PowerModel& pm)
     : cfg_(cfg),
       wl_(wl),
@@ -107,19 +153,29 @@ Simulator::Simulator(const SimConfig& cfg, const Workload& wl, const PowerModel&
       rgate_(robust_gate_params_from(cfg)),
       robust_watcher_(cfg.watcher_kind == "robust"),
       robust_gate_(cfg.security_kind == "robust"),
+      ugs_(ugs_params_from(cfg)),
+      ugate_(ugs_gate_params_from(cfg)),
+      ugs_watcher_(cfg.watcher_kind == "ugs"),
+      ugs_gate_(cfg.security_kind == "ugs"),
       rpc_(cfg),
       det_(make_detector(cfg)),
       m4_(always_on_ ? M4_IDLE : M4_MONITOR, 0.0),
       m7_(M7_SLEEP, 0.0) {
     rec_.resize(wl.events.size());
     if (cfg.watcher_kind != "score" && cfg.watcher_kind != "motion" && cfg.watcher_kind != "robust" &&
-        cfg.watcher_kind != "mog2")
+        cfg.watcher_kind != "mog2" && cfg.watcher_kind != "ugs")
         throw std::runtime_error("unknown watcher_kind: " + cfg.watcher_kind);
-    if (cfg.security_kind != "legacy" && cfg.security_kind != "robust")
+    if (cfg.security_kind != "legacy" && cfg.security_kind != "robust" && cfg.security_kind != "ugs")
         throw std::runtime_error("unknown security_kind: " + cfg.security_kind);
     if (cfg.watcher_frontend != "basic" && cfg.watcher_frontend != "r2")
         throw std::runtime_error("unknown watcher_frontend: " + cfg.watcher_frontend);
-    const bool needs_r2 = cfg.watcher_frontend == "r2" || cfg.watcher_kind == "robust" ||
+    if (cfg.security && cfg.security_kind == "ugs") {
+        for (const auto& e : wl.events)
+            if (!e.obs.has_thumb)
+                throw std::runtime_error("ugs gate needs R3 thumbnails; workload event " +
+                                         std::to_string(e.obs.event_id) + " has none");
+    }
+    const bool needs_r2 = cfg.watcher_frontend == "r2" || cfg.watcher_kind == "robust" || cfg.watcher_kind == "ugs" ||
                           cfg.watcher_kind == "mog2" || (cfg.security && cfg.security_kind == "robust");
     if (needs_r2) {
         for (const auto& e : wl.events)
@@ -150,6 +206,15 @@ SecurityFrame Simulator::frame_of(int64_t idx) const {
                              o.content_signature};
     return SecurityFrame{o.timestamp_ms, o.motion_score, o.visual_score, o.temporal_change_score,
                          o.sensor_consistency_score, o.content_signature};
+}
+
+UgsGateFrame Simulator::ugs_frame_of(int64_t idx) const {
+    const Observable& o = wl_.events[static_cast<size_t>(idx)].obs;
+    UgsGateFrame f;
+    f.t_ms = o.timestamp_ms;
+    for (int k = 0; k < 192; ++k) f.thumb[k] = o.thumb192[k];
+    f.fg_count = o.fg_count;
+    return f;
 }
 
 RobustFrame Simulator::robust_frame_of(int64_t idx) const {
@@ -252,7 +317,26 @@ void Simulator::on_watch_done(double t, int64_t idx) {
     const Observable& o = wl_.events[static_cast<size_t>(idx)].obs;
     ObsRecord& r = rec_[static_cast<size_t>(idx)];
     WatcherDecision d;
-    if (robust_watcher_) {
+    if (ugs_watcher_) {
+        const bool r2 = cfg_.watcher_frontend == "r2";
+        UgsInput ui{r2 ? o.r2_motion : o.motion_score, r2 ? o.r2_visual : o.visual_score,
+                    r2 ? o.r2_temporal : o.temporal_change_score, r2 ? o.r2_consistency : o.sensor_consistency_score,
+                    cfg_.ugs_novelty ? o.motion_cells : 0ULL, m7_.state() != M7_SLEEP, outstanding_};
+        UgsDecision ud = ugs_.evaluate(o.timestamp_ms, ui);
+        d.score = ud.score;
+        d.threshold = ud.threshold;
+        d.raw_positive = ud.active;
+        d.trigger = ud.trigger;
+        d.suppress = ud.trigger ? WS_NONE : (ud.active ? WS_COOLDOWN : WS_BELOW_THRESHOLD);
+        r.z = ud.z;
+        r.novel = ud.novel;
+        r.region = ud.region;
+        r.region_mask = ud.region_mask;
+        r.accum = ud.accum;
+        static const char* names[] = {"NONE", "BELOW_THRESHOLD", "INFLIGHT", "NOT_DUE", "LOAD"};
+        r.suppress_reason = names[ud.suppress];
+        if (ud.trigger && !cfg_.security) ugs_.commit(o.timestamp_ms, ud.region_mask);
+    } else if (robust_watcher_) {
         const bool r2 = cfg_.watcher_frontend == "r2";
         RobustFeatures rf{r2 ? o.r2_motion : o.motion_score, r2 ? o.r2_visual : o.visual_score,
                           r2 ? o.r2_temporal : o.temporal_change_score,
@@ -283,7 +367,7 @@ void Simulator::on_watch_done(double t, int64_t idx) {
     r.threshold = d.threshold;
     r.raw_positive = d.raw_positive;
     r.triggered = d.trigger;
-    if (r.suppress_reason != "PERSISTENCE")
+    if (!ugs_watcher_ && r.suppress_reason != "PERSISTENCE")
         r.suppress_reason =
             d.suppress == WS_COOLDOWN ? "COOLDOWN" : (d.suppress == WS_BELOW_THRESHOLD ? "BELOW_THRESHOLD" : "NONE");
     ++sum_.watcher_evaluations;
@@ -309,7 +393,7 @@ void Simulator::on_watch_done(double t, int64_t idx) {
             .kv("gt_action", wl_.events[static_cast<size_t>(idx)].gt.ground_truth_action)
             .end();
     }
-    if (cfg_.security && !robust_gate_ && d.raw_positive) gate_.note_candidate(o.timestamp_ms);
+    if (cfg_.security && !robust_gate_ && !ugs_gate_ && d.raw_positive) gate_.note_candidate(o.timestamp_ms);
     if (!d.trigger) {
         if (d.raw_positive) {
             ++sum_.suppressed_cooldown;
@@ -337,7 +421,15 @@ void Simulator::on_watch_done(double t, int64_t idx) {
 void Simulator::on_sec_done(double t, int64_t idx) {
     ObsRecord& r = rec_[static_cast<size_t>(idx)];
     SecurityDecision d;
-    if (robust_gate_) {
+    if (ugs_gate_) {
+        UgsGateDecision ud = ugate_.decide(ugs_frame_of(idx), r.novel);
+        d.accept = ud.accept;
+        d.reason = ud.reason;
+        d.matched_age_ms = ud.matched_age_ms;
+        d.consistency_metric = ud.n_old;
+        if (ud.accept && ugs_watcher_)
+            ugs_.commit(wl_.events[static_cast<size_t>(idx)].obs.timestamp_ms, static_cast<uint8_t>(r.region_mask));
+    } else if (robust_gate_) {
         RobustGateDecision rd = rgate_.decide(robust_frame_of(idx), r.novel, r.z);
         d.accept = rd.accept;
         d.reason = rd.reason;
@@ -346,7 +438,8 @@ void Simulator::on_sec_done(double t, int64_t idx) {
     } else {
         d = gate_.decide(frame_of(idx));
     }
-    std::string reason = robust_gate_ ? robust_reason_name(d.reason) : security_reason_name(d.reason);
+    std::string reason = ugs_gate_ ? ugs_gate_reason_name(d.reason)
+                                   : (robust_gate_ ? robust_reason_name(d.reason) : security_reason_name(d.reason));
     if (d.accept && cfg_.debug_random_block_prob > 0.0) {
         // DEBUG ONLY: legacy probability-based blocking, kept for simulator
         // validation. Runs using it are flagged research_valid=false.
@@ -389,6 +482,7 @@ void Simulator::send_request(double t, int64_t idx) {
     r.rpc_tx_ms = x.transmission_ms;
     r.rpc_status = x.lost ? "lost" : "in_flight";
     ++sum_.rpc_sent;
+    ++outstanding_;
     if (log_.enabled(LOG_DECISIONS)) {
         log_begin_event(t, "RPC_SEND", idx);
         log_.kv("dir", "M4_TO_M7").kvf("channel_wait_ms", x.channel_wait_ms, 3).kvf("tx_ms", x.transmission_ms, 3).end();
@@ -400,6 +494,7 @@ void Simulator::on_tx_done(double t, int64_t idx) {
     ObsRecord& r = rec_[static_cast<size_t>(idx)];
     m4_finish(t, idx);
     if (r.rpc_status == "lost") {
+        --outstanding_;
         ++sum_.rpc_lost;
         if (log_.enabled(LOG_DECISIONS)) {
             log_begin_event(t, "RPC_DROP", idx);
@@ -414,6 +509,7 @@ void Simulator::on_tx_done(double t, int64_t idx) {
     }
     if (static_cast<int>(m7_queue_.size()) >= cfg_.rpc_queue_capacity) {
         r.rpc_status = "queue_full";
+        --outstanding_;
         ++sum_.rpc_queue_full;
         if (log_.enabled(LOG_DECISIONS)) {
             log_begin_event(t, "RPC_DROP", idx);
@@ -440,7 +536,8 @@ void Simulator::on_tx_done(double t, int64_t idx) {
 
 void Simulator::m4_finish(double t, int64_t idx) {
     if (cfg_.security) {
-        if (robust_gate_) rgate_.observe(robust_frame_of(idx));
+        if (ugs_gate_) ugate_.observe(ugs_frame_of(idx));
+        else if (robust_gate_) rgate_.observe(robust_frame_of(idx));
         else gate_.observe(frame_of(idx));
     }
     m4_start_next(t);
@@ -590,6 +687,7 @@ void Simulator::on_post_done(double t) {
     r.final_conf = job_.final_out.confidence;
     r.final_class = detected ? job_.final_out.predicted_class : CLS_NONE;
     r.num_boxes = detected ? job_.final_out.num_boxes : 0;
+    r.det_cells = detected ? job_.final_out.det_cells : 0;
     r.detected = detected;
     r.result_m7_ms = t;
     if (log_.enabled(LOG_DECISIONS)) {
@@ -638,6 +736,11 @@ void Simulator::on_result_arrive(double t, int64_t idx) {
     ObsRecord& r = rec_[static_cast<size_t>(idx)];
     r.result_delivered_ms = t;
     ++sum_.results_delivered;
+    if (outstanding_ > 0) --outstanding_;
+    // R3 closed loop: the M4 learns whether waking the M7 for this content
+    // region produced a detection (past result only; causal).
+    if (ugs_watcher_ && cfg_.ugs_feedback) ugs_.feedback(static_cast<uint8_t>(r.region_mask), r.det_cells, t);
+    else if (ugs_watcher_) ugs_.feedback(static_cast<uint8_t>(r.region_mask), 0ULL, t);
     if (log_.enabled(LOG_DECISIONS)) {
         log_begin_event(t, "RESULT_DELIVERED", idx);
         log_.kvf("trigger_to_result_ms", t - r.decision_ms, 3).end();
@@ -723,7 +826,7 @@ void Simulator::write_outputs(const std::string& dir, const std::string& workloa
                      "rpc_channel_wait_ms,rpc_tx_ms,rpc_receive_ms,enqueue_ms,dequeue_ms,queue_delay_ms,wake_wait_ms,caused_wake,"
                      "started,processed,detect_start_ms,s1_conf,s1_class,s1_ms,early_exit,second_pass,s2_conf,"
                      "s2_class,s2_ms,post_ms,final_conf,final_class,num_boxes,detected,result_m7_ms,"
-                     "result_delivered_ms,result_rpc_ms,watcher_z,watcher_novel\n");
+                     "result_delivered_ms,result_rpc_ms,watcher_z,watcher_novel,region,accum,det_cells\n");
         for (size_t i = 0; i < rec_.size(); ++i) {
             const Observable& o = wl_.events[i].obs;
             const GroundTruth& g = wl_.events[i].gt;
@@ -731,7 +834,7 @@ void Simulator::write_outputs(const std::string& dir, const std::string& workloa
             std::fprintf(f,
                          "%llu,%lld,%s,%.3f,%.3f,%s,%s,%s,%s,%lld,%lld,%s,%s,%s,%s,%.3f,%.4f,%.4f,%s,%s,%s,%s,%s,%s,"
                          "%.4f,%s,%.3f,%.4f,%.4f,%.3f,%.3f,%.3f,%.3f,%.3f,%s,%s,%s,%.3f,%.4f,%s,%.3f,%s,%s,%.4f,%s,%.3f,"
-                         "%.3f,%.4f,%s,%d,%s,%.3f,%.3f,%.4f,%.4f,%s\n",
+                         "%.3f,%.4f,%s,%d,%s,%.3f,%.3f,%.4f,%.4f,%s,%d,%.4f,%016llx\n",
                          static_cast<unsigned long long>(o.event_id), static_cast<long long>(g.episode_id),
                          g.episode_type.c_str(), o.timestamp_ms, o.duration_ms, b(g.is_legitimate), b(g.object_present),
                          class_name(g.object_class), g.attack_type.c_str(), static_cast<long long>(g.replay_id),
@@ -744,7 +847,8 @@ void Simulator::write_outputs(const std::string& dir, const std::string& workloa
                          r.detect_start_ms, r.s1_conf, class_name(r.s1_class), r.s1_ms, b(r.early_exit),
                          b(r.second_pass), r.s2_conf, class_name(r.s2_class), r.s2_ms, r.post_ms, r.final_conf,
                          class_name(r.final_class), r.num_boxes, b(r.detected), r.result_m7_ms, r.result_delivered_ms,
-                         r.result_rpc_ms, r.z, b(r.novel));
+                         r.result_rpc_ms, r.z, b(r.novel), r.region, r.accum,
+                         static_cast<unsigned long long>(r.det_cells));
         }
         std::fclose(f);
     }

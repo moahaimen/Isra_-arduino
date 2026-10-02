@@ -24,7 +24,9 @@
 #include "logging/event_log.h"
 #include "security/robust_gate.h"
 #include "security/security_gate.h"
+#include "security/ugs_gate.h"
 #include "watcher/robust_watcher.h"
+#include "watcher/ugs_scheduler.h"
 #include "watcher/watcher.h"
 
 namespace sim {
@@ -42,6 +44,10 @@ struct ObsRecord {
     std::string suppress_reason = "NONE";
     double z = 0.0;           // robust watcher z-score (R2)
     bool novel = false;       // robust watcher: trigger opened a new content region
+    int region = -1;          // UGS content region of the request (first)
+    int region_mask = 0;      // UGS: all content regions of the frame
+    double accum = 0.0;       // UGS evidence accumulator
+    uint64_t det_cells = 0;   // cell mask of the delivered detection result
     // Security
     bool sec_evaluated = false;
     bool sec_accept = false;
@@ -161,6 +167,11 @@ private:
     RobustGate<512> rgate_;
     bool robust_watcher_;
     bool robust_gate_;
+    UgsScheduler ugs_;
+    UgsGate<512> ugate_;
+    bool ugs_watcher_;
+    bool ugs_gate_;
+    int outstanding_ = 0;
     RpcChannel rpc_;
     std::unique_ptr<DetectorBackend> det_;
     CoreStateTracker m4_, m7_;
@@ -215,11 +226,14 @@ private:
 
     SecurityFrame frame_of(int64_t idx) const;
     RobustFrame robust_frame_of(int64_t idx) const;
+    UgsGateFrame ugs_frame_of(int64_t idx) const;
 };
 
 WatcherParams watcher_params_from(const SimConfig& cfg);
 SecurityParams security_params_from(const SimConfig& cfg);
 RobustWatcherParams robust_watcher_params_from(const SimConfig& cfg);
 RobustGateParams robust_gate_params_from(const SimConfig& cfg);
+UgsParams ugs_params_from(const SimConfig& cfg);
+UgsGateParams ugs_gate_params_from(const SimConfig& cfg);
 
 }  // namespace sim

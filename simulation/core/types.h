@@ -44,6 +44,9 @@ struct Observable {
     uint64_t fp256[4] = {0, 0, 0, 0};  // 256-bit difference hash of a 17 x 16 thumbnail
     uint64_t fg768[12] = {};         // 48 x 16 foreground mask (gain-compensated)
     int fg_count = 0;                // set bits in fg768
+    // --- R3: 24 x 8 block thumbnail (4x4 means of the 96x32 frame)
+    bool has_thumb = false;
+    uint8_t thumb192[192] = {};
 };
 
 // Labels known only to the workload generator and the evaluator.

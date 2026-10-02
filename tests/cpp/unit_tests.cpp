@@ -1,5 +1,6 @@
 // C++ unit tests for the simulator components (no external framework).
 // Build: cmake --build build --target unit_tests && ./build/unit_tests
+#include <algorithm>
 #include <cmath>
 #include <cstdio>
 #include <string>
@@ -11,7 +12,9 @@
 #include "energy/energy_model.h"
 #include "security/robust_gate.h"
 #include "security/security_gate.h"
+#include "security/ugs_gate.h"
 #include "watcher/robust_watcher.h"
+#include "watcher/ugs_scheduler.h"
 #include "watcher/watcher.h"
 #include "workload/workload.h"
 
@@ -450,6 +453,160 @@ static void test_robust_gate() {
     CHECK(dilate_cells(cells_at(0, 3)) == (cells_at(0, 2, 2, 2)));
 }
 
+// ------------------------------------------------------------------ R3
+
+static void test_ugs_scheduler() {
+    std::printf("test_ugs_scheduler\n");
+    UgsParams p;
+    auto quiet = [](UgsScheduler& s, double& t, int n) {
+        for (int i = 0; i < n; ++i, t += 100.0) s.evaluate(t, {0.02, 0.02, 0.02, 1.0, 0, false, 0});
+    };
+    // a one-frame spike never activates; persistent evidence does
+    {
+        UgsScheduler s(p);
+        double t = 0.0;
+        quiet(s, t, 30);
+        UgsDecision d = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(2, 1), false, 0});
+        t += 100.0;
+        CHECK(!d.trigger && !d.active);
+        quiet(s, t, 20);
+        int trig = 0, first = -1;
+        for (int i = 0; i < 5; ++i, t += 100.0) {
+            UgsDecision e = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(2, 1), false, 0});
+            if (e.trigger && first < 0) first = i;
+            if (e.trigger) s.commit(t, e.region_mask);
+            trig += e.trigger;
+        }
+        CHECK(first == 1);  // second frame of strong evidence
+        CHECK(trig == 1);   // then waits for the result (in flight)
+    }
+    // weak but persistent evidence activates after a few frames
+    {
+        UgsScheduler s(p);
+        double t = 0.0;
+        Rng r(3);
+        for (int i = 0; i < 40; ++i, t += 100.0) {
+            const double n = 0.12 + 0.01 * r.normal(0.0, 1.0);
+            s.evaluate(t, {n, n, n, 1.0, 0, false, 0});
+        }
+        int first = -1;
+        for (int i = 0; i < 20; ++i, t += 100.0) {
+            UgsDecision e = s.evaluate(t, {0.25, 0.25, 0.25, 1.0, cells_at(4, 2), false, 0});
+            if (e.trigger) {
+                first = i;
+                break;
+            }
+        }
+        CHECK(first >= 1 && first <= 6);
+    }
+    // novelty during a busy period: a second object triggers immediately;
+    // closed loop: confirmed region -> slow refresh, barren region -> back-off
+    {
+        UgsScheduler s(p);
+        double t = 0.0;
+        quiet(s, t, 30);
+        UgsDecision a1 = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(1, 1), false, 0});
+        t += 100.0;
+        UgsDecision a2 = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(1, 1), false, 0});
+        CHECK(!a1.trigger && a2.trigger && a2.novel);
+        s.commit(t, a2.region_mask);
+        t += 100.0;
+        UgsDecision b0 = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(1, 1), false, 1});
+        CHECK(!b0.trigger && b0.suppress == US_INFLIGHT);  // same object, result pending
+        // a second object appears while A's request is in flight: separate
+        // component -> novel -> eligible at once (no global cooldown)
+        UgsDecision c = s.evaluate(t + 1.0, {0.9, 0.9, 0.9, 1.0, cells_at(1, 1) | cells_at(9, 2), false, 1});
+        CHECK(c.trigger && c.novel && c.region_mask != a2.region_mask && (c.region_mask & a2.region_mask));
+        s.commit(t + 1.0, c.region_mask);
+        s.feedback(a2.region_mask, cells_at(1, 1), t + 200.0);  // M7 confirmed object A
+        s.feedback(c.region_mask, 0, t + 250.0);                 // M7 found nothing for B
+        int trigA = 0, trigB = 0;
+        for (int i = 0; i < 100; ++i) {  // 10 s with both regions active
+            t += 100.0;
+            UgsDecision x = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(1, 1), false, 0});
+            if (x.trigger) {
+                ++trigA;
+                s.commit(t, x.region_mask);
+                s.feedback(x.region_mask, cells_at(1, 1), t + 1.0);
+            }
+            UgsDecision y = s.evaluate(t + 2.0, {0.9, 0.9, 0.9, 1.0, cells_at(9, 2), false, 0});
+            if (y.trigger) {
+                ++trigB;
+                s.commit(t + 2.0, y.region_mask);
+                s.feedback(y.region_mask, 0, t + 3.0);
+            }
+        }
+        CHECK(trigA >= 8 && trigA <= 11);  // confirmed: refreshed every dt_track (1 s)
+        CHECK(trigB >= 3 && trigB <= 6);   // barren: k_retry quick checks, then exponential back-off
+    }
+}
+
+static UgsGateFrame gframe(double t, int pattern, int fg, double gain = 1.0, int shift_obj = 0) {
+    UgsGateFrame f{};
+    f.t_ms = t;
+    f.fg_count = fg;
+    for (int k = 0; k < 192; ++k) f.thumb[k] = static_cast<uint8_t>(std::min(255.0, (60 + (k * 37) % 120) * gain));
+    if (pattern > 0) {  // an object of 6 blocks at a pattern-dependent position
+        const int x0 = (pattern + shift_obj) % 21;  // a distinct position per pattern
+        for (int y = 3; y < 5; ++y)
+            for (int x = x0; x < x0 + 3; ++x) f.thumb[y * 24 + x] = static_cast<uint8_t>(250 * std::min(gain, 1.0));
+    }
+    return f;
+}
+
+static void test_ugs_gate() {
+    std::printf("test_ugs_gate\n");
+    UgsGateParams p;
+    p.budget_on = false;
+    // a persistent static scene with an object is never a replay
+    {
+        UgsGate<256> g(p);
+        int blocked = 0;
+        for (int i = 0; i < 100; ++i) {
+            UgsGateFrame f = gframe(i * 100.0, 3, 40);
+            blocked += !g.decide(f, false).accept;
+            g.observe(f);
+        }
+        CHECK(blocked == 0);
+    }
+    // a moving object (new position every frame) is accepted; a replay of an
+    // old frame (stale position, discontinuous with the live past) is blocked,
+    // also when its brightness changed
+    {
+        UgsGate<256> g(p);
+        int blocked_live = 0;
+        double t = 0.0;
+        for (int i = 0; i < 60; ++i, t += 100.0) {
+            UgsGateFrame f = gframe(t, 1 + i / 3, 40);
+            blocked_live += !g.decide(f, true).accept;
+            g.observe(f);
+        }
+        CHECK(blocked_live == 0);
+        UgsGateFrame rep = gframe(t, 2, 40, 0.85);  // stale content, brightness x0.85
+        UgsGateDecision d = g.decide(rep, true);
+        CHECK(!d.accept && d.reason == UG_REPLAY);
+        CHECK(d.matched_age_ms >= 2000.0);
+    }
+    // budget: when the global bucket is empty only novel content uses the reserve
+    {
+        UgsGateParams q = p;
+        q.budget_on = true;
+        q.replay_on = false;
+        q.capacity = 2.0;
+        q.refill_per_s = 0.0;
+        q.novelty_capacity = 1.0;
+        q.novelty_refill_per_s = 0.0;
+        UgsGate<256> g(q);
+        CHECK(g.decide(gframe(0, 1, 40), false).accept);
+        CHECK(g.decide(gframe(1, 2, 40), false).accept);
+        UgsGateDecision r1 = g.decide(gframe(2, 3, 40), false);
+        CHECK(!r1.accept && r1.reason == UG_RATE_LIMIT);
+        UgsGateDecision r2 = g.decide(gframe(3, 4, 40), true);
+        CHECK(r2.accept && r2.used_novelty_budget);
+        CHECK(!g.decide(gframe(4, 5, 40), true).accept);
+    }
+}
+
 int main() {
     test_rng();
     test_energy_tracker();
@@ -459,6 +616,8 @@ int main() {
     test_simulator();
     test_robust_watcher();
     test_robust_gate();
+    test_ugs_scheduler();
+    test_ugs_gate();
     std::printf("unit_tests: %d passed, %d failed\n", g_pass, g_fail);
     return g_fail == 0 ? 0 : 1;
 }

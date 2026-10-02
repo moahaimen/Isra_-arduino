@@ -456,6 +456,15 @@ std::string r2_jsonl_suffix(const Observable& o) {
     out += "\",\"fg768\":\"";
     for (uint64_t w : o.fg768) out += hex64(w);
     out += "\"";
+    if (o.has_thumb) {
+        out += ",\"thumb192\":\"";
+        char h[3];
+        for (int k = 0; k < 192; ++k) {
+            std::snprintf(h, sizeof(h), "%02x", o.thumb192[k]);
+            out += h;
+        }
+        out += "\"";
+    }
     return out;
 }
 
@@ -558,6 +567,13 @@ Workload load_workload(const std::string& path) {
             const std::string fp = v.at("fp256").as_string(), fg = v.at("fg768").as_string();
             for (size_t k = 0; k < 4; ++k) o.fp256[k] = parse_hex_word(fp, k);
             for (size_t k = 0; k < 12; ++k) o.fg768[k] = parse_hex_word(fg, k);
+        }
+        if (v.has("thumb192")) {
+            const std::string th = v.at("thumb192").as_string();
+            if (th.size() != 384) throw std::runtime_error("thumb192 must have 384 hex digits");
+            o.has_thumb = true;
+            for (size_t k = 0; k < 192; ++k)
+                o.thumb192[k] = static_cast<uint8_t>(std::strtoul(th.substr(2 * k, 2).c_str(), nullptr, 16));
         }
         if (!wl.events.empty() && o.timestamp_ms < wl.events.back().obs.timestamp_ms)
             throw std::runtime_error("workload not sorted by timestamp at line " + std::to_string(lineno));

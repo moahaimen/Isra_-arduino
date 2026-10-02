@@ -14,7 +14,7 @@ namespace sim {
 namespace {
 
 const char* kModes[] = {"always_on", "motion_only", "fixed_threshold", "event",       "event_no_early_exit",
-                        "secure",    "robust_event", "robust_secure",  "mog2_event"};
+                        "secure",    "robust_event", "robust_secure",  "mog2_event", "ugs_event", "ugs_secure"};
 const char* kScenarios[] = {"quiet", "normal", "busy", "burst", "noisy", "trigger_spam", "replay", "mixed"};
 
 std::string normalize(std::string name) {
@@ -112,6 +112,38 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_DBL(content_overlap_thr, "robust watcher/gate: cell-mask overlap for the same content");
     P_DBL(region_ttl_ms, "robust watcher: forget a content region after this idle time");
     P_DBL(mog2_threshold, "MOG2 baseline: foreground-fraction trigger threshold");
+    P_DBL(ugs_sigma_floor, "UGS: minimum robust sigma");
+    P_DBL(ugs_s_floor, "UGS: absolute score floor for evidence");
+    P_DBL(ugs_z0, "UGS: evidence offset in robust z units");
+    P_DBL(ugs_e_max, "UGS: per-frame evidence cap");
+    P_DBL(ugs_rho, "UGS: evidence accumulator leak factor");
+    P_DBL(ugs_a_on, "UGS: activation threshold of the accumulator");
+    P_DBL(ugs_a_off, "UGS: release threshold of the accumulator");
+    P_DBL(ugs_dt_retry_ms, "UGS: re-check period of an unverified region");
+    P_INT(ugs_k_retry, "UGS: re-checks before a region is barren");
+    P_DBL(ugs_dt_track_ms, "UGS: refresh period of a confirmed region");
+    P_DBL(ugs_dt_barren_ms, "UGS: base period of a barren region (doubles per request)");
+    P_DBL(ugs_barren_cap_ms, "UGS: cap of the barren back-off");
+    P_DBL(ugs_region_ttl_ms, "UGS: forget a region after this idle time");
+    P_INT(ugs_max_inflight, "UGS: defer non-novel requests while this many are outstanding");
+    P_DBL(ugs_awake_factor, "UGS: period multiplier while the M7 is awake");
+    P_BOOL(ugs_feedback, "UGS: use M7 result feedback");
+    P_BOOL(ugs_novelty, "UGS: per-content regions (off = one shared region)");
+    P_BOOL(ugs_persistence, "UGS: evidence accumulation (off = single-frame activation)");
+    P_BOOL(ug_replay, "R3 gate: temporal-context replay check");
+    P_DBL(ug_min_age_ms, "R3 gate: minimum age of a stale match");
+    P_INT(ug_fg_min, "R3 gate: minimum foreground bits to check / store");
+    P_DBL(ug_d_abs, "R3 gate: absolute block-difference threshold");
+    P_DBL(ug_d_rel, "R3 gate: relative block-difference threshold");
+    P_INT(ug_k_match, "R3 gate: max changed blocks for a stale match");
+    P_INT(ug_k_jump, "R3 gate: min changed blocks vs the previous frame");
+    P_INT(ug_margin, "R3 gate: n_old + margin <= n_prev");
+    P_INT(ug_history, "R3 gate: thumbnail history capacity");
+    P_BOOL(ug_budget, "R3 gate: global wake budget");
+    P_DBL(ug_capacity, "R3 gate: budget capacity");
+    P_DBL(ug_refill_per_s, "R3 gate: budget refill per second");
+    P_DBL(ug_novelty_capacity, "R3 gate: reserved novelty budget capacity");
+    P_DBL(ug_novelty_refill_per_s, "R3 gate: novelty budget refill per second");
     P_BOOL(security, "enable the security gate");
     P_STR(security_kind, "security gate: legacy|robust");
     P_BOOL(rate_limit_enabled, "enable trigger rate limiting");
@@ -241,6 +273,17 @@ void apply_mode_defaults(SimConfig& cfg, const std::string& mode) {
         cfg.security = true;
         cfg.security_kind = "robust";
         cfg.early_exit = true;
+    } else if (mode == "ugs_event") {
+        cfg.watcher_kind = "ugs";
+        cfg.watcher_frontend = "r2";
+        cfg.security = false;
+        cfg.early_exit = true;
+    } else if (mode == "ugs_secure") {
+        cfg.watcher_kind = "ugs";
+        cfg.watcher_frontend = "r2";
+        cfg.security = true;
+        cfg.security_kind = "ugs";
+        cfg.early_exit = true;
     } else if (mode == "mog2_event") {
         // Literature baseline: MOG2 background subtraction (Zivkovic 2004/2006)
         // foreground fraction >= threshold, global cooldown, no security,
@@ -360,7 +403,7 @@ std::string cli_help() {
         "edge_sim - secure dual-core event-triggered object detection simulator\n\n"
         "Usage: edge_sim [--config FILE] [--mode MODE] [options]\n\n"
         "Modes: always_on motion_only fixed_threshold event event_no_early_exit secure\n"
-        "       robust_event robust_secure mog2_event (R2, real-frame workloads)\n"
+        "       robust_event robust_secure mog2_event (R2), ugs_event ugs_secure (R3)\n"
         "Scenarios: quiet normal busy burst noisy trigger_spam replay mixed\n\n"
         "Flags without value:\n"
         "  --generate-only --disable-security --disable-cooldown --disable-early-exit\n"

@@ -37,6 +37,7 @@ struct StageOutput {
     int num_boxes = 0;
     double latency_ms = 0.0;
     bool available = true;   // false when a trace has no second-pass data
+    uint64_t det_cells = 0;  // 12x4 M4 cell mask of boxes >= detection threshold (R3 feedback)
 };
 
 class DetectorBackend {
