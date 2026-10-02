@@ -114,6 +114,36 @@ def box_cells(x1, y1, x2, y2, W, H) -> int:
     return m
 
 
+# R3.1 shifted / cropped / mixed replay variants (20-25). They are synthesised from the 96x32 M4 low-resolution input of the
+# source frame (cv2 affine warp, replicated border) because only the M4 pipeline is affected; the 17x16 fingerprint is the
+# area-resized warped image; detector rows are those of the unmodified source frame (variant 0; the detector result is not
+# needed for attack success, which only asks whether the frame reaches the M7). Pixel shifts are given at the original resolution.
+SHIFT_VARIANTS = {20: ("shift", 10, 0), 21: ("shift", 24, 8), 22: ("shift", 48, 0), 23: ("crop", 0.95), 24: ("crop", 0.90),
+                  25: ("mixed", 24, 0, 0.95, 1.1, 3.0)}
+
+
+def synth_variant(low, v, W, H, key):
+    import cv2
+    spec = SHIFT_VARIANTS[v]
+    f = low.astype(np.float32)
+    sx, sy = 96.0 / W, 32.0 / H
+    if spec[0] == "shift":
+        M = np.float32([[1, 0, spec[1] * sx], [0, 1, spec[2] * sy]])
+    elif spec[0] == "crop":
+        c = spec[1]
+        M = np.float32([[1 / c, 0, 48 * (1 - 1 / c)], [0, 1 / c, 16 * (1 - 1 / c)]])
+    else:
+        c = spec[3]
+        M = np.float32([[1 / c, 0, 48 * (1 - 1 / c) + spec[1] * sx], [0, 1 / c, 16 * (1 - 1 / c)]])
+    g = cv2.warpAffine(f, M, (96, 32), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    if spec[0] == "mixed":
+        rng = np.random.default_rng(key)
+        g = g * spec[4] + rng.normal(0, spec[5], g.shape)
+    L = np.clip(g, 0, 255).astype(np.uint8)
+    F = cv2.resize(L, (17, 16), interpolation=cv2.INTER_AREA)
+    return L, F
+
+
 class Bank:
     """M4 inputs and real detector outputs of one DATASET split (all its groups)."""
 
@@ -147,7 +177,16 @@ class Bank:
                     self.stage[st][int(key)] = (float(g.confidence.values[i]), int(g.class_id.values[i]), len(hi), cells)
 
     def get(self, st, key):
+        if key % 100 >= 20:
+            key = key - key % 100  # shifted/cropped variants reuse the source frame's detector rows
         return self.stage[st].get(key, (0.0, 0, 0, 0))
+
+    def lowfp(self, key):
+        if key % 100 >= 20:
+            i = self.idx[key - key % 100]
+            return synth_variant(self.low[i], key % 100, DATASETS[self.dataset]["W"], DATASETS[self.dataset]["H"], key)
+        i = self.idx[key]
+        return self.low[i], self.fp[i]
 
 
 def thumb192(L: np.ndarray) -> np.ndarray:
@@ -167,7 +206,13 @@ def wl_dir(root, seg, scenario, intensity, seed):
 def build_workload(bank: Bank, pres, seg, scenario, intensity, seed, out, det_thr):
     import cv2
     g2 = {"sequence": f"{seg['seq_key']:04d}", "first_frame": seg["first"], "last_frame": seg["first"] + seg["n"] - 1}
-    plan = bw2.display_plan(g2, scenario, intensity, seed)
+    plan = bw2.display_plan(g2, "replay_exact" if scenario == "replay_shift" else scenario, intensity, seed)
+    if scenario == "replay_shift":  # every replayed session uses one of the shifted/cropped/mixed variants 20-25
+        rs = bw2.seg_rng(seed, seg["name"], scenario, intensity, "shiftvar")
+        sv = {}
+        for p in plan:
+            if p["attack"] == "replay":
+                p["variant"] = sv.setdefault(p["session"], 20 + int(rs.integers(0, 6)))
     os.makedirs(out, exist_ok=True)
     st = ff.FeatureState()
     mog = cv2.createBackgroundSubtractorMOG2(history=bw2.MOG2_HISTORY, varThreshold=bw2.MOG2_VAR_THRESHOLD, detectShadows=False)
@@ -175,8 +220,8 @@ def build_workload(bank: Bank, pres, seg, scenario, intensity, seed, out, det_th
     cls = {0: "none", 1: "person", 2: "vehicle"}
     for i, p in enumerate(plan):
         key = p["src"] * 100 + p["variant"]
-        low = bank.low[bank.idx[key]]
-        f = ff.step(st, low, bank.fp[bank.idx[key]])
+        low, fpv = bank.lowfp(key)
+        f = ff.step(st, low, fpv)
         mog2_fg = float((mog.apply(low) > 0).mean())
         attack = p["attack"]
         live_content = attack != "replay"
@@ -362,7 +407,7 @@ def run_metrics(run_dir, wl, c: Context) -> Dict:
     atk = df.attack_type_side != "none"
     spam, rep = df.attack_type_side == "trigger_spam", df.attack_type_side == "replay"
     rex, rpe = rep & (df.variant == 0), rep & (df.variant != 0)
-    rsh = rep & df.variant.isin([5, 7])
+    rsh = rep & (df.variant.isin([5, 7]) | (df.variant >= 20))
     sec = df[df.sec_evaluated]
     l_ev = sec[sec.attack_type_side == "none"]
     l_obj = l_ev[l_ev.ground_truth_action == "detect"]

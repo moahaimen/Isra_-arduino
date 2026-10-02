@@ -31,3 +31,24 @@ Replay (exact / perturbed / mixed) attack success: none 0.041 / 0.063 / 0.119 �
    beyond cooldown) is not demonstrated**. Given Gate B (UGS scheduler loses to the event trigger), the plausible honest claim is
    "a cooldown-limited event trigger is already robust to trigger spam in energy/utility terms; content-aware replay gating adds a modest reduction in
    replay success without hurting FRR", pending MEVA and the shifted-replay test.
+
+## Update: shifted / cropped / mixed replay (O4), KITTI validation
+Variants 20–25 (shifts 10/24+8/48 px, 95 % and 90 % crop, 24 px shift + 95 % crop + gain 1.1 + noise) were **synthesised from the 96×32 M4 input**
+(affine warp, replicated border; fingerprint = area-resize of the warped image; detector rows of the source frame), not from re-rendered full-resolution images
+(approximation; `scripts/r3_1/lib31.py::synth_variant`). Table: `results/r3_1/validation/replay_shift_kitti_val.csv`, script `scripts/r3_1/exp_replay_shift.py`.
+
+| gate | FRR (clean+noisy) | shifted-replay success | exact | perturbed |
+|---|---|---|---|---|
+| none | 0 | 0.081 | 0.041 | 0.063 |
+| R3 gate | 0 | 0.081 | 0.000 | 0.028 |
+| R3 + one-block shift search (any `shift_try`) | 0 | 0.081 | – | – |
+| R3.1 gradient tolerance c=0.25 | 0.015 | 0.058 | 0.000 | 0.010 |
+| **c=0.5** | 0.007 | 0.047 (0.041 with shift search) | 0.000 | 0.007 |
+| c=1.0 | 0.030 | 0.041 | 0.017 | 0.017 |
+| c=1.5 | 0.078 (> 0.05) | 0.052 | 0.023 | 0.028 |
+
+Diagnosis: even a 10 px shift (0.8 px at 96-px width) changes 20+ edge blocks of the 24×8 thumbnail, so the R3 comparison (and a whole-block shift search) cannot match it;
+the failure is block-edge sensitivity, not alignment. The gradient-tolerant comparison (tolerance grows with the reference block's local gradient) halves shifted-replay
+success (0.081→≈0.045) and the perturbed-replay success (0.028→0.007) at FRR 0.007 (< 0.05), with no change in clean timely recall (0.41). The residual ≈0.04 are mostly frames
+passing before a replay session is recognised (start-up latency). Chosen on validation by lowest shifted-replay success subject to FRR < 0.05: c = 0.5; shift search adds ≤ 0.006 and costs ≈ 9× compares → not adopted.
+This is a partial improvement, not a solution; MEVA FRR and the unit tests for the new mode are still to be done.

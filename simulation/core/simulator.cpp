@@ -149,6 +149,7 @@ UgsGateParams ugs_gate_params_from(const SimConfig& c) {
     p.refill_per_s = c.ug_refill_per_s;
     p.novelty_capacity = c.ug_novelty_capacity;
     p.novelty_refill_per_s = c.ug_novelty_refill_per_s;
+    p.grad_c = c.ug_grad_c;
     p.shift_tol = c.ug_shift_tol;
     p.shift_try = c.ug_shift_try;
     p.content_on = c.ug_content_on;

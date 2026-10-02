@@ -138,6 +138,7 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_DBL(ugs_vr_beta, "UGS R3.1: posterior prior misses");
     P_DBL(ugs_vr_gamma, "UGS R3.1: forgetting factor per request");
     P_DBL(ugs_vr_pmin, "UGS R3.1: minimum hit probability");
+    P_DBL(ug_grad_c, "UGS gate R3.1: gradient-tolerant block comparison coefficient");
     P_INT(ug_shift_tol, "UGS gate R3.1: tolerate a one-block displacement in the stale-frame match");
     P_INT(ug_shift_try, "UGS gate R3.1: try shifts only when the unshifted changed count is <= this");
     P_INT(ug_content_on, "UGS gate R3.1: per-content token bucket");

@@ -56,6 +56,10 @@ struct UgsGateParams {
     // shift_tol: a frame also matches a stored frame displaced by up to one thumbnail block (4 px of the
     //   96x32 M4 image) in x and/or y; the changed count over the overlap is scaled to 192 blocks. Only tried
     //   when the unshifted count is <= shift_try (bounds the M4 cost to 8 extra comparisons per near match).
+    // grad_c: gradient-tolerant block comparison. The tolerance of block k grows by grad_c * (largest absolute difference between
+    //   the reference block and its 4-neighbours, after gain normalisation), because a sub-block displacement mostly changes
+    //   the blocks that straddle an edge.
+    double grad_c = 0.0;
     int shift_tol = 0;
     int shift_try = 40;
     // content bucket: per content region token bucket (capacity / refill) in addition to the global one.
@@ -141,6 +145,7 @@ public:
             }
         return best;
     }
+    static double absd(double v, double cur) { return (v < 0 ? -v : v) > cur ? (v < 0 ? -v : v) : cur; }
     // changed blocks between a(x,y) and b(x+dx,y+dy) over the overlap, scaled to 192 blocks
     int changed0(const UgsGateFrame& a, const UgsGateFrame& b, int dx, int dy) const {
         const double ga = 128.0 / (a.med + 1e-6), gb = 128.0 / (b.med + 1e-6);
@@ -153,7 +158,17 @@ public:
                 if (x2 < 0 || x2 >= 24) continue;
                 const double x = a.thumb[yy * 24 + xx] * ga, y = b.thumb[y2 * 24 + x2] * gb;
                 const double diff = x > y ? x - y : y - x;
-                if (diff > p_.d_abs + p_.d_rel * y) ++n;
+                double tol = p_.d_abs + p_.d_rel * y;
+                if (p_.grad_c > 0.0) {
+                    double gm = 0.0;
+                    const int k = y2 * 24 + x2;
+                    if (x2 > 0) gm = absd(b.thumb[k - 1] * gb - y, gm);
+                    if (x2 < 23) gm = absd(b.thumb[k + 1] * gb - y, gm);
+                    if (y2 > 0) gm = absd(b.thumb[k - 24] * gb - y, gm);
+                    if (y2 < 7) gm = absd(b.thumb[k + 24] * gb - y, gm);
+                    tol += p_.grad_c * gm;
+                }
+                if (diff > tol) ++n;
                 ++cnt;
             }
         }

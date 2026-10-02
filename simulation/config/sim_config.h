@@ -104,6 +104,7 @@ struct SimConfig {
     double ug_refill_per_s = 1.0;
     double ug_novelty_capacity = 3.0;
     double ug_novelty_refill_per_s = 0.2;
+    double ug_grad_c = 0.0;
     int ug_shift_tol = 0, ug_shift_try = 40, ug_content_on = 0;
     double ug_content_capacity = 4.0, ug_content_refill_per_s = 0.5;
     // MOG2 background-subtraction trigger (literature baseline)
