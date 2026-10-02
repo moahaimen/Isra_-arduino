@@ -63,6 +63,10 @@ struct SimConfig {
     double region_ttl_ms = 3000.0;
     // R3 utility-gated scheduler (simulation/watcher/ugs_scheduler.h)
     double ugs_sigma_floor = 0.02;
+    double ugs_b_prior = 0.15;
+    double ugs_sigma_prior = 0.05;
+    double ugs_b_cap = 0.35;
+    double ugs_sigma_cap = 0.10;
     double ugs_s_floor = 0.10;
     double ugs_z0 = 1.0;
     double ugs_e_max = 4.0;

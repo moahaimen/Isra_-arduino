@@ -104,6 +104,10 @@ UgsParams ugs_params_from(const SimConfig& c) {
     p.bg_window = c.robust_bg_window;
     p.bg_min = c.robust_bg_min;
     p.sigma_floor = c.ugs_sigma_floor;
+    p.b_prior = c.ugs_b_prior;
+    p.sigma_prior = c.ugs_sigma_prior;
+    p.b_cap = c.ugs_b_cap;
+    p.sigma_cap = c.ugs_sigma_cap;
     p.s_floor = c.ugs_s_floor;
     p.z0 = c.ugs_z0;
     p.e_max = c.ugs_e_max;

@@ -113,6 +113,10 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_DBL(region_ttl_ms, "robust watcher: forget a content region after this idle time");
     P_DBL(mog2_threshold, "MOG2 baseline: foreground-fraction trigger threshold");
     P_DBL(ugs_sigma_floor, "UGS: minimum robust sigma");
+    P_DBL(ugs_b_prior, "UGS: empty-scene baseline prior");
+    P_DBL(ugs_sigma_prior, "UGS: scale prior");
+    P_DBL(ugs_b_cap, "UGS: cap of the learned baseline");
+    P_DBL(ugs_sigma_cap, "UGS: cap of the learned scale");
     P_DBL(ugs_s_floor, "UGS: absolute score floor for evidence");
     P_DBL(ugs_z0, "UGS: evidence offset in robust z units");
     P_DBL(ugs_e_max, "UGS: per-frame evidence cap");

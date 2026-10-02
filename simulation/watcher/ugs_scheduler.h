@@ -10,6 +10,8 @@
 //
 // Per frame t (score S_t as in the R2 watcher):
 //   med_t, sigma_t   median and max(1.4826 MAD, sigma_floor) of recent IDLE scores
+//                    (empty-scene prior b_prior / sigma_prior until bg_min samples),
+//                    capped at b_cap / sigma_cap
 //   e_t   = 0                                   if S_t < s_floor
 //         = min(e_max, max(0, (S_t-med_t)/sigma_t - z0))   otherwise       (bounded excess evidence)
 //   A_t   = rho * A_{t-1} + e_t                  (leaky evidence accumulator)
@@ -50,6 +52,10 @@ struct UgsParams {
     int bg_window = 64;
     int bg_min = 8;
     double sigma_floor = 0.02;
+    double b_prior = 0.15;       // empty-scene score (consistency term only)
+    double sigma_prior = 0.05;
+    double b_cap = 0.35;
+    double sigma_cap = 0.10;
     double s_floor = 0.10;
     double z0 = 1.0;
     double e_max = 4.0;
@@ -100,12 +106,17 @@ public:
         UgsDecision d;
         d.score = p_.w_motion * in.motion + p_.w_visual * in.visual + p_.w_temporal * in.temporal +
                   p_.w_consistency * in.consistency;
-        double med = 0.0, sigma = p_.sigma_floor;
-        if (bg_n_ >= p_.bg_min) stats(med, sigma);
+        // baseline/scale: empty-scene prior until bg_min idle samples exist,
+        // then median / 1.4826 MAD of idle scores, both capped so that a busy
+        // or noisy scene cannot raise them without bound
+        double med = p_.b_prior, sigma = p_.sigma_prior;
+        const bool warm = bg_n_ >= p_.bg_min;
+        if (warm) stats(med, sigma);
+        if (med > p_.b_cap) med = p_.b_cap;
+        if (sigma > p_.sigma_cap) sigma = p_.sigma_cap;
         d.z = (d.score - med) / sigma;
         double e = 0.0;
-        const bool warm = bg_n_ >= p_.bg_min;  // warm-up: no evidence until background statistics exist
-        if (d.score >= p_.s_floor && warm) {
+        if (d.score >= p_.s_floor) {
             e = d.z - p_.z0;
             if (e < 0.0) e = 0.0;
             if (e > p_.e_max) e = p_.e_max;
@@ -116,7 +127,7 @@ public:
         d.threshold = p_.a_on;
         if (!active_ && accum_ >= p_.a_on) active_ = true;
         else if (active_ && accum_ < p_.a_off) active_ = false;
-        if (!warm || (!active_ && accum_ < p_.a_off)) push_bg(d.score);  // idle background sample
+        if (!active_) push_bg(d.score);  // idle background sample (robust median tolerates onset frames)
         d.active = active_;
         if (!active_) {
             d.suppress = US_BELOW;
