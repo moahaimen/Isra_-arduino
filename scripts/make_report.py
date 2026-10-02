@@ -117,14 +117,18 @@ def main() -> int:
 
     if len(pc):
         sig = pc[pc["significant_holm_0.05"] == True]  # noqa: E712
+        sig_c = pc[pc["significant_holm_campaign_0.05"] == True]  # noqa: E712
         L += ["### Paired statistics", "",
-              f"{len(pc)} paired Wilcoxon signed-rank comparisons (Holm-corrected over all of them); "
-              f"{int(pc['p_value'].notna().sum())} had enough non-zero pairs to be tested; "
-              f"{len(sig)} are significant at alpha = 0.05 after Holm correction. "
+              f"{len(pc)} paired Wilcoxon signed-rank comparisons; {int(pc['p_value'].notna().sum())} had at least "
+              f"6 non-zero paired differences and were tested. With Holm correction inside each (scenario, metric) "
+              f"family, {len(sig)} are significant at alpha = 0.05. With a single campaign-wide Holm correction, "
+              f"{len(sig_c)} are significant: with 10 seeds the smallest exact two-sided p-value is 0.00195, so a "
+              "correction over hundreds of tests cannot reject by construction (see docs/EXPERIMENT_PROTOCOL.md). "
               "Full table: `aggregate/paired_comparisons.csv`.", ""]
         focus = pc[(pc["a"] == "secure") & (pc["b"] == "event") & pc["scenario"].isin(att)]
         if len(focus):
-            L += ["| scenario | metric (secure - event) | median diff | rank-biserial | p (Holm) |", "|---|---|---|---|---|"]
+            L += ["| scenario | metric (secure - event) | median diff | rank-biserial | p (Holm, family) |",
+                  "|---|---|---|---|---|"]
             for _, r in focus.iterrows():
                 p_txt = "n/a" if pd.isna(r["p_holm"]) else f"{r['p_holm']:.3g}"
                 L.append(f"| {r['scenario']} | {r['metric']} | {r['median_diff']:.4g} | {r['rank_biserial']:.3f} | "

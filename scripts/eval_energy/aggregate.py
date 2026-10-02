@@ -27,6 +27,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from metrics import load_observations  # noqa: E402
 from stats import describe, holm, paired_test  # noqa: E402
+import warnings  # noqa: E402
+
+warnings.simplefilter("ignore", pd.errors.PerformanceWarning)
 
 KEY_METRICS = [
     "duty_cycle", "wakeups", "energy_total_mJ", "energy_per_min_mJ", "energy_saving_vs_always_on",
@@ -66,7 +69,7 @@ PAIRED_COMPARISONS = [("secure", "always_on"), ("secure", "motion_only"), ("secu
 def add_saving(df: pd.DataFrame, keys: List[str], ref_col: str = "mode", ref_val: str = "always_on") -> pd.DataFrame:
     """Modeled energy saving relative to always_on on the same workload."""
     ref = df[df[ref_col] == ref_val][keys + ["energy_total_mJ"]].rename(columns={"energy_total_mJ": "_e_ref"})
-    out = df.merge(ref, on=keys, how="left")
+    out = df.merge(ref, on=keys, how="left").copy()
     out["energy_saving_vs_always_on"] = 1.0 - out["energy_total_mJ"] / out["_e_ref"]
     return out.drop(columns=["_e_ref"])
 
@@ -138,8 +141,18 @@ def paired_comparisons(df: pd.DataFrame, comps, metrics, group_col: str = "mode"
                 rows.append({"scenario": sc, "a": a, "b": b, "metric": m, "same_workload": same_wl, **res})
     out = pd.DataFrame(rows)
     if len(out):
-        out["p_holm"] = holm(out["p_value"].tolist())
+        # Family = all comparisons of one metric in one scenario (the
+        # question "which modes differ on metric M in scenario S"). Holm is
+        # applied within each family. A campaign-wide Holm correction is also
+        # reported; with 10 seeds the smallest attainable exact two-sided
+        # Wilcoxon p-value is 2/2^10 = 0.00195, so a campaign-wide correction
+        # over hundreds of tests cannot reject any hypothesis by construction.
+        out["p_holm"] = np.nan
+        for _, idx in out.groupby(["scenario", "metric"]).groups.items():
+            out.loc[idx, "p_holm"] = holm(out.loc[idx, "p_value"].tolist())
+        out["p_holm_campaign"] = holm(out["p_value"].tolist())
         out["significant_holm_0.05"] = out["p_holm"] < 0.05
+        out["significant_holm_campaign_0.05"] = out["p_holm_campaign"] < 0.05
     return out
 
 
@@ -257,13 +270,15 @@ def aggregate_main(cdir: str) -> None:
     # Significance summary for the paired comparisons.
     if len(pc):
         keep = pc[["scenario", "a", "b", "metric", "n_pairs", "n_nonzero", "mean_a", "mean_b", "median_diff",
-                   "rank_biserial", "p_value", "p_holm", "significant_holm_0.05", "same_workload"]].copy()
+                   "rank_biserial", "p_value", "p_holm", "significant_holm_0.05", "p_holm_campaign",
+                   "same_workload"]].copy()
         for c in ("mean_a", "mean_b", "median_diff", "rank_biserial"):
             keep[c] = keep[c].map(lambda x: f"{x:.4g}")
-        for c in ("p_value", "p_holm"):
+        for c in ("p_value", "p_holm", "p_holm_campaign"):
             keep[c] = keep[c].map(lambda x: "n/a" if pd.isna(x) else f"{x:.4g}")
         write_table(keep, os.path.join(tdir, "table_paired_tests"), "Paired Wilcoxon signed-rank tests",
-                    "Matched pairs = same scenario and seed (identical workload). Holm correction over all rows. "
+                    "Matched pairs = same scenario and seed (identical workload). p_holm: Holm correction within each "
+                    "(scenario, metric) family of comparisons; p_holm_campaign: Holm over every row. "
                     "diff = a - b. Rank-biserial effect size in [-1, 1].")
 
 

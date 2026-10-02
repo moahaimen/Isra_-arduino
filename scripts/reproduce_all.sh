@@ -26,6 +26,14 @@ bash tests/run_tests.sh
 
 if [[ $QUICK == 1 ]]; then SEEDS=1:3; SECS=600; SSEEDS=1:2; SSECS=600; else SEEDS=1:10; SECS=3600; SSEEDS=1:10; SSECS=3600; fi
 
+echo "== 3a. smoke campaign (5 scenarios x 6 modes x 2 seeds, 300 s)"
+bash scripts/smoke_test.sh 300 "smoke_$TS"
+
+if [[ $QUICK == 0 ]]; then
+  echo "== 3b. validation campaign (full matrix, 600 s)"
+  python3 scripts/run_experiments.py --campaign-id "validation600_$TS" --seeds "$SEEDS" --seconds 600 --jobs "$JOBS" --no-figures
+fi
+
 echo "== 3. main campaign (8 scenarios x 6 modes x seeds $SEEDS, $SECS s)"
 python3 scripts/run_experiments.py --campaign-id "main_$TS" --seeds "$SEEDS" --seconds "$SECS" --jobs "$JOBS" \
   --scenarios quiet normal busy burst noisy trigger_spam replay mixed \
@@ -40,4 +48,6 @@ python3 scripts/run_sensitivity.py --campaign-id "sensitivity_$TS" --seeds "$SSE
 echo "== 6. results report"
 python3 scripts/make_report.py --main "results/campaigns/main_$TS" --ablation "results/campaigns/ablation_$TS" \
   --sensitivity "results/campaigns/sensitivity_$TS" --out "results/campaigns/main_$TS/RESULTS_SUMMARY.md"
+echo "== 7. scientific audit"
+python3 scripts/audit_scientific.py "results/campaigns/main_$TS"
 echo "done. See results/campaigns/*_$TS/"

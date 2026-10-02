@@ -268,18 +268,23 @@ def plot_sensitivity(cdir: str) -> None:
         fig, axes = plt.subplots(rows, cols, figsize=(7.2, 2.2 * rows), squeeze=False)
         for k, p in enumerate(other):
             ax = axes[k // cols, k % cols]
-            sc = sorted(set(s[s["sweep_param"] == p]["scenario"]), key=lambda x: SCENARIO_ORDER.index(x))[0]
+            # (scenario, metric) shown for each swept parameter.
+            sc, metric = {
+                "rpc_latency_ms": ("busy", "trigger_latency_ms_p95"), "rpc_jitter_ms": ("busy", "trigger_latency_ms_p95"),
+                "rpc_loss": ("normal", "episode_recall"), "rpc_queue_capacity": ("busy", "rpc_drops"),
+                "inference_ms": ("normal", "energy_per_min_mJ"), "cooldown_ms": ("normal", "episode_recall"),
+                "early_exit_threshold": ("normal", "episode_recall"), "arrival_scale": ("normal", "energy_per_min_mJ"),
+                "consistency_threshold": ("trigger_spam", "attack_success_rate"),
+                "rate_limit": ("busy", "false_rejection_rate_object"),
+                "burst_threshold": ("burst", "false_rejection_rate_object"),
+                "replay_window_ms": ("replay", "attack_success_rate"),
+            }.get(p, (sorted(set(s[s["sweep_param"] == p]["scenario"]))[0], "energy_per_min_mJ"))
             modes = [m for m in MODE_ORDER if m in set(s[s["sweep_param"] == p]["mode"])]
-            metric = {"rpc_latency_ms": "trigger_latency_ms_p95", "rpc_jitter_ms": "trigger_latency_ms_p95",
-                      "rpc_loss": "episode_recall", "rpc_queue_capacity": "rpc_drops",
-                      "inference_ms": "energy_per_min_mJ", "cooldown_ms": "episode_recall",
-                      "early_exit_threshold": "energy_per_min_mJ", "arrival_scale": "energy_per_min_mJ",
-                      "consistency_threshold": "false_rejection_rate_object", "rate_limit": "attack_success_rate",
-                      "burst_threshold": "false_rejection_rate_object",
-                      "replay_window_ms": "attack_success_rate"}.get(p, "energy_per_min_mJ")
-            _sweep_lines(ax, s, p, sc, metric, modes)
+            scale = 0.06 if metric == "energy_per_min_mJ" else 1.0
+            _sweep_lines(ax, s, p, sc, metric, modes, scale)
             ax.set_title(f"{p} ({sc})", fontsize=8)
-            ax.set_ylabel(metric.replace("_", " "), fontsize=7)
+            label = "energy per hour (J)" if scale != 1.0 else metric.replace("_", " ")
+            ax.set_ylabel(label, fontsize=7)
             if p == "inference_ms" or p == "arrival_scale":
                 ax.set_yscale("log")
         for k in range(n, rows * cols):

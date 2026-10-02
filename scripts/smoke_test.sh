@@ -5,7 +5,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 SECONDS_SIM="${1:-300}"
-ID="smoke_$(date -u +%Y%m%dT%H%M%SZ)"
+ID="${2:-smoke_$(date -u +%Y%m%dT%H%M%SZ)}"
 python3 scripts/run_experiments.py --campaign-id "$ID" --seeds 1:2 --seconds "$SECONDS_SIM" \
   --scenarios normal busy trigger_spam replay mixed \
   --modes always_on motion_only fixed_threshold event event_no_early_exit secure
