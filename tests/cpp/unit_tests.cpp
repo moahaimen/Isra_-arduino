@@ -541,6 +541,89 @@ static void test_ugs_scheduler() {
     }
 }
 
+
+static void test_ugs_r31() {
+    std::printf("test_ugs_r31\n");
+    // default flags reproduce R3 exactly: decisions identical with/without explicit zeros
+    {
+        UgsParams a, b;
+        b.noise_norm = 0; b.hold_ms = 0.0; b.value_rule = 0;
+        UgsScheduler sa(a), sb(b);
+        Rng r(5);
+        for (int i = 0; i < 300; ++i) {
+            const double x = 0.1 + 0.5 * (r.uniform() < 0.3 ? r.uniform() : 0.1);
+            UgsInput in{x, x, x, 1.0, cells_at(i % 10, 1), false, 0};
+            UgsDecision da = sa.evaluate(i * 100.0, in), db = sb.evaluate(i * 100.0, in);
+            CHECK(da.trigger == db.trigger && da.accum == db.accum);
+            if (da.trigger) { sa.commit(i * 100.0, da.region_mask); sb.commit(i * 100.0, db.region_mask); }
+        }
+    }
+    // noise_norm: noisy idle background raises sigma (no cap), so the same excursion yields less evidence
+    {
+        UgsParams a, b;
+        a.a_on = b.a_on = 1e9;  // keep the watcher idle so that the baseline learns the noisy scene
+        b.noise_norm = 1;
+        UgsScheduler sa(a), sb(b);
+        Rng r(7);
+        double ea = 0, eb = 0;
+        for (int i = 0; i < 80; ++i) {
+            const double n = 0.35 + 0.15 * r.normal(0.0, 1.0);
+            const double v = n < 0 ? 0 : n;
+            sa.evaluate(i * 100.0, {v, v, v, 1.0, 0, false, 0});
+            sb.evaluate(i * 100.0, {v, v, v, 1.0, 0, false, 0});
+        }
+        for (int i = 80; i < 90; ++i) {
+            ea += sa.evaluate(i * 100.0, {0.8, 0.8, 0.8, 1.0, cells_at(3, 1), false, 0}).evidence;
+            eb += sb.evaluate(i * 100.0, {0.8, 0.8, 0.8, 1.0, cells_at(3, 1), false, 0}).evidence;
+        }
+        CHECK(eb < ea);
+    }
+    // hold: after a confirmation the scheduler stays engaged for hold_ms although the evidence vanished
+    {
+        UgsParams p;
+        p.hold_ms = 3000.0;
+        UgsScheduler s(p);
+        double t = 0.0;
+        for (int i = 0; i < 30; ++i, t += 100.0) s.evaluate(t, {0.02, 0.02, 0.02, 1.0, 0, false, 0});
+        UgsDecision d;
+        for (int i = 0; i < 3; ++i, t += 100.0) {
+            d = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(2, 1), false, 0});
+            if (d.trigger) { s.commit(t, d.region_mask); break; }
+        }
+        CHECK(d.trigger);
+        s.feedback(d.region_mask, cells_at(2, 1), t + 50.0);
+        t += 50.0;
+        // quiet frames: accumulator decays below a_off, but the hold keeps the region engaged
+        UgsDecision q;
+        for (int i = 0; i < 12; ++i, t += 100.0) q = s.evaluate(t, {0.02, 0.02, 0.02, 1.0, cells_at(2, 1), false, 0});
+        CHECK(q.active);
+        // beyond the hold the scheduler releases
+        for (int i = 0; i < 40; ++i, t += 100.0) q = s.evaluate(t, {0.02, 0.02, 0.02, 1.0, 0, false, 0});
+        CHECK(!q.active);
+    }
+    // value rule: a region with a poor hit record is refreshed more slowly than one with a good record
+    {
+        UgsParams p;
+        p.value_rule = 1;
+        auto run = [&](bool hit) {
+            UgsScheduler s(p);
+            double t = 0.0;
+            for (int i = 0; i < 30; ++i, t += 100.0) s.evaluate(t, {0.02, 0.02, 0.02, 1.0, 0, false, 0});
+            int trig = 0;
+            for (int i = 0; i < 400; ++i, t += 100.0) {
+                UgsDecision d = s.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(2, 1), false, 0});
+                if (d.trigger) {
+                    ++trig;
+                    s.commit(t, d.region_mask);
+                    s.feedback(d.region_mask, hit ? cells_at(2, 1) : 0, t + 1.0);
+                }
+            }
+            return trig;
+        };
+        CHECK(run(true) > run(false));
+    }
+}
+
 static UgsGateFrame gframe(double t, int pattern, int fg, double gain = 1.0, int shift_obj = 0) {
     UgsGateFrame f{};
     f.t_ms = t;
@@ -617,6 +700,7 @@ int main() {
     test_robust_watcher();
     test_robust_gate();
     test_ugs_scheduler();
+    test_ugs_r31();
     test_ugs_gate();
     std::printf("unit_tests: %d passed, %d failed\n", g_pass, g_fail);
     return g_fail == 0 ? 0 : 1;

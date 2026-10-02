@@ -123,6 +123,13 @@ UgsParams ugs_params_from(const SimConfig& c) {
     p.region_ttl_ms = c.ugs_region_ttl_ms;
     p.max_inflight = c.ugs_max_inflight;
     p.awake_factor = c.ugs_awake_factor;
+    p.noise_norm = c.ugs_noise_norm;
+    p.hold_ms = c.ugs_hold_ms;
+    p.value_rule = c.ugs_value_rule;
+    p.vr_alpha = c.ugs_vr_alpha;
+    p.vr_beta = c.ugs_vr_beta;
+    p.vr_gamma = c.ugs_vr_gamma;
+    p.vr_pmin = c.ugs_vr_pmin;
     return p;
 }
 

@@ -131,6 +131,13 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_DBL(ugs_region_ttl_ms, "UGS: forget a region after this idle time");
     P_INT(ugs_max_inflight, "UGS: defer non-novel requests while this many are outstanding");
     P_DBL(ugs_awake_factor, "UGS: period multiplier while the M7 is awake");
+    P_INT(ugs_noise_norm, "UGS R3.1: pure z-score evidence (no floor/caps)");
+    P_DBL(ugs_hold_ms, "UGS R3.1: stay engaged this long after an M7 confirmation");
+    P_INT(ugs_value_rule, "UGS R3.1: Beta-posterior refresh period");
+    P_DBL(ugs_vr_alpha, "UGS R3.1: posterior prior hits");
+    P_DBL(ugs_vr_beta, "UGS R3.1: posterior prior misses");
+    P_DBL(ugs_vr_gamma, "UGS R3.1: forgetting factor per request");
+    P_DBL(ugs_vr_pmin, "UGS R3.1: minimum hit probability");
     P_BOOL(ugs_feedback, "UGS: use M7 result feedback");
     P_BOOL(ugs_novelty, "UGS: per-content regions (off = one shared region)");
     P_BOOL(ugs_persistence, "UGS: evidence accumulation (off = single-frame activation)");

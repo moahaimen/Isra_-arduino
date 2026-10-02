@@ -72,6 +72,17 @@ struct UgsParams {
     int max_inflight = 2;
     double awake_factor = 0.5;
     double inflight_timeout_ms = 2000.0;
+    // ---- R3.1 mechanisms (all default OFF = exact R3 behaviour) ----
+    // noise_norm: drop the absolute evidence floor s_floor and the baseline/scale caps, so that the
+    //   evidence is a pure z-score against the scene's own idle statistics (noisy scenes raise sigma).
+    int noise_norm = 0;
+    // hold_ms: a region confirmed by the M7 keeps the scheduler engaged (even if the evidence
+    //   accumulator fell below a_off) for hold_ms after the confirmation.
+    double hold_ms = 0.0;
+    // value_rule: refresh period of a region = dt_track / max(p_hit, p_min), p_hit the Beta posterior
+    //   mean (hits + alpha) / (requests + alpha + beta) of decayed counts (forgetting factor gamma per request).
+    int value_rule = 0;
+    double vr_alpha = 1.0, vr_beta = 1.0, vr_gamma = 0.9, vr_pmin = 0.1;
 };
 
 struct UgsInput {
@@ -109,14 +120,21 @@ public:
         // baseline/scale: empty-scene prior until bg_min idle samples exist,
         // then median / 1.4826 MAD of idle scores, both capped so that a busy
         // or noisy scene cannot raise them without bound
+        if (p_.noise_norm && bg_n_ < p_.bg_min) {  // R3.1: learn the scene's own statistics before judging it
+            push_bg(d.score);
+            d.suppress = US_BELOW;
+            return d;
+        }
         double med = p_.b_prior, sigma = p_.sigma_prior;
         const bool warm = bg_n_ >= p_.bg_min;
         if (warm) stats(med, sigma);
-        if (med > p_.b_cap) med = p_.b_cap;
-        if (sigma > p_.sigma_cap) sigma = p_.sigma_cap;
+        if (!p_.noise_norm) {
+            if (med > p_.b_cap) med = p_.b_cap;
+            if (sigma > p_.sigma_cap) sigma = p_.sigma_cap;
+        }
         d.z = (d.score - med) / sigma;
         double e = 0.0;
-        if (d.score >= p_.s_floor) {
+        if (p_.noise_norm || d.score >= p_.s_floor) {
             e = d.z - p_.z0;
             if (e < 0.0) e = 0.0;
             if (e > p_.e_max) e = p_.e_max;
@@ -128,8 +146,13 @@ public:
         if (!active_ && accum_ >= p_.a_on) active_ = true;
         else if (active_ && accum_ < p_.a_off) active_ = false;
         if (!active_) push_bg(d.score);  // idle background sample (robust median tolerates onset frames)
-        d.active = active_;
-        if (!active_) {
+        bool held = false;
+        if (!active_ && p_.hold_ms > 0.0) {
+            for (int i = 0; i < REGIONS; ++i)
+                if (reg_[i].used && reg_[i].confirmed && t - reg_[i].last_confirm < p_.hold_ms) held = true;
+        }
+        d.active = active_ || held;
+        if (!d.active) {
             d.suppress = US_BELOW;
             return d;
         }
@@ -153,7 +176,13 @@ public:
             }
             r.inflight = false;
             double period;
-            if (r.confirmed) period = p_.dt_track_ms;
+            if (p_.value_rule) {
+                double ph = (r.hits_w + p_.vr_alpha) / (r.req_w + p_.vr_alpha + p_.vr_beta);
+                if (ph < p_.vr_pmin) ph = p_.vr_pmin;
+                period = p_.dt_track_ms / ph;
+                if (period > p_.barren_cap_ms) period = p_.barren_cap_ms;
+                if (!r.confirmed && r.n_req < p_.k_retry && period > p_.dt_retry_ms) period = p_.dt_retry_ms;
+            } else if (r.confirmed) period = p_.dt_track_ms;
             else if (r.n_req < p_.k_retry) period = p_.dt_retry_ms;
             else {
                 period = p_.dt_barren_ms;
@@ -191,6 +220,8 @@ public:
             r.inflight = true;
             r.last_req = t;
             ++r.n_req;
+            r.req_w = p_.vr_gamma * r.req_w + 1.0;
+            r.hits_w *= p_.vr_gamma;
         }
     }
 
@@ -203,9 +234,12 @@ public:
             const bool hit = detected_cells != 0 &&
                              ((r.cells == 0) || (detected_cells & dilate_cells(r.cells)) != 0);
             r.confirmed = hit;
-            if (hit) ++r.n_hit;
+            if (hit) {
+                ++r.n_hit;
+                r.hits_w += 1.0;
+                r.last_confirm = t;
+            }
         }
-        (void)t;
     }
 
     bool active() const { return active_; }
@@ -216,6 +250,7 @@ private:
         uint64_t cells = 0;
         double last_seen = 0.0, last_req = -1e300;
         int n_req = 0, n_hit = 0;
+        double req_w = 0.0, hits_w = 0.0, last_confirm = -1e300;
         bool confirmed = false, inflight = false;
     };
     UgsParams p_;

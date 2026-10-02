@@ -83,6 +83,11 @@ struct SimConfig {
     double ugs_awake_factor = 0.5;
     bool ugs_feedback = true;        // ablation: false = no M7 result feedback (every region treated as unverified)
     bool ugs_novelty = true;         // ablation: false = all content shares one region (no novelty)
+    // R3.1 scheduler mechanisms (default off = R3 behaviour; see ugs_scheduler.h)
+    int ugs_noise_norm = 0;
+    double ugs_hold_ms = 0.0;
+    int ugs_value_rule = 0;
+    double ugs_vr_alpha = 1.0, ugs_vr_beta = 1.0, ugs_vr_gamma = 0.9, ugs_vr_pmin = 0.1;
     bool ugs_persistence = true;     // ablation: false = rho 0 and a_on = e_max (single-frame activation)
     // R3 gate (simulation/security/ugs_gate.h)
     bool ug_replay = true;
