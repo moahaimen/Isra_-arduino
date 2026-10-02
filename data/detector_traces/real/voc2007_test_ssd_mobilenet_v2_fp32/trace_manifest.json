@@ -1,0 +1,18 @@
+{
+  "dataset": "PASCAL VOC 2007",
+  "detector_name": "ssd_mobilenet_v2_fp32",
+  "model_sha256": "b8ccb1a25d45455ba52e85f26531948e1cb75efeb94c7c3d456d54fd4d6fbdd2",
+  "n_frames": 4952,
+  "n_gt_boxes": 14976,
+  "n_gt_boxes_non_ignored": 12032,
+  "n_predicted_boxes": 298467,
+  "schema": "detector_trace_v2",
+  "selection": {},
+  "sha256": {
+    "frames.csv": "a6f30871fa3a5e7e3edb04ef7dc4699572ce51e01f1890e3a109889fba20bb14",
+    "ground_truth.csv": "3f7c8de874af0333065748ae87c63f906cdd68248a16515f29f5cbc750ddced6",
+    "predictions.csv": "3cbebc857a75d001baadb414ac7f8dcce60825f96b7d261d2f255a86890b3cd4"
+  },
+  "split": "test",
+  "timing_note": "host_*_ms are host measurements, NOT Portenta H7 timings"
+}

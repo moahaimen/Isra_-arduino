@@ -114,27 +114,39 @@ def static_segments(root: str) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def download_frames(root: str, seq_frames: List[Tuple[str, int]]) -> int:
+def download_frames(root: str, seq_frames: List[Tuple[str, int]], workers: int = 16) -> int:
     """Extract training/image_02/<seq>/<frame>.png for the requested frames
-    from the official 15.8 GB zip using HTTP range requests."""
+    from the official 15.8 GB zip using HTTP range requests (parallel)."""
+    from concurrent.futures import ThreadPoolExecutor
+
     todo = [(s, f) for s, f in seq_frames
             if not os.path.exists(os.path.join(root, "training", "image_02", s, f"{f:06d}.png"))]
     if not todo:
         return 0
-    z = zipfile.ZipFile(HttpRangeFile(f"{BUCKET}/data_tracking_image_2.zip"))
-    names = set(z.namelist())
-    n = 0
-    for s, f in todo:
-        name = f"training/image_02/{s}/{f:06d}.png"
-        if name not in names:
-            raise FileNotFoundError(name)
-        dst = os.path.join(root, name)
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        with z.open(name) as src, open(dst + ".part", "wb") as out:
-            out.write(src.read())
-        os.replace(dst + ".part", dst)
-        n += 1
-    return n
+    url = f"{BUCKET}/data_tracking_image_2.zip"
+    z0 = zipfile.ZipFile(HttpRangeFile(url))
+    infos = {i.filename: i for i in z0.infolist()}
+
+    def fetch(chunk):
+        z = zipfile.ZipFile.__new__(zipfile.ZipFile)  # share the parsed central directory
+        z.__dict__.update(z0.__dict__)
+        z.fp = HttpRangeFile(url)
+        z._fileRefCnt = 1
+        z._lock = __import__("threading").RLock()
+        for s, f in chunk:
+            name = f"training/image_02/{s}/{f:06d}.png"
+            if name not in infos:
+                raise FileNotFoundError(name)
+            dst = os.path.join(root, name)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            with z.open(name) as src, open(dst + ".part", "wb") as out:
+                out.write(src.read())
+            os.replace(dst + ".part", dst)
+        return len(chunk)
+
+    chunks = [todo[i::workers] for i in range(workers)]
+    with ThreadPoolExecutor(workers) as ex:
+        return sum(ex.map(fetch, chunks))
 
 
 def read_labels(root: str, seq: str) -> pd.DataFrame:

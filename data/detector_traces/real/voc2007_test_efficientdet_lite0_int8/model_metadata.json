@@ -1,0 +1,58 @@
+{
+  "architecture": "EfficientDet-Lite0",
+  "class_map": {
+    "1": "aeroplane",
+    "2": "bicycle",
+    "3": "bird",
+    "4": "boat",
+    "5": "bottle",
+    "6": "bus",
+    "7": "car",
+    "8": "cat",
+    "9": "chair",
+    "10": "cow",
+    "11": "diningtable",
+    "12": "dog",
+    "13": "horse",
+    "14": "motorbike",
+    "15": "person",
+    "16": "pottedplant",
+    "17": "sheep",
+    "18": "sofa",
+    "19": "train",
+    "20": "tvmonitor"
+  },
+  "dataset": "PASCAL VOC 2007",
+  "detector_name": "efficientdet_lite0_int8",
+  "file": "efficientdet_lite0_int8.tflite",
+  "host": {
+    "cpu_count": 4,
+    "litert_threads": 1,
+    "platform": "Linux-6.18.44-fc-v51-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.11.15"
+  },
+  "input": [
+    320,
+    320
+  ],
+  "macs": 973589696,
+  "macs_note": "conv/depthwise/FC only",
+  "max_results": 100,
+  "min_score_kept": 0.01,
+  "model_bytes": 4602795,
+  "model_sha256": "0720bf247bd76e6594ea28fa9c6f7c5242be774818997dbbeffc4da460c723bb",
+  "nms": "MediaPipe ObjectDetector default (IoU 0.5 per-class NMS as configured in the model)",
+  "parameters": 3323396,
+  "portenta_inference_ms": "NOT MEASURED (calibration pending)",
+  "precision": "INT8 (post-training quantized weights/activations, float I/O decode)",
+  "role": "host_reference_primary",
+  "runtime": {
+    "ai_edge_litert": "2.2.0",
+    "mediapipe": "1.0.1"
+  },
+  "sha256": "0720bf247bd76e6594ea28fa9c6f7c5242be774818997dbbeffc4da460c723bb",
+  "split": "test",
+  "training_set": "COCO 2017",
+  "url": "https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/1/efficientdet_lite0.tflite"
+}

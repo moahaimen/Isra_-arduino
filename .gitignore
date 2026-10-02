@@ -7,3 +7,6 @@ results/campaigns/*/raw/
 results/campaigns/*/workloads/
 workloads/generated/*
 !workloads/generated/.gitkeep
+
+# R2 VOC prediction tables are large; archived in project files research_sim/r2_wip/
+data/detector_traces/real/voc2007_*/predictions.csv

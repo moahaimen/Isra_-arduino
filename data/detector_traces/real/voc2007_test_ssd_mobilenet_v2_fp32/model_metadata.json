@@ -1,0 +1,58 @@
+{
+  "architecture": "SSD MobileNetV2 (RetinaNet-style head)",
+  "class_map": {
+    "1": "aeroplane",
+    "2": "bicycle",
+    "3": "bird",
+    "4": "boat",
+    "5": "bottle",
+    "6": "bus",
+    "7": "car",
+    "8": "cat",
+    "9": "chair",
+    "10": "cow",
+    "11": "diningtable",
+    "12": "dog",
+    "13": "horse",
+    "14": "motorbike",
+    "15": "person",
+    "16": "pottedplant",
+    "17": "sheep",
+    "18": "sofa",
+    "19": "train",
+    "20": "tvmonitor"
+  },
+  "dataset": "PASCAL VOC 2007",
+  "detector_name": "ssd_mobilenet_v2_fp32",
+  "file": "ssd_mobilenet_v2_float32.tflite",
+  "host": {
+    "cpu_count": 4,
+    "litert_threads": 1,
+    "platform": "Linux-6.18.44-fc-v51-x86_64-with-glibc2.39",
+    "processor": "x86_64",
+    "python": "3.11.15"
+  },
+  "input": [
+    256,
+    256
+  ],
+  "macs": 742691840,
+  "macs_note": "conv/depthwise/FC only",
+  "max_results": 100,
+  "min_score_kept": 0.01,
+  "model_bytes": 11316189,
+  "model_sha256": "b8ccb1a25d45455ba52e85f26531948e1cb75efeb94c7c3d456d54fd4d6fbdd2",
+  "nms": "MediaPipe ObjectDetector default (IoU 0.5 per-class NMS as configured in the model)",
+  "parameters": 2725825,
+  "portenta_inference_ms": "NOT MEASURED (calibration pending)",
+  "precision": "FP32",
+  "role": "host_reference",
+  "runtime": {
+    "ai_edge_litert": "2.2.0",
+    "mediapipe": "1.0.1"
+  },
+  "sha256": "b8ccb1a25d45455ba52e85f26531948e1cb75efeb94c7c3d456d54fd4d6fbdd2",
+  "split": "test",
+  "training_set": "COCO 2017",
+  "url": "https://storage.googleapis.com/mediapipe-models/object_detector/ssd_mobilenet_v2/float32/1/ssd_mobilenet_v2.tflite"
+}
