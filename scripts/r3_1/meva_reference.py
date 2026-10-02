@@ -50,12 +50,21 @@ def detect(group, weights, imgsz=1280):
     m = YOLO(weights)
     d = os.path.join(DATA, "meva", group)
     files = sorted(f for f in os.listdir(d) if f.endswith(".jpg"))
-    rows = []
-    for i, f in enumerate(files):
-        r = m.predict(os.path.join(d, f), imgsz=imgsz, conf=0.25, iou=0.5, max_det=100, verbose=False, device="cpu")[0]
+    part = os.path.join(d, "ref_dets.partial.csv")   # checkpoint: resume after a killed process
+    rows, start = [], 0
+    if os.path.exists(part):
+        pdf = pd.read_csv(part)
+        meta = json.load(open(part + ".json"))
+        rows = list(pdf.itertuples(index=False, name=None))
+        start = meta["next_frame"]
+    for i in range(start, len(files)):
+        r = m.predict(os.path.join(d, files[i]), imgsz=imgsz, conf=0.25, iou=0.5, max_det=100, verbose=False, device="cpu")[0]
         for (x1, y1, x2, y2), s, c in zip(r.boxes.xyxy.tolist(), r.boxes.conf.tolist(), r.boxes.cls.tolist()):
             if int(c) in CLS:
                 rows.append((i, CLS[int(c)], s, x1, y1, x2, y2))
+        if (i + 1) % 50 == 0:
+            pd.DataFrame(rows, columns=["frame", "class_id", "conf", "x1", "y1", "x2", "y2"]).to_csv(part, index=False)
+            json.dump({"next_frame": i + 1}, open(part + ".json", "w"))
     return pd.DataFrame(rows, columns=["frame", "class_id", "conf", "x1", "y1", "x2", "y2"]), len(files)
 
 
