@@ -156,3 +156,12 @@ success criteria are unchanged. Only robust_secure is re-tuned. The
 validation result that motivated the change (the legacy EWMA rule is not
 worse than the robust watcher on the validation noisy condition) is NOT
 acted upon: the watcher design and its grid are unchanged.
+
+Addendum to amendment 1 (same day, still before freezing and before any
+test run): with the replay parameters tuned one at a time, coordinate
+descent first fixed rg_fg_jaccard_thr while rg_dhash_max was still 32
+(where switching the mask condition off blocks almost every frame) and never
+reached the small-distance region. Because the two parameters interact,
+they are tuned as ONE joint coordinate over the 5 x 7 grid of pairs; the
+rest of the procedure is unchanged. The first re-tuning result is kept in
+`results/r2/tuning/robust_secure_amend1_onecoord.json` for transparency.
