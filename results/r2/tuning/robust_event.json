@@ -1,0 +1,179 @@
+{
+ "method": "robust_event",
+ "split": "validation",
+ "best_params": {
+  "detection_threshold": 0.3,
+  "early_exit_threshold": 0.6,
+  "early_exit_low_threshold": 0.3,
+  "robust_z_on": 5.0,
+  "robust_theta_min": 0.1,
+  "robust_theta_max": 0.7,
+  "robust_persist_k": 2,
+  "content_cooldown_ms": 1000,
+  "content_overlap_thr": 0.3
+ },
+ "objective": {
+  "J": 0.22326622835979265,
+  "timely": 0.37071428571428566,
+  "duty": 0.16407162035823503,
+  "attack_success": 0.13082449435075091,
+  "recall": 0.4857142857142857,
+  "per_condition": [
+   {
+    "scenario": "clean",
+    "intensity": 1.0,
+    "timely": 0.4000000000000001,
+    "duty": 0.1620962691131498,
+    "atk": NaN,
+    "recall": 0.5,
+    "frr": NaN
+   },
+   {
+    "scenario": "mixed",
+    "intensity": 1.0,
+    "timely": 0.395,
+    "duty": 0.16832505504587153,
+    "atk": 0.13173866027589431,
+    "recall": 0.505,
+    "frr": NaN
+   },
+   {
+    "scenario": "noisy",
+    "intensity": 1.0,
+    "timely": 0.265,
+    "duty": 0.1411500489296636,
+    "atk": NaN,
+    "recall": 0.41500000000000004,
+    "frr": NaN
+   },
+   {
+    "scenario": "replay_exact",
+    "intensity": 1.0,
+    "timely": 0.38,
+    "duty": 0.16562053211009173,
+    "atk": 0.17886934824434825,
+    "recall": 0.51,
+    "frr": NaN
+   },
+   {
+    "scenario": "replay_perturbed",
+    "intensity": 1.0,
+    "timely": 0.38,
+    "duty": 0.16839341590214066,
+    "atk": 0.1326294345489392,
+    "recall": 0.485,
+    "frr": NaN
+   },
+   {
+    "scenario": "spam",
+    "intensity": 1.0,
+    "timely": 0.40499999999999997,
+    "duty": 0.16608766360856267,
+    "atk": 0.08010836385836387,
+    "recall": 0.5,
+    "frr": NaN
+   },
+   {
+    "scenario": "spam",
+    "intensity": 8.0,
+    "timely": 0.37,
+    "duty": 0.17682835779816514,
+    "atk": 0.13077666482620898,
+    "recall": 0.48500000000000004,
+    "frr": NaN
+   }
+  ]
+ },
+ "grid": {
+  "robust_z_on": [
+   2.0,
+   3.0,
+   4.0,
+   5.0,
+   6.0
+  ],
+  "robust_theta_min": [
+   0.1,
+   0.15,
+   0.2,
+   0.25,
+   0.3
+  ],
+  "robust_theta_max": [
+   0.4,
+   0.45,
+   0.5,
+   0.55,
+   0.6,
+   0.7
+  ],
+  "robust_persist_k": [
+   1,
+   2,
+   3
+  ],
+  "content_cooldown_ms": [
+   500,
+   1000,
+   2000,
+   3000
+  ],
+  "content_overlap_thr": [
+   0.2,
+   0.3,
+   0.5
+  ]
+ },
+ "parent": null,
+ "conditions": [
+  [
+   "clean",
+   1.0
+  ],
+  [
+   "noisy",
+   1.0
+  ],
+  [
+   "spam",
+   1.0
+  ],
+  [
+   "spam",
+   8.0
+  ],
+  [
+   "replay_exact",
+   1.0
+  ],
+  [
+   "replay_perturbed",
+   1.0
+  ],
+  [
+   "mixed",
+   1.0
+  ]
+ ],
+ "seeds": [
+  1001,
+  1002,
+  1003,
+  1004,
+  1005,
+  1006,
+  1007,
+  1008,
+  1009,
+  1010
+ ],
+ "clean_seeds": [
+  1001,
+  1002,
+  1003
+ ],
+ "lambda_duty": 0.5,
+ "lambda_attack": 0.5,
+ "n_configs_evaluated": 45,
+ "detection_threshold": 0.3
+}

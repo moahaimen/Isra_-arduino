@@ -12,11 +12,12 @@
 //                           gain compensation did not explain)
 //   2. REPLAY               the frame re-presents recorded content: for some
 //                           history frame h with age in [min_age, window],
-//                             Jaccard(FG_t, FG_h) >= j_thr  and
-//                             Hamming(dHash_t, dHash_h) <= h_max,
-//                           with |FG_t| >= fg_min (a frame without foreground
-//                           carries no replayable object). The history holds
-//                           every frame the M4 observed (not only triggers).
+//                             Hamming(dHash_t, dHash_h) <= h_max  and
+//                             (j_thr <= 0 or Jaccard(FG_t, FG_h) >= j_thr),
+//                           with |FG_t| >= fg_min. The history holds every
+//                           frame the M4 observed with |FG| >= fg_min (not
+//                           only triggers). j_thr <= 0 disables the
+//                           foreground-mask condition (pure dHash matching).
 //   3. CONTENT_RATE         per-content token bucket empty: requests whose
 //                           motion-cell mask overlaps a known content slot
 //                           share that slot's bucket (capacity b_c, refill r_c/s);
@@ -126,9 +127,11 @@ public:
                 const RobustFrame& h = hist_[(head_ - 1 - i + 2 * cap_) % cap_];
                 const double age = f.t_ms - h.t_ms;
                 if (age < p_.replay_min_age_ms || age > p_.replay_window_ms) continue;
-                const double j = jaccard(f, h);
-                if (j > d.best_jaccard) d.best_jaccard = j;
-                if (j < p_.fg_jaccard_thr) continue;
+                if (p_.fg_jaccard_thr > 0.0) {
+                    const double j = jaccard(f, h);
+                    if (j > d.best_jaccard) d.best_jaccard = j;
+                    if (j < p_.fg_jaccard_thr) continue;
+                }
                 const int hd = hamming(f, h);
                 if (d.best_hamming < 0 || hd < d.best_hamming) d.best_hamming = hd;
                 if (hd <= p_.dhash_max) {

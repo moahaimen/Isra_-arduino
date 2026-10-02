@@ -135,3 +135,24 @@ comparison is confirmatory.
 * No run is excluded; failed runs would be reported with their error.
 * Host detector latencies are labelled HOST; no Portenta timing or power
   value is reported as measured.
+
+## Amendment 1 (2026-10-02, before freezing parameters and before any test-split run)
+
+Validation tuning showed that the replay check of the R2 gate, as first
+written (foreground-mask Jaccard >= j_thr AND dHash Hamming <= h_max), let
+~14 % of exact-replay frames through: the foreground mask is computed
+against the current, drifting background estimate, so an exact replay
+reaches only Jaccard ~0.55 with its original (validation diagnosis:
+`scripts/r2/diagnose_replay.py`). The dHash of the frame itself separates
+replays from live moving frames (validation: live median 20 bits, 5th
+percentile 5; exact replays 0; photometric/JPEG/noise replays <= 5; shifted
+replays 9-20).
+
+Change: the foreground-mask condition is optional (j_thr <= 0 disables it)
+and the robust_secure tuning grid becomes rg_fg_jaccard_thr in {0, 0.5, 0.6,
+0.7, 0.8}, rg_dhash_max in {2, 4, 6, 8, 12, 16, 32}, rg_fg_min in {0, 12};
+all other grids, the objective, the confirmatory hypotheses and the
+success criteria are unchanged. Only robust_secure is re-tuned. The
+validation result that motivated the change (the legacy EWMA rule is not
+worse than the robust watcher on the validation noisy condition) is NOT
+acted upon: the watcher design and its grid are unchanged.

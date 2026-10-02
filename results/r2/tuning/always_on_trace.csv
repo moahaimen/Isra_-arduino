@@ -1,0 +1,2 @@
+p_detection_threshold,p_early_exit_threshold,p_early_exit_low_threshold,J,timely,duty,attack_success,recall,eval_s
+0.3,0.6,0.3,-0.35826154208472827,0.45166666666666666,0.9999999999999999,0.61985641750279,0.5807142857142857,30.277130603790283

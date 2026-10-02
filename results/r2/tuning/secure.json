@@ -1,0 +1,172 @@
+{
+ "method": "secure",
+ "split": "validation",
+ "best_params": {
+  "detection_threshold": 0.3,
+  "early_exit_threshold": 0.6,
+  "early_exit_low_threshold": 0.3,
+  "trigger_threshold": 0.3,
+  "cooldown_ms": 500,
+  "adaptive_gain": 1.0,
+  "adaptive_noise_ref": 0.1,
+  "rate_limit": 10,
+  "burst_threshold": 60,
+  "replay_feature_eps": 0.005,
+  "consistency_threshold": 0.7,
+  "duplicate_window_ms": 500
+ },
+ "objective": {
+  "J": 0.14847178642074632,
+  "timely": 0.2057142857142857,
+  "duty": 0.08550976205038589,
+  "attack_success": 0.028975236536692883,
+  "recall": 0.3335714285714285,
+  "per_condition": [
+   {
+    "scenario": "clean",
+    "intensity": 1.0,
+    "timely": 0.25,
+    "duty": 0.0913485117227319,
+    "atk": NaN,
+    "recall": 0.3499999999999999,
+    "frr": 0.6458333333333334
+   },
+   {
+    "scenario": "mixed",
+    "intensity": 1.0,
+    "timely": 0.225,
+    "duty": 0.08784765443425076,
+    "atk": 0.027906047852856365,
+    "recall": 0.345,
+    "frr": 0.6514238520527071
+   },
+   {
+    "scenario": "noisy",
+    "intensity": 1.0,
+    "timely": 0.135,
+    "duty": 0.07406695718654434,
+    "atk": NaN,
+    "recall": 0.255,
+    "frr": 0.7753303443651569
+   },
+   {
+    "scenario": "replay_exact",
+    "intensity": 1.0,
+    "timely": 0.22000000000000003,
+    "duty": 0.08766040061162078,
+    "atk": 0.0,
+    "recall": 0.36,
+    "frr": 0.6438029795777253
+   },
+   {
+    "scenario": "replay_perturbed",
+    "intensity": 1.0,
+    "timely": 0.22999999999999998,
+    "duty": 0.08671909480122324,
+    "atk": 0.014726939726939729,
+    "recall": 0.33999999999999997,
+    "frr": 0.6478178623381209
+   },
+   {
+    "scenario": "spam",
+    "intensity": 1.0,
+    "timely": 0.21000000000000002,
+    "duty": 0.09220615596330274,
+    "atk": 0.04864468864468864,
+    "recall": 0.365,
+    "frr": 0.6373166096674423
+   },
+   {
+    "scenario": "spam",
+    "intensity": 8.0,
+    "timely": 0.16999999999999998,
+    "duty": 0.07871955963302751,
+    "atk": 0.05359850645897968,
+    "recall": 0.31999999999999995,
+    "frr": 0.7148849231583506
+   }
+  ]
+ },
+ "grid": {
+  "rate_limit": [
+   10,
+   20,
+   60,
+   120
+  ],
+  "burst_threshold": [
+   5,
+   10,
+   30,
+   60
+  ],
+  "replay_feature_eps": [
+   0.005,
+   0.01,
+   0.03,
+   0.05
+  ],
+  "consistency_threshold": [
+   0.0,
+   0.3,
+   0.5,
+   0.7
+  ],
+  "duplicate_window_ms": [
+   500,
+   2000
+  ]
+ },
+ "parent": "event",
+ "conditions": [
+  [
+   "clean",
+   1.0
+  ],
+  [
+   "noisy",
+   1.0
+  ],
+  [
+   "spam",
+   1.0
+  ],
+  [
+   "spam",
+   8.0
+  ],
+  [
+   "replay_exact",
+   1.0
+  ],
+  [
+   "replay_perturbed",
+   1.0
+  ],
+  [
+   "mixed",
+   1.0
+  ]
+ ],
+ "seeds": [
+  1001,
+  1002,
+  1003,
+  1004,
+  1005,
+  1006,
+  1007,
+  1008,
+  1009,
+  1010
+ ],
+ "clean_seeds": [
+  1001,
+  1002,
+  1003
+ ],
+ "lambda_duty": 0.5,
+ "lambda_attack": 0.5,
+ "n_configs_evaluated": 32,
+ "detection_threshold": 0.3
+}

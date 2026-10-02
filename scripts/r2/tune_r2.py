@@ -59,7 +59,11 @@ GRIDS: Dict[str, Dict[str, List]] = {
                      "robust_theta_max": [0.40, 0.45, 0.50, 0.55, 0.60, 0.70],
                      "robust_persist_k": [1, 2, 3], "content_cooldown_ms": [500, 1000, 2000, 3000],
                      "content_overlap_thr": [0.2, 0.3, 0.5]},
-    "robust_secure": {"rg_fg_jaccard_thr": [0.6, 0.7, 0.8, 0.9], "rg_dhash_max": [8, 16, 24, 32, 256],
+    # amended 2026-10-02 (docs/PREREGISTERED_R2_ANALYSIS.md, amendment 1): the
+    # foreground-mask condition can be switched off (0.0), dHash grid extended
+    # to small distances, fg_min tunable
+    "robust_secure": {"rg_fg_jaccard_thr": [0.0, 0.5, 0.6, 0.7, 0.8], "rg_dhash_max": [2, 4, 6, 8, 12, 16, 32],
+                      "rg_fg_min": [0, 12],
                       "rg_consistency_threshold": [0.0, 0.2, 0.3, 0.5],
                       "rg_content_capacity": [2, 3, 5], "rg_content_refill_per_s": [0.25, 0.5, 1.0],
                       "rg_global_capacity": [5, 10, 20], "rg_global_refill_per_s": [0.5, 1.0, 2.0],

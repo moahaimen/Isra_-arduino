@@ -1,0 +1,152 @@
+{
+ "method": "mog2_event",
+ "split": "validation",
+ "best_params": {
+  "detection_threshold": 0.3,
+  "early_exit_threshold": 0.6,
+  "early_exit_low_threshold": 0.3,
+  "mog2_threshold": 0.0025,
+  "cooldown_ms": 1500
+ },
+ "objective": {
+  "J": 0.1499884420627235,
+  "timely": 0.26785714285714285,
+  "duty": 0.1790119711664482,
+  "attack_success": 0.05672543042239055,
+  "recall": 0.4821428571428572,
+  "per_condition": [
+   {
+    "scenario": "clean",
+    "intensity": 1.0,
+    "timely": 0.3,
+    "duty": 0.1792912232415902,
+    "atk": NaN,
+    "recall": 0.5,
+    "frr": NaN
+   },
+   {
+    "scenario": "mixed",
+    "intensity": 1.0,
+    "timely": 0.255,
+    "duty": 0.17956946483180425,
+    "atk": 0.07241319850362403,
+    "recall": 0.5,
+    "frr": NaN
+   },
+   {
+    "scenario": "noisy",
+    "intensity": 1.0,
+    "timely": 0.185,
+    "duty": 0.17218523853211007,
+    "atk": NaN,
+    "recall": 0.40499999999999997,
+    "frr": NaN
+   },
+   {
+    "scenario": "replay_exact",
+    "intensity": 1.0,
+    "timely": 0.27999999999999997,
+    "duty": 0.17901138226299693,
+    "atk": 0.04198653198653199,
+    "recall": 0.49000000000000005,
+    "frr": NaN
+   },
+   {
+    "scenario": "replay_perturbed",
+    "intensity": 1.0,
+    "timely": 0.27999999999999997,
+    "duty": 0.18177868807339448,
+    "atk": 0.058142987043915836,
+    "recall": 0.49000000000000005,
+    "frr": NaN
+   },
+   {
+    "scenario": "spam",
+    "intensity": 1.0,
+    "timely": 0.3,
+    "duty": 0.18176492660550456,
+    "atk": 0.04339285714285714,
+    "recall": 0.5,
+    "frr": NaN
+   },
+   {
+    "scenario": "spam",
+    "intensity": 8.0,
+    "timely": 0.275,
+    "duty": 0.179482874617737,
+    "atk": 0.06769157743502377,
+    "recall": 0.49000000000000005,
+    "frr": NaN
+   }
+  ]
+ },
+ "grid": {
+  "mog2_threshold": [
+   0.0025,
+   0.005,
+   0.01,
+   0.02,
+   0.04,
+   0.08,
+   0.16
+  ],
+  "cooldown_ms": [
+   500,
+   1000,
+   1500,
+   3000
+  ]
+ },
+ "parent": null,
+ "conditions": [
+  [
+   "clean",
+   1.0
+  ],
+  [
+   "noisy",
+   1.0
+  ],
+  [
+   "spam",
+   1.0
+  ],
+  [
+   "spam",
+   8.0
+  ],
+  [
+   "replay_exact",
+   1.0
+  ],
+  [
+   "replay_perturbed",
+   1.0
+  ],
+  [
+   "mixed",
+   1.0
+  ]
+ ],
+ "seeds": [
+  1001,
+  1002,
+  1003,
+  1004,
+  1005,
+  1006,
+  1007,
+  1008,
+  1009,
+  1010
+ ],
+ "clean_seeds": [
+  1001,
+  1002,
+  1003
+ ],
+ "lambda_duty": 0.5,
+ "lambda_attack": 0.5,
+ "n_configs_evaluated": 18,
+ "detection_threshold": 0.3
+}

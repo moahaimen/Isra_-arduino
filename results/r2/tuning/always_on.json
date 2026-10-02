@@ -1,0 +1,134 @@
+{
+ "method": "always_on",
+ "split": "validation",
+ "best_params": {
+  "detection_threshold": 0.3,
+  "early_exit_threshold": 0.6,
+  "early_exit_low_threshold": 0.3
+ },
+ "objective": {
+  "J": -0.35826154208472827,
+  "timely": 0.45166666666666666,
+  "duty": 0.9999999999999999,
+  "attack_success": 0.61985641750279,
+  "recall": 0.5807142857142857,
+  "per_condition": [
+   {
+    "scenario": "clean",
+    "intensity": 1.0,
+    "timely": 0.4666666666666666,
+    "duty": 0.9999999999999999,
+    "atk": NaN,
+    "recall": 0.6,
+    "frr": NaN
+   },
+   {
+    "scenario": "mixed",
+    "intensity": 1.0,
+    "timely": 0.445,
+    "duty": 0.9999999999999998,
+    "atk": 0.5720149442755826,
+    "recall": 0.6,
+    "frr": NaN
+   },
+   {
+    "scenario": "noisy",
+    "intensity": 1.0,
+    "timely": 0.385,
+    "duty": 0.9999999999999998,
+    "atk": NaN,
+    "recall": 0.48,
+    "frr": NaN
+   },
+   {
+    "scenario": "replay_exact",
+    "intensity": 1.0,
+    "timely": 0.45499999999999996,
+    "duty": 0.9999999999999998,
+    "atk": 0.6329599567099568,
+    "recall": 0.5900000000000001,
+    "frr": NaN
+   },
+   {
+    "scenario": "replay_perturbed",
+    "intensity": 1.0,
+    "timely": 0.465,
+    "duty": 0.9999999999999998,
+    "atk": 0.6287819146797475,
+    "recall": 0.6,
+    "frr": NaN
+   },
+   {
+    "scenario": "spam",
+    "intensity": 1.0,
+    "timely": 0.47000000000000003,
+    "duty": 0.9999999999999998,
+    "atk": 0.6535866910866911,
+    "recall": 0.6,
+    "frr": NaN
+   },
+   {
+    "scenario": "spam",
+    "intensity": 8.0,
+    "timely": 0.475,
+    "duty": 0.9999999999999998,
+    "atk": 0.6119385807619717,
+    "recall": 0.595,
+    "frr": NaN
+   }
+  ]
+ },
+ "grid": {},
+ "parent": null,
+ "conditions": [
+  [
+   "clean",
+   1.0
+  ],
+  [
+   "noisy",
+   1.0
+  ],
+  [
+   "spam",
+   1.0
+  ],
+  [
+   "spam",
+   8.0
+  ],
+  [
+   "replay_exact",
+   1.0
+  ],
+  [
+   "replay_perturbed",
+   1.0
+  ],
+  [
+   "mixed",
+   1.0
+  ]
+ ],
+ "seeds": [
+  1001,
+  1002,
+  1003,
+  1004,
+  1005,
+  1006,
+  1007,
+  1008,
+  1009,
+  1010
+ ],
+ "clean_seeds": [
+  1001,
+  1002,
+  1003
+ ],
+ "lambda_duty": 0.5,
+ "lambda_attack": 0.5,
+ "n_configs_evaluated": 1,
+ "detection_threshold": 0.3
+}
