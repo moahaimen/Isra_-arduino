@@ -76,6 +76,8 @@ def main() -> int:
     ap.add_argument("--precision", choices=["fp32", "int8"], default="fp32")
     ap.add_argument("--calib", type=int, default=200, help="trainval images for INT8 calibration")
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--dataset", choices=["voc2007", "kitti_tracking"], default="voc2007")
+    ap.add_argument("--kitti-root", default="/home/claude/data_r2/kitti")
     a = ap.parse_args()
     import cv2
     import torch
@@ -93,7 +95,14 @@ def main() -> int:
     if not os.path.exists(onnx_path):
         torch.onnx.export(net, torch.zeros(1, 3, IMGSZ, IMGSZ), onnx_path, opset_version=13,
                           input_names=["images"], output_names=["output0"])
-    ds = datasets.load_voc2007(a.data_root, "test")
+    if a.dataset == "voc2007":
+        ds = datasets.load_voc2007(a.data_root, "test")
+        img_root = a.data_root
+        cls_map = {c: c for c in ds["classes"]}
+    else:  # KITTI test originals: VOC person (15) -> person (1), VOC car (7) -> car (2)
+        ds = datasets.load_kitti(a.kitti_root, "test")
+        img_root = a.kitti_root
+        cls_map = {15: 1, 7: 2}
     frames, gt = ds["frames"], ds["gt"]
     if a.limit:
         frames = frames.head(a.limit)
@@ -118,8 +127,14 @@ def main() -> int:
 
         model_file = onnx_path.replace(".onnx", "_int8.onnx")
         if not os.path.exists(model_file):
+            # Only convolutions are quantized: the YOLOv8 head concatenates box
+            # coordinates (0..256) and class scores (0..1) into one tensor, and
+            # per-tensor INT8 of that tensor zeroes the scores (mAP 0). The
+            # decode tail (concat, sigmoid, DFL softmax) stays float, as in
+            # standard YOLOv8 INT8 deployments.
             quantize_static(onnx_path, model_file, Reader(), quant_format=QuantFormat.QDQ,
-                            activation_type=QuantType.QInt8, weight_type=QuantType.QInt8, per_channel=True)
+                            activation_type=QuantType.QInt8, weight_type=QuantType.QInt8, per_channel=True,
+                            op_types_to_quantize=["Conv"])
     so = ort.SessionOptions()
     so.intra_op_num_threads = 1
     sess = ort.InferenceSession(model_file, so, providers=["CPUExecutionProvider"])
@@ -127,7 +142,7 @@ def main() -> int:
     rows = []
     t0 = time.time()
     for k, fr in enumerate(frames.itertuples()):
-        img = cv2.cvtColor(cv2.imread(os.path.join(a.data_root, fr.image_path)), cv2.COLOR_BGR2RGB)
+        img = cv2.cvtColor(cv2.imread(os.path.join(img_root, fr.image_path)), cv2.COLOR_BGR2RGB)
         x, r, left, top = letterbox(img, IMGSZ)
         inp = x.transpose(2, 0, 1)[None].astype(np.float32) / 255.0
         t1 = time.perf_counter()
@@ -138,8 +153,9 @@ def main() -> int:
         post = (time.perf_counter() - t2) * 1000
         pid = 0
         for cid, sc, x1, y1, x2, y2 in dets:
-            if x2 <= x1 or y2 <= y1:
+            if x2 <= x1 or y2 <= y1 or cid not in cls_map:
                 continue
+            cid = cls_map[cid]
             pid += 1
             rows.append((fr.event_id, pid, cid, ds["classes"][cid], sc, x1, y1, x2, y2, inf, post,
                          f"tinyissimo_v8b_256_{a.precision}", mhash))
@@ -169,9 +185,10 @@ def main() -> int:
             "model_file": os.path.basename(model_file), "model_sha256": mhash, "precision": a.precision.upper(),
             "input": [IMGSZ, IMGSZ], "training": rec, "training_set": "PASCAL VOC 2007 trainval",
             "confidence_threshold_kept": CONF, "nms_iou": IOU, "max_detections": MAXDET,
-            "int8": ("ONNX Runtime static PTQ, QDQ, per-channel weights, "
-                     f"{a.calib} VOC07 train calibration images") if a.precision == "int8" else None,
-            "dataset": ds["name"], "split": "test", "class_map": ds["classes"],
+            "int8": ("ONNX Runtime static PTQ, QDQ, per-channel INT8 weights and INT8 activations of every "
+                     f"Conv; decode tail float; {a.calib} VOC07 train calibration images")
+            if a.precision == "int8" else None,
+            "dataset": ds["name"], "split": "test", "class_map": ds["classes"], "voc_to_eval_class": cls_map,
             "portenta_inference_ms": "NOT MEASURED (calibration pending)",
             "host": {"platform": platform.platform(), "cpu_count": os.cpu_count(), "threads": 1}}
     trace_v2.write_trace(a.out, frames, gt, pred_all, meta, metrics,
