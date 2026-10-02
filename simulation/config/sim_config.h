@@ -164,7 +164,9 @@ struct SimConfig {
     double early_exit_low_threshold = 0.15;
     double m7_wakeup_ms = 3.0;
     double m7_linger_ms = 0.0;
-    double trace_background_inference_ms = 140.0;
+    double trace_background_inference_ms = 140.0;  // per tile
+    int detector_tiles = 1;                        // R3.1: tile passes per stage when the trace has no s1_tiles/s2_tiles
+    double tile_merge_ms = 1.0;                    // R3.1: ASSUMED box-merge cost per extra tile
 
     // --- derived/meta -------------------------------------------------------------
     std::vector<std::string> ablations;  // recorded for metadata only

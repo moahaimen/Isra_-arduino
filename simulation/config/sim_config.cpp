@@ -204,7 +204,9 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_DBL(early_exit_low_threshold, "exit after stage 1 when confidence <= this");
     P_DBL(m7_wakeup_ms, "M7 wake-up latency");
     P_DBL(m7_linger_ms, "M7 awake idle time before sleeping");
-    P_DBL(trace_background_inference_ms, "trace_replay inference time for background frames");
+    P_DBL(trace_background_inference_ms, "trace_replay inference time for background frames (per tile)");
+    P_INT(detector_tiles, "tile passes per stage when the trace has no s1_tiles/s2_tiles columns");
+    P_DBL(tile_merge_ms, "ASSUMED box-merge cost per extra tile");
 #undef P_DBL
 #undef P_INT
 #undef P_U64

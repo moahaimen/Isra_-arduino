@@ -38,6 +38,8 @@ struct StageOutput {
     double latency_ms = 0.0;
     bool available = true;   // false when a trace has no second-pass data
     uint64_t det_cells = 0;  // 12x4 M4 cell mask of boxes >= detection threshold (R3 feedback)
+    int tiles = 1;           // R3.1: number of tile passes this stage executed (cost = sum over tiles)
+    int prior_tiles = 0;     // R3.1: tile passes of the earlier stage whose boxes were already merged (0 = none)
 };
 
 class DetectorBackend {

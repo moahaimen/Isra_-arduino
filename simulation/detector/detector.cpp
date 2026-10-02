@@ -95,6 +95,7 @@ struct TraceRow {
     double s2_ms = 0.0;
     int s2_num_boxes = 0;
     uint64_t s1_cells = 0, s2_cells = 0;
+    int s1_tiles = 1, s2_tiles = 1;
 };
 
 class TraceReplayDetector : public DetectorBackend {
@@ -111,7 +112,9 @@ public:
     StageOutput stage1(const DetectorInput& in) override {
         StageOutput s;
         if (in.background) {
-            s.latency_ms = cfg_.trace_background_inference_ms;
+            // always_on background frame: an empty scene still costs a full tiled pass
+            s.tiles = cfg_.detector_tiles;
+            s.latency_ms = cfg_.trace_background_inference_ms * cfg_.detector_tiles;
             return s;
         }
         const TraceRow& row = get(in.key);
@@ -119,9 +122,8 @@ public:
         s.predicted_class = row.predicted_class;
         s.num_boxes = row.num_boxes;
         s.det_cells = row.s1_cells;
-        s.latency_ms = simulated_ ? Rng::keyed(cfg_.seed, "det_s1", in.key).lognormal_median(cfg_.inference_ms,
-                                                                                            cfg_.inference_sigma)
-                                  : row.inference_ms;
+        s.tiles = row.s1_tiles;
+        s.latency_ms = simulated_ ? tiled_latency("det_s1", in.key, row.s1_tiles, cfg_.inference_ms) : row.inference_ms;
         return s;
     }
 
@@ -140,15 +142,18 @@ public:
         s.predicted_class = row.s2_predicted_class;
         s.num_boxes = row.s2_num_boxes;
         s.det_cells = row.s2_cells;
-        s.latency_ms = simulated_ ? Rng::keyed(cfg_.seed, "det_s2", in.key).lognormal_median(cfg_.second_pass_cost_ms,
-                                                                                            cfg_.inference_sigma)
-                                  : row.s2_ms;
+        s.prior_tiles = s1.tiles;  // stage-1 boxes were merged before the early-exit decision
+        s.tiles = row.s2_tiles;
+        s.latency_ms = simulated_ ? tiled_latency("det_s2", in.key, row.s2_tiles, cfg_.second_pass_cost_ms) : row.s2_ms;
         return s;
     }
 
     double postprocess_ms(const DetectorInput& in, const StageOutput& out) override {
-        if (in.background) return cfg_.postprocess_base_ms;
-        if (simulated_) return cfg_.postprocess_base_ms + cfg_.postprocess_per_box_ms * out.num_boxes;
+        if (in.background) return cfg_.postprocess_base_ms + cfg_.tile_merge_ms * (cfg_.detector_tiles - 1);
+        // merging the boxes of n tiles (shift + class-wise NMS) costs tile_merge_ms per extra tile (ASSUMED)
+        if (simulated_)
+            return cfg_.postprocess_base_ms + cfg_.postprocess_per_box_ms * out.num_boxes +
+                   cfg_.tile_merge_ms * ((out.tiles > 1 ? out.tiles - 1 : 0) + (out.prior_tiles > 1 ? out.prior_tiles - 1 : 0));
         return get(in.key).postprocess_ms;
     }
 
@@ -158,6 +163,17 @@ private:
     // M7 latencies from the simulator's calibration-pending timing model.
     bool simulated_ = false;
     std::map<uint64_t, TraceRow> rows_;
+
+    // Physically composed tiled cost: the tiles run one after another on the
+    // single M7, each an independent lognormal draw around the PER-TILE cost
+    // (cfg inference_ms / second_pass_cost_ms = cost of ONE network pass).
+    double tiled_latency(const char* stage, uint64_t key, int tiles, double per_tile_ms) const {
+        double total = 0.0;
+        for (int k = 0; k < tiles; ++k)
+            total += Rng::keyed(cfg_.seed, stage, key * 16 + static_cast<uint64_t>(k))
+                         .lognormal_median(per_tile_ms, cfg_.inference_sigma);
+        return total;
+    }
 
     const TraceRow& get(uint64_t id) {
         auto it = rows_.find(id);
@@ -204,6 +220,9 @@ private:
             r.confidence = num("confidence", 0.0);
             r.inference_ms = num("inference_ms", cfg_.inference_ms);
             r.postprocess_ms = num("postprocess_ms", cfg_.postprocess_base_ms);
+            r.s1_tiles = static_cast<int>(num("s1_tiles", cfg_.detector_tiles));
+            r.s2_tiles = static_cast<int>(num("s2_tiles", cfg_.detector_tiles));
+            if (r.s1_tiles < 1 || r.s2_tiles < 1) throw std::runtime_error("tile counts must be >= 1");
             r.num_boxes = static_cast<int>(num("num_boxes", 0));
             if (m.count("second_pass_confidence") && !m["second_pass_confidence"].empty()) {
                 r.has_second = true;
