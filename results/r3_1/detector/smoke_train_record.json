@@ -1,0 +1,32 @@
+{
+ "env": {
+  "gpu": "none (SMOKE/CPU)",
+  "cuda": "12.4",
+  "torch": "2.5.1+cu124",
+  "python": "3.11.15",
+  "upstream_commit": "19bea4bd1ea1e2c29a6ee6b14bd7494ce8c6ba25"
+ },
+ "stage1": {
+  "epochs": 1,
+  "batch": 16,
+  "seed": 0,
+  "imgsz": 256,
+  "optimizer": "SGD",
+  "data": "VOC07 train + VOC12 trainval; select on VOC07 val",
+  "parameters": 839392,
+  "wall_s": 655.6132645606995,
+  "best_sha256": "46ed8a914896909de601ff755d3622b3c0b52f06d327c05a78fce1bb55952ad1",
+  "last_sha256": "c519c9afd4f0579a480ee1c0c5b686a1336ab77d9372a0c6bf685efd9bc377fa",
+  "selection": "best.pt by Ultralytics fitness (0.1 mAP50 + 0.9 mAP50-95) on VOC07 val",
+  "curve": "results.csv in the run directory"
+ },
+ "stage2": {
+  "epochs": 1,
+  "batch": 16,
+  "seed": 0,
+  "data": "KITTI tracking det_train tiles; select on det_val tiles (0013, 0018)",
+  "wall_s": 343.43190574645996,
+  "best_sha256": "5369f073b525691dd60661fd3553104a432434ad0f9f826cbbbc0f0d10306993",
+  "last_sha256": "5697593d8bd010c2c4daf282231635d349309e63511193729a8c302c1ea692cb"
+ }
+}
