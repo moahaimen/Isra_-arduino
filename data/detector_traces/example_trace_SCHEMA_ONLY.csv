@@ -1,0 +1,6 @@
+# SCHEMA EXAMPLE ONLY - hand-written values, NOT real detector output. Do not use for results.
+event_id,ground_truth_class,predicted_class,confidence,inference_ms,postprocess_ms,num_boxes,correct,second_pass_confidence,second_pass_predicted_class,second_pass_ms,gt_x,gt_y,gt_w,gt_h,pred_x,pred_y,pred_w,pred_h
+1,person,person,0.91,138.2,7.4,1,1,,,,40,30,60,120,42,28,58,118
+2,none,none,0.05,141.0,6.0,0,1,,,,,,,,,,,
+3,vehicle,person,0.62,139.5,7.1,1,0,0.81,vehicle,112.0,10,50,120,70,14,52,110,66
+4,animal,animal,0.44,140.3,6.0,0,0,0.58,animal,108.4,70,80,40,30,72,79,41,33

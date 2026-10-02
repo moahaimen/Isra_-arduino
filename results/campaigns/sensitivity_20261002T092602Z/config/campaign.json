@@ -1,0 +1,286 @@
+{
+  "campaign_id": "sensitivity_20261002T092602Z",
+  "created_utc": "2026-10-02T09:27:07.240066+00:00",
+  "command": "scripts/run_sensitivity.py --campaign-id sensitivity_20261002T092602Z --seeds 1:10 --seconds 3600 --jobs 4",
+  "git": {
+    "commit": "a753e8392c44ed65619d2fdd5342c7c7f40e5635",
+    "branch": "claude/research-grade-simulation-r1m7cp",
+    "dirty": false
+  },
+  "environment": {
+    "python": "3.11.15",
+    "platform": "Linux-6.18.44-fc-v51-x86_64-with-glibc2.39",
+    "numpy": "2.4.6",
+    "pandas": "3.0.6",
+    "scipy": "1.17.1",
+    "matplotlib": "3.11.2",
+    "compiler": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0"
+  },
+  "simulator_binary_sha256": "a937309eacf89de42c0ded7ebc9e2e1c73b1c9cba93dc7a6c32aebcc0f1e411f",
+  "num_runs": 2550,
+  "log_level": "decisions",
+  "note": "All energy values are MODELED from simulation-assumption power states (uncalibrated).",
+  "kind": "sensitivity",
+  "sweeps": {
+    "trigger_threshold": [
+      "sim",
+      [
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65
+      ],
+      [
+        "normal",
+        "noisy",
+        "mixed"
+      ],
+      [
+        "fixed_threshold",
+        "event",
+        "secure"
+      ]
+    ],
+    "cooldown_ms": [
+      "sim",
+      [
+        0,
+        500,
+        1500,
+        3000,
+        6000
+      ],
+      [
+        "normal",
+        "trigger_spam"
+      ],
+      [
+        "event",
+        "secure"
+      ]
+    ],
+    "early_exit_threshold": [
+      "sim",
+      [
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        0.95
+      ],
+      [
+        "normal",
+        "busy"
+      ],
+      [
+        "event",
+        "secure"
+      ]
+    ],
+    "arrival_scale": [
+      "workload",
+      [
+        0.5,
+        1.0,
+        2.0,
+        4.0
+      ],
+      [
+        "normal"
+      ],
+      [
+        "always_on",
+        "event",
+        "secure"
+      ]
+    ],
+    "attack_intensity": [
+      "workload",
+      [
+        0.0,
+        0.5,
+        1.0,
+        2.0,
+        4.0,
+        8.0
+      ],
+      [
+        "trigger_spam",
+        "replay",
+        "mixed"
+      ],
+      [
+        "fixed_threshold",
+        "event",
+        "secure"
+      ]
+    ],
+    "rpc_latency_ms": [
+      "sim",
+      [
+        0.1,
+        0.5,
+        2.0,
+        5.0,
+        10.0
+      ],
+      [
+        "busy"
+      ],
+      [
+        "event",
+        "secure"
+      ]
+    ],
+    "rpc_jitter_ms": [
+      "sim",
+      [
+        0.0,
+        0.2,
+        1.0,
+        5.0
+      ],
+      [
+        "busy"
+      ],
+      [
+        "event",
+        "secure"
+      ]
+    ],
+    "rpc_loss": [
+      "sim",
+      [
+        0.0,
+        0.01,
+        0.05,
+        0.1
+      ],
+      [
+        "normal",
+        "busy"
+      ],
+      [
+        "event",
+        "secure"
+      ]
+    ],
+    "rpc_queue_capacity": [
+      "sim",
+      [
+        1,
+        2,
+        4,
+        8
+      ],
+      [
+        "burst",
+        "busy"
+      ],
+      [
+        "event",
+        "secure"
+      ],
+      [
+        "--cooldown-ms",
+        "0"
+      ]
+    ],
+    "inference_ms": [
+      "sim",
+      [
+        70,
+        140,
+        280,
+        560
+      ],
+      [
+        "normal",
+        "busy"
+      ],
+      [
+        "always_on",
+        "event",
+        "secure"
+      ]
+    ],
+    "consistency_threshold": [
+      "sim",
+      [
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7
+      ],
+      [
+        "trigger_spam",
+        "mixed"
+      ],
+      [
+        "secure"
+      ]
+    ],
+    "rate_limit": [
+      "sim",
+      [
+        5,
+        10,
+        20,
+        40
+      ],
+      [
+        "busy",
+        "trigger_spam"
+      ],
+      [
+        "secure"
+      ]
+    ],
+    "burst_threshold": [
+      "sim",
+      [
+        5,
+        10,
+        20,
+        40
+      ],
+      [
+        "burst",
+        "trigger_spam"
+      ],
+      [
+        "secure"
+      ]
+    ],
+    "replay_window_ms": [
+      "sim",
+      [
+        60000,
+        300000,
+        600000,
+        1800000
+      ],
+      [
+        "replay"
+      ],
+      [
+        "secure"
+      ]
+    ]
+  },
+  "seeds": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "seconds": 3600.0
+}

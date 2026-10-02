@@ -1,0 +1,16 @@
+scenario,mode,attack_attempts,attack_success_rate,attack_detection_rate,security_precision,security_F1,false_rejection_rate,FRR_real_objects,spoofed_detections,episode_recall
+trigger_spam,motion_only,0.0 ± 0.0,n/a,n/a,n/a,n/a,n/a,n/a,0.00 ± 0.00,0.800 ± 2.541
+trigger_spam,fixed_threshold,0.0 ± 0.0,n/a,n/a,n/a,n/a,n/a,n/a,0.00 ± 0.00,0.800 ± 2.541
+trigger_spam,event,0.0 ± 0.0,n/a,n/a,n/a,n/a,n/a,n/a,0.00 ± 0.00,0.729 ± 1.634
+trigger_spam,event_no_early_exit,0.0 ± 0.0,n/a,n/a,n/a,n/a,n/a,n/a,0.00 ± 0.00,0.800 ± 2.541
+trigger_spam,secure,0.0 ± 0.0,n/a,n/a,0.000,n/a,0.031 ± 0.397,0.033 ± 0.424,0.00 ± 0.00,0.729 ± 1.634
+replay,motion_only,17.0 ± 63.5,0.455 ± 0.578,n/a,n/a,n/a,n/a,n/a,7.50 ± 19.06,0.800 ± 2.541
+replay,fixed_threshold,17.0 ± 63.5,0.455 ± 0.578,n/a,n/a,n/a,n/a,n/a,7.50 ± 19.06,0.800 ± 2.541
+replay,event,17.0 ± 63.5,0.455 ± 0.578,n/a,n/a,n/a,n/a,n/a,7.50 ± 19.06,0.729 ± 1.634
+replay,event_no_early_exit,17.0 ± 63.5,0.455 ± 0.578,n/a,n/a,n/a,n/a,n/a,7.50 ± 19.06,0.800 ± 2.541
+replay,secure,17.0 ± 63.5,0.174 ± 0.096,0.611 ± 0.706,0.917 ± 1.059,0.733 ± 0.847,0.031 ± 0.397,0.033 ± 0.424,3.00 ± 12.71,0.729 ± 1.634
+mixed,motion_only,14.5 ± 184.2,0.414,n/a,n/a,n/a,n/a,n/a,5.50 ± 69.88,0.800 ± 2.541
+mixed,fixed_threshold,14.5 ± 184.2,0.448,n/a,n/a,n/a,n/a,n/a,6.00 ± 76.24,0.800 ± 2.541
+mixed,event,14.5 ± 184.2,0.448,n/a,n/a,n/a,n/a,n/a,6.00 ± 76.24,0.729 ± 1.634
+mixed,event_no_early_exit,14.5 ± 184.2,0.448,n/a,n/a,n/a,n/a,n/a,6.00 ± 76.24,0.800 ± 2.541
+mixed,secure,14.5 ± 184.2,0.207,0.538,0.875,0.667,0.031 ± 0.397,0.033 ± 0.424,2.50 ± 31.77,0.729 ± 1.634
