@@ -1,0 +1,71 @@
+{
+ "method": "ugs_secure",
+ "gate": "C",
+ "split": "validation",
+ "selected": {
+  "ugs_rho": 0.85,
+  "ugs_a_off": 1.0,
+  "ugs_a_on": 4.5,
+  "ugs_z0": 0.5,
+  "ugs_dt_retry_ms": 500.0,
+  "ugs_k_retry": 5.0,
+  "ugs_dt_track_ms": 1000.0,
+  "ug_k_match": 2.0,
+  "ug_k_jump": 8.0,
+  "ug_margin": 2.0,
+  "ug_d_rel": 0.08,
+  "ug_capacity": 5.0,
+  "ug_refill_per_s": 2.0
+ },
+ "selected_metrics": {
+  "UR_timely": 0.8284182305630027,
+  "UR_track": 0.9811320754716981,
+  "UR_burst": 0.8484848484848485,
+  "UR_frame": 0.26366068016813143,
+  "timely_recall": 0.6331967213114754,
+  "duty": 0.24561542348411936,
+  "energy_per_min_mJ": 9994.454541626563,
+  "noisy_UR_timely": 0.7706422018348624,
+  "SUR": 0.9821276595744681,
+  "SUR_min": 0.9702127659574469,
+  "FRR": 0.023910614525139665,
+  "attack_success": 0.21885913853317812,
+  "duty_attack": 0.27844943715110687
+ },
+ "constraint_met": true,
+ "n_configs": 40,
+ "grid": {
+  "ug_k_match": [
+   1,
+   2,
+   4,
+   8
+  ],
+  "ug_k_jump": [
+   2,
+   4,
+   8
+  ],
+  "ug_margin": [
+   1,
+   2,
+   4
+  ],
+  "ug_d_rel": [
+   0.05,
+   0.08,
+   0.12
+  ],
+  "ug_capacity": [
+   5,
+   10,
+   20
+  ],
+  "ug_refill_per_s": [
+   1.0,
+   2.0
+  ]
+ },
+ "rule": "max SUR s.t. FRR<=0.05",
+ "det_thr": 0.45
+}

@@ -1,0 +1,56 @@
+{
+ "method": "secure",
+ "gate": "C",
+ "split": "validation",
+ "selected": {
+  "trigger_threshold": 0.4,
+  "cooldown_ms": 500.0,
+  "adaptive_gain": 2.0,
+  "rate_limit": 20.0,
+  "burst_threshold": 10.0,
+  "replay_feature_eps": 0.005,
+  "consistency_threshold": 0.5
+ },
+ "selected_metrics": {
+  "UR_timely": 0.28418230563002683,
+  "UR_track": 0.27253668763102723,
+  "UR_burst": 0.3181818181818182,
+  "UR_frame": 0.013679786014520443,
+  "timely_recall": 0.21721311475409835,
+  "duty": 0.012865415062560155,
+  "energy_per_min_mJ": 4406.975074807507,
+  "noisy_UR_timely": 0.3211009174311927,
+  "SUR": 1.06,
+  "SUR_min": 0.9833333333333334,
+  "FRR": 0.8788242351529694,
+  "attack_success": 0.01823826154443151,
+  "duty_attack": 0.013193336669874878
+ },
+ "constraint_met": false,
+ "n_configs": 40,
+ "grid": {
+  "rate_limit": [
+   10,
+   20,
+   60,
+   120
+  ],
+  "burst_threshold": [
+   10,
+   30,
+   60
+  ],
+  "replay_feature_eps": [
+   0.005,
+   0.01,
+   0.03
+  ],
+  "consistency_threshold": [
+   0.0,
+   0.3,
+   0.5
+  ]
+ },
+ "rule": "max SUR s.t. FRR<=0.05",
+ "det_thr": 0.45
+}

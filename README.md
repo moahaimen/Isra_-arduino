@@ -36,6 +36,16 @@ campaign. Timing and power remain simulated (calibration pending).
   significantly WORSE than the legacy rule on the noisy scenario, and all
   methods are limited by the detector (always-on moving-track recall 0.28).
 
+## R3 (branch research/q1-contribution-r3): gated contribution phase
+
+Stage-gated: detector gate (A), scheduler gate (B), security gate (C) on the validation split; the
+723-frame raw-drive test split is locked and unused. Status and evidence: `docs/R3_BASELINE.md`,
+`docs/R3_GATE_A.md`, `docs/R3_GATE_B.md`, `docs/R3_GATE_C.md`, algorithm `docs/R3_ALGORITHM.md`,
+M4 cost `docs/R3_COMPLEXITY.md`, hardware package `docs/R3_HARDWARE.md`, audit `docs/Q1_READINESS_R3.md`,
+contribution package `docs/PAPER_CONTRIBUTIONS_R3.md`. Headline: tiled detection removes the R2 detector ceiling;
+the closed-loop scheduler is best on clean validation video but not on noisy video; the temporal-context replay
+gate preserves availability (FRR ~2 %) but does not stop spam; the final campaign was NOT run.
+
 ## Layout
 
 | path | contents |

@@ -1,0 +1,56 @@
+{
+ "method": "robust_secure",
+ "gate": "C",
+ "split": "validation",
+ "selected": {
+  "robust_z_on": 2.0,
+  "robust_theta_max": 0.5,
+  "robust_theta_min": 0.2,
+  "content_cooldown_ms": 500.0,
+  "rg_dhash_max": 6.0,
+  "rg_fg_jaccard_thr": 0.0,
+  "rg_global_capacity": 20.0,
+  "rg_global_refill_per_s": 1.0
+ },
+ "selected_metrics": {
+  "UR_timely": 0.6032171581769437,
+  "UR_track": 0.9350104821802935,
+  "UR_burst": 0.6575757575757576,
+  "UR_frame": 0.12220099350401223,
+  "timely_recall": 0.4610655737704918,
+  "duty": 0.11007262632338786,
+  "energy_per_min_mJ": 6737.238755774784,
+  "noisy_UR_timely": 0.5642201834862385,
+  "SUR": 1.0235294117647058,
+  "SUR_min": 1.0,
+  "FRR": 0.6156118143459915,
+  "attack_success": 0.07217694994179279,
+  "duty_attack": 0.10797453435996147
+ },
+ "constraint_met": false,
+ "n_configs": 40,
+ "grid": {
+  "rg_dhash_max": [
+   2,
+   4,
+   6,
+   8
+  ],
+  "rg_fg_jaccard_thr": [
+   0.0,
+   0.7
+  ],
+  "rg_global_capacity": [
+   5,
+   10,
+   20
+  ],
+  "rg_global_refill_per_s": [
+   0.5,
+   1.0,
+   2.0
+  ]
+ },
+ "rule": "max SUR s.t. FRR<=0.05",
+ "det_thr": 0.45
+}

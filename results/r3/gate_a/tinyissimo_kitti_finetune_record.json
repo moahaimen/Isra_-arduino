@@ -1,0 +1,19 @@
+{
+ "upstream": "https://github.com/ETH-PBL/TinyissimoYOLO",
+ "upstream_commit": "19bea4bd1ea1e2c29a6ee6b14bd7494ce8c6ba25",
+ "variant": "tinyissimo-v8 (scale b), 2 classes",
+ "init": "/home/claude/data_r2/tinyissimo_runs/voc07_v8b_256_e30/weights/last.pt",
+ "init_sha256": "7a8d1a126a1e82a6ec73401dc6a88e08542c2ca8d113ddcb23af7d1da1610ca9",
+ "data": "/home/claude/data_r3/kitti_tiles/kitti_tiles.yaml",
+ "train": "KITTI tracking det_train sequences, every 2nd frame, 3 tiles/frame, no R3 val/test frames",
+ "checkpoint_selection": "best.pt by fitness on det_val sequences 0013, 0018 (tiles)",
+ "epochs": 20,
+ "batch": 64,
+ "imgsz": 256,
+ "optimizer": "SGD",
+ "device": "cpu",
+ "torch": "2.5.1+cu124",
+ "host": "Linux-6.18.44-fc-v51-x86_64-with-glibc2.39",
+ "train_wall_s": 6050.969863414764,
+ "best_sha256": "047b09fa8bbc7d06aae161f1f69e5b33e31754e8590913f82938ea4223ccec88"
+}
