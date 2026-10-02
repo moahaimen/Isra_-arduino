@@ -370,5 +370,52 @@ class SplitIsolationTests(unittest.TestCase):
         self.assertEqual(meta["_tuned_on"], "validation")
 
 
+class TrackMetricTests(unittest.TestCase):
+    def test_match_tracks_one_to_one_and_ignore(self):
+        import metrics_r2
+        gt = pd.DataFrame({"event_id": [1, 1, 1], "track_id": [7, 8, 9], "class_id": [1, 1, 2],
+                           "x1": [0, 50, 0], "y1": [0, 0, 50], "x2": [10, 60, 10], "y2": [10, 10, 60],
+                           "ignore": [0, 0, 1]})
+        pr = pd.DataFrame({"confidence": [0.9, 0.8, 0.7], "class_id": [1, 1, 2], "x1": [0, 0, 0], "y1": [0, 0, 50],
+                           "x2": [10, 10, 10], "y2": [10, 10, 60]})
+        # two predictions on track 7 count once; track 8 is missed; the
+        # ignored track 9 is never credited
+        self.assertEqual(metrics_r2.match_tracks(gt, pr), frozenset({7}))
+
+    def test_moving_track_definition(self):
+        import build_workloads as bw
+        rows = []
+        for f in range(5):  # track 1 moves 5 px/frame (20 px total), track 2 is parked
+            rows.append({"event_id": 100000 + f, "track_id": 1, "class_id": 2, "x1": 5 * f, "y1": 0,
+                         "x2": 5 * f + 10, "y2": 10, "ignore": 0})
+            rows.append({"event_id": 100000 + f, "track_id": 2, "class_id": 2, "x1": 100, "y1": 0, "x2": 110,
+                         "y2": 10, "ignore": 0})
+        rows.append({"event_id": 100000, "track_id": 3, "class_id": 1, "x1": 0, "y1": 0, "x2": 5, "y2": 9,
+                     "ignore": 0})  # single frame
+        tr = bw.moving_tracks(pd.DataFrame(rows)).set_index("track_id")
+        self.assertTrue(tr.loc[1, "moving"])
+        self.assertFalse(tr.loc[2, "moving"])
+        self.assertFalse(tr.loc[3, "moving"])
+
+    def test_replay_display_plan_uses_old_frames_only(self):
+        import build_workloads as bw
+        g = {"sequence": "0015", "first_frame": 90, "last_frame": 375, "split": "test"}
+        for sc in ("replay_exact", "replay_perturbed", "mixed", "spam", "noisy"):
+            plan = bw.display_plan(g, sc, 1.0, 3)
+            for i, p in enumerate(plan):
+                if p["attack"] == "replay":
+                    self.assertLessEqual(p["src"], p["live"] - int(bw.REPLAY_MIN_AGE_MS / bw.FRAME_MS))
+                    if sc == "replay_exact":
+                        self.assertEqual(p["variant"], 0)
+                    if sc == "replay_perturbed":
+                        self.assertIn(p["variant"], range(1, 8))
+                elif p["attack"] == "trigger_spam":
+                    self.assertIn(p["variant"], range(8, 16))
+                    self.assertEqual(p["src"], p["live"])
+                else:
+                    self.assertEqual(p["src"], p["live"])
+            self.assertEqual(plan, bw.display_plan(g, sc, 1.0, 3))  # deterministic
+
+
 if __name__ == "__main__":
     unittest.main()
