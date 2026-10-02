@@ -136,6 +136,51 @@ class YOLO:
         return out, float(sp["inference"]), float(sp["preprocess"] + sp["postprocess"])
 
 
+class TIY:
+    """TinyissimoYOLO (MCU target) through the pinned upstream fork, on the same
+    3 near-square tiles as lite0_tiled, 256x256 letterboxed. VOC checkpoints
+    map VOC person/car; KITTI fine-tuned checkpoints have 0 person, 1 car."""
+
+    def __init__(self, weights: str):
+        up = os.path.join(os.environ.get("EXT", "/home/claude/ext"), "TinyissimoYOLO")
+        sys.path.insert(0, up)
+        cwd = os.getcwd()
+        os.chdir(up)
+        import torch
+        from ultralytics import YOLO as Y
+        torch.set_num_threads(1)
+        self.m = Y(weights)
+        os.chdir(cwd)
+        names = self.m.names
+        self.map = {14: 1, 6: 2} if len(names) == 20 else {0: 1, 1: 2}
+        self.hash = trace_v2.sha256_file(weights)
+        n = sum(p.numel() for p in self.m.model.parameters())
+        self.meta = {"architecture": "TinyissimoYOLO v8-b (tiled x3)", "parameters": int(n), "macs": 3 * 184900608.0,
+                     "model_bytes": os.path.getsize(weights), "precision": "FP32", "input": [256, 256], "tiles": 3,
+                     "role": "mcu_target", "weights": weights}
+
+    def __call__(self, img, timing: bool = True):
+        H, W = img.shape[:2]
+        tw = int(np.ceil(W / 3 * 1.1))
+        out, inf_t, post_t = [], 0.0, 0.0
+        for x0 in np.linspace(0, W - tw, 3).astype(int):
+            r = self.m.predict(np.ascontiguousarray(img[:, x0:x0 + tw, ::-1]), imgsz=256, conf=0.01, iou=0.5,
+                               max_det=100, verbose=False, device="cpu")[0]
+            inf_t += float(r.speed["inference"])
+            post_t += float(r.speed["preprocess"] + r.speed["postprocess"])
+            for (x1, y1, x2, y2), sc, c in zip(r.boxes.xyxy.tolist(), r.boxes.conf.tolist(), r.boxes.cls.tolist()):
+                if int(c) in self.map:
+                    out.append((self.map[int(c)], float(sc), x1 + x0, y1, x2 + x0, y2))
+        merged = []
+        for c in (1, 2):
+            d = [o for o in out if o[0] == c]
+            if d:
+                b = np.array([o[2:] for o in d])
+                sc = np.array([o[1] for o in d])
+                merged += [d[i] for i in nms(b, sc)]
+        return merged, inf_t, post_t
+
+
 def track_ceiling(frames, gt, pred, det_thr):
     """Moving-track recall when the detector sees every frame."""
     from build_workloads import moving_tracks
@@ -182,7 +227,9 @@ def main() -> int:
         return 0
     ds = data_r3.load(a.split)
     frames, gt = ds["frames"], ds["gt"]
-    if a.detector.startswith("yolo:"):
+    if a.detector.startswith("tiy:"):
+        det = TIY(a.detector[4:])
+    elif a.detector.startswith("yolo:"):
         w, width = a.detector[5:].split("@")
         det = YOLO(w, int(width))
     else:
