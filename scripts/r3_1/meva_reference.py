@@ -95,8 +95,13 @@ def track(dets: pd.DataFrame):
 def build(group, manifest, weights):
     sk = seq_key(manifest, group)
     out = os.path.join(DATA, "meva", group)
-    dets, n = detect(group, weights)
-    dets.to_csv(os.path.join(out, "ref_dets.csv"), index=False)
+    cached = os.path.join(out, "ref_dets.csv")
+    if os.path.exists(cached):  # detection already done (resume after a crash in the tracking/writing step)
+        dets = pd.read_csv(cached)
+        n = len([f for f in os.listdir(out) if f.endswith(".jpg")])
+    else:
+        dets, n = detect(group, weights)
+        dets.to_csv(cached, index=False)
     tr = track(dets)
     gt, tmeta = [], []
     for t in tr:
@@ -109,7 +114,8 @@ def build(group, manifest, weights):
                        "x1": x1, "y1": y1, "x2": x2, "y2": y2})
         tmeta.append({"track_id": t["id"], "class_id": t["cls"], "n": len(rows), "mean_conf": float(np.mean(confs)),
                       "confirmed": bool(ok)})
-    gt = pd.DataFrame(gt)
+    cols = ["event_id", "track_id", "class_id", "class_name", "ignore", "x1", "y1", "x2", "y2"]
+    gt = pd.DataFrame(gt, columns=cols)  # an empty (no detections) group gives an empty table, not an error
     gt.insert(1, "gt_id", range(1, len(gt) + 1))
     gt.to_csv(os.path.join(out, "reference_gt.csv"), index=False)
     pd.DataFrame(tmeta).to_csv(os.path.join(out, "reference_tracks.csv"), index=False)
