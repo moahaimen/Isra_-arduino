@@ -7,8 +7,8 @@ probe `results/r3_1/complexity/m4_probe.cpp`, sizes in `m4_probe_size.txt`). **N
 |---|---|---|
 | Static RAM of the probe (feature extractor + scheduler + gate<256> + gate-state with R3.1 buckets) | 144,940 B (.bss) + 4 B (.data) | arm-none-eabi-size |
 | – FrameFeatureExtractor<float> | 76,804 B | `firmware_host_check_r3` |
-| – UgsScheduler (R3.1 fields included) | ≈ 2.0 KB (R3: 1,888 B; host check re-run output in `host_check_r3.txt`) | sizeof |
-| – UgsGate<256> history | ≈ 54 KB (+ 8 content-bucket doubles) | sizeof |
+| – UgsScheduler (R3.1 fields included) | 1,888 B (sizeof, R3.1 build) | `host_check_r3.txt` |
+| – UgsGate<256> history | 53,960 B (sizeof, R3.1 build, includes the 8 content buckets) | `host_check_r3.txt` |
 | Code (.text) of the probe | 8,348 B | arm-none-eabi-size |
 | Heap / exceptions / RTTI | none | build flags |
 | Worst-case gate ops | R3: 256 history × 192 block compares = 49,152 per frame; **R3.1 shift tolerance**: up to 8 extra shifted comparisons for each history entry whose unshifted count ≤ `shift_try` (worst case ≈ 9× → ≈ 442 k block compares); `shift_try` bounds it in practice | code inspection |
