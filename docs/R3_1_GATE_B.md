@@ -50,3 +50,19 @@ Energy is **modeled** (assumed power model), host timing is not Portenta timing.
 * The scheduler spends its wakes on *redundant refreshes* (62 % of wakes) — the value of its per-frame coverage (UR_frame 0.82) is real but costs duty 0.66.
 * The legacy event trigger gives a ≈ 62 % modeled-energy reduction vs always-on at UR_timely 0.63.
 * (Bug caught while producing this table: always-on rows were duplicated when merging two result files, halving all UR; fixed before use.)
+
+## Leave-one-group-out (KITTI validation, 7 groups; `scripts/r3_1/logo.py`, `results/r3_1/validation/logo_kitti_val.csv`)
+Each config was evaluated once on all groups; for each held-out group the config per family was chosen on the other six (max pooled UR_timely s.t. pooled duty ≤ 0.25; fallback lowest duty) and reported on the held-out group.
+
+| family | held-out UR mean | UR min | held-out duty mean | duty max | duty constraint satisfiable |
+|---|---|---|---|---|---|
+| MOG2 event | 0.68 | 0.27 | 0.21 | 0.35 | yes |
+| legacy event | 0.53 | 0.33 | 0.23 | 0.31 | yes |
+| R2 robust | 0.44 | 0.00 | 0.21 | 0.33 | yes |
+| motion only | 0.53 | 0.33 | 0.31 | 0.39 | no (min duty 0.31) |
+| R3 scheduler | 0.49 | 0.00 | 0.69 | 0.96 | **no** |
+| R3.1 scheduler (noise-norm) | 0.15 | 0.00 | 0.23 | 0.61 | yes, by suppressing wakes |
+| R3.1 scheduler (+hold / value rule / all) | ≤ 0.53 / 0.36 / 0.06 | 0.00 | 0.78 / 0.48 / 0.13 | – | hold/vr no |
+
+The conclusion is unchanged under LOGO: a duty ≤ 0.25 held-out operating point exists only for the simple triggers (and the suppressing noise-norm variant at UR ≈ 0.15);
+pooled-duty selection does not guarantee per-group duty (up to 0.31–0.35 on single groups). Held-out groups with few moving tracks make single-group UR very noisy (min values).
