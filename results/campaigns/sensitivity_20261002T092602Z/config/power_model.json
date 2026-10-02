@@ -1,0 +1,19 @@
+{
+  "units": "mW",
+  "source": "simulation_assumption",
+  "calibrated": false,
+  "_note": "SIMULATION-ONLY ASSUMPTIONS. None of these values has been measured on an Arduino Portenta H7. They are order-of-magnitude placeholders chosen so that the relative ordering of states is plausible for an STM32H747 (Cortex-M7 @480 MHz + Cortex-M4 @240 MHz) with a camera. Replace with measured values per docs/HARDWARE_VALIDATION_PLAN.md before making any physical energy claim.",
+  "states": {
+    "M4_IDLE":             {"power_mW": 5.0,   "core": "M4", "source": "simulation_assumption", "description": "M4 clock-gated idle, watcher not running (always_on mode)"},
+    "M4_MONITOR":          {"power_mW": 60.0,  "core": "M4", "source": "simulation_assumption", "description": "M4 running the low-rate watcher sensing loop (includes low-resolution sensing front end)"},
+    "M4_PROCESS":          {"power_mW": 90.0,  "core": "M4", "source": "simulation_assumption", "description": "M4 computing watcher features and score"},
+    "SECURITY_PROCESSING": {"power_mW": 95.0,  "core": "M4", "source": "simulation_assumption", "description": "M4 executing security-gate checks"},
+    "RPC_COMMUNICATION":   {"power_mW": 85.0,  "core": "M4", "source": "simulation_assumption", "description": "M4 sending a wake/inference request over the inter-core channel"},
+    "M7_SLEEP":            {"power_mW": 8.0,   "core": "M7", "source": "simulation_assumption", "description": "M7 domain in low-power stop/sleep"},
+    "M7_WAKEUP":           {"power_mW": 150.0, "core": "M7", "source": "simulation_assumption", "description": "M7 leaving sleep, clocks and memories restarting"},
+    "M7_INFERENCE":        {"power_mW": 420.0, "core": "M7", "source": "simulation_assumption", "description": "M7 running stage-1 detector inference (includes high-resolution camera capture)"},
+    "M7_SECOND_PASS":      {"power_mW": 420.0, "core": "M7", "source": "simulation_assumption", "description": "M7 running the optional second detector pass"},
+    "M7_POSTPROCESS":      {"power_mW": 300.0, "core": "M7", "source": "simulation_assumption", "description": "M7 decoding boxes / NMS / result packaging"},
+    "M7_IDLE_AWAKE":       {"power_mW": 200.0, "core": "M7", "source": "simulation_assumption", "description": "M7 awake but idle (linger or always_on between frames)"}
+  }
+}

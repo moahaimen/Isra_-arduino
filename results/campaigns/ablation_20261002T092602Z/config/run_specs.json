@@ -1,0 +1,6302 @@
+[
+ {
+  "run_id": "normal__s01__full_secure",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s01__no_security",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s01__no_cooldown",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s01__no_early_exit",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s01__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s01__no_replay_protection",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s01__no_rate_limit",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s01__no_burst_detection",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s01__no_consistency_check",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s01__always_on",
+  "scenario": "normal",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s02__full_secure",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s02__no_security",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s02__no_cooldown",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s02__no_early_exit",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s02__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s02__no_replay_protection",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s02__no_rate_limit",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s02__no_burst_detection",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s02__no_consistency_check",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s02__always_on",
+  "scenario": "normal",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s03__full_secure",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s03__no_security",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s03__no_cooldown",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s03__no_early_exit",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s03__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s03__no_replay_protection",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s03__no_rate_limit",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s03__no_burst_detection",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s03__no_consistency_check",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s03__always_on",
+  "scenario": "normal",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s04__full_secure",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s04__no_security",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s04__no_cooldown",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s04__no_early_exit",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s04__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s04__no_replay_protection",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s04__no_rate_limit",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s04__no_burst_detection",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s04__no_consistency_check",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s04__always_on",
+  "scenario": "normal",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s05__full_secure",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s05__no_security",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s05__no_cooldown",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s05__no_early_exit",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s05__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s05__no_replay_protection",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s05__no_rate_limit",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s05__no_burst_detection",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s05__no_consistency_check",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s05__always_on",
+  "scenario": "normal",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s06__full_secure",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s06__no_security",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s06__no_cooldown",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s06__no_early_exit",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s06__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s06__no_replay_protection",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s06__no_rate_limit",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s06__no_burst_detection",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s06__no_consistency_check",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s06__always_on",
+  "scenario": "normal",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s07__full_secure",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s07__no_security",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s07__no_cooldown",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s07__no_early_exit",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s07__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s07__no_replay_protection",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s07__no_rate_limit",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s07__no_burst_detection",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s07__no_consistency_check",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s07__always_on",
+  "scenario": "normal",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s08__full_secure",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s08__no_security",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s08__no_cooldown",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s08__no_early_exit",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s08__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s08__no_replay_protection",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s08__no_rate_limit",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s08__no_burst_detection",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s08__no_consistency_check",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s08__always_on",
+  "scenario": "normal",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s09__full_secure",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s09__no_security",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s09__no_cooldown",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s09__no_early_exit",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s09__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s09__no_replay_protection",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s09__no_rate_limit",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s09__no_burst_detection",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s09__no_consistency_check",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s09__always_on",
+  "scenario": "normal",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s10__full_secure",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "normal__s10__no_security",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "normal__s10__no_cooldown",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "normal__s10__no_early_exit",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "normal__s10__no_adaptive_trigger",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "normal__s10__no_replay_protection",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "normal__s10__no_rate_limit",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "normal__s10__no_burst_detection",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "normal__s10__no_consistency_check",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "normal__s10__always_on",
+  "scenario": "normal",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s01__full_secure",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s01__no_security",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s01__no_cooldown",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s01__no_early_exit",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s01__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s01__no_replay_protection",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s01__no_rate_limit",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s01__no_burst_detection",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s01__no_consistency_check",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s01__always_on",
+  "scenario": "busy",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s02__full_secure",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s02__no_security",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s02__no_cooldown",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s02__no_early_exit",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s02__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s02__no_replay_protection",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s02__no_rate_limit",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s02__no_burst_detection",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s02__no_consistency_check",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s02__always_on",
+  "scenario": "busy",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s03__full_secure",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s03__no_security",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s03__no_cooldown",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s03__no_early_exit",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s03__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s03__no_replay_protection",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s03__no_rate_limit",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s03__no_burst_detection",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s03__no_consistency_check",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s03__always_on",
+  "scenario": "busy",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s04__full_secure",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s04__no_security",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s04__no_cooldown",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s04__no_early_exit",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s04__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s04__no_replay_protection",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s04__no_rate_limit",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s04__no_burst_detection",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s04__no_consistency_check",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s04__always_on",
+  "scenario": "busy",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s05__full_secure",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s05__no_security",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s05__no_cooldown",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s05__no_early_exit",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s05__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s05__no_replay_protection",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s05__no_rate_limit",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s05__no_burst_detection",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s05__no_consistency_check",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s05__always_on",
+  "scenario": "busy",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s06__full_secure",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s06__no_security",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s06__no_cooldown",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s06__no_early_exit",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s06__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s06__no_replay_protection",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s06__no_rate_limit",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s06__no_burst_detection",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s06__no_consistency_check",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s06__always_on",
+  "scenario": "busy",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s07__full_secure",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s07__no_security",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s07__no_cooldown",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s07__no_early_exit",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s07__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s07__no_replay_protection",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s07__no_rate_limit",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s07__no_burst_detection",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s07__no_consistency_check",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s07__always_on",
+  "scenario": "busy",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s08__full_secure",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s08__no_security",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s08__no_cooldown",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s08__no_early_exit",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s08__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s08__no_replay_protection",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s08__no_rate_limit",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s08__no_burst_detection",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s08__no_consistency_check",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s08__always_on",
+  "scenario": "busy",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s09__full_secure",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s09__no_security",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s09__no_cooldown",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s09__no_early_exit",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s09__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s09__no_replay_protection",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s09__no_rate_limit",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s09__no_burst_detection",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s09__no_consistency_check",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s09__always_on",
+  "scenario": "busy",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s10__full_secure",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "busy__s10__no_security",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "busy__s10__no_cooldown",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "busy__s10__no_early_exit",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "busy__s10__no_adaptive_trigger",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "busy__s10__no_replay_protection",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "busy__s10__no_rate_limit",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "busy__s10__no_burst_detection",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "busy__s10__no_consistency_check",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "busy__s10__always_on",
+  "scenario": "busy",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s01__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s01__no_security",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s01__always_on",
+  "scenario": "trigger_spam",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s02__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s02__no_security",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s02__always_on",
+  "scenario": "trigger_spam",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s03__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s03__no_security",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s03__always_on",
+  "scenario": "trigger_spam",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s04__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s04__no_security",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s04__always_on",
+  "scenario": "trigger_spam",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s05__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s05__no_security",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s05__always_on",
+  "scenario": "trigger_spam",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s06__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s06__no_security",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s06__always_on",
+  "scenario": "trigger_spam",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s07__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s07__no_security",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s07__always_on",
+  "scenario": "trigger_spam",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s08__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s08__no_security",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s08__always_on",
+  "scenario": "trigger_spam",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s09__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s09__no_security",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s09__always_on",
+  "scenario": "trigger_spam",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s10__full_secure",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "trigger_spam__s10__no_security",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__no_cooldown",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__no_early_exit",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__no_adaptive_trigger",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__no_replay_protection",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__no_rate_limit",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__no_burst_detection",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__no_consistency_check",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "trigger_spam__s10__always_on",
+  "scenario": "trigger_spam",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s01__full_secure",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s01__no_security",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s01__no_cooldown",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s01__no_early_exit",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s01__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s01__no_replay_protection",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s01__no_rate_limit",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s01__no_burst_detection",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s01__no_consistency_check",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s01__always_on",
+  "scenario": "replay",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s02__full_secure",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s02__no_security",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s02__no_cooldown",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s02__no_early_exit",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s02__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s02__no_replay_protection",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s02__no_rate_limit",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s02__no_burst_detection",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s02__no_consistency_check",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s02__always_on",
+  "scenario": "replay",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s03__full_secure",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s03__no_security",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s03__no_cooldown",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s03__no_early_exit",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s03__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s03__no_replay_protection",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s03__no_rate_limit",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s03__no_burst_detection",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s03__no_consistency_check",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s03__always_on",
+  "scenario": "replay",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s04__full_secure",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s04__no_security",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s04__no_cooldown",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s04__no_early_exit",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s04__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s04__no_replay_protection",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s04__no_rate_limit",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s04__no_burst_detection",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s04__no_consistency_check",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s04__always_on",
+  "scenario": "replay",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s05__full_secure",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s05__no_security",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s05__no_cooldown",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s05__no_early_exit",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s05__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s05__no_replay_protection",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s05__no_rate_limit",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s05__no_burst_detection",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s05__no_consistency_check",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s05__always_on",
+  "scenario": "replay",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s06__full_secure",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s06__no_security",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s06__no_cooldown",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s06__no_early_exit",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s06__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s06__no_replay_protection",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s06__no_rate_limit",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s06__no_burst_detection",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s06__no_consistency_check",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s06__always_on",
+  "scenario": "replay",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s07__full_secure",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s07__no_security",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s07__no_cooldown",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s07__no_early_exit",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s07__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s07__no_replay_protection",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s07__no_rate_limit",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s07__no_burst_detection",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s07__no_consistency_check",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s07__always_on",
+  "scenario": "replay",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s08__full_secure",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s08__no_security",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s08__no_cooldown",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s08__no_early_exit",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s08__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s08__no_replay_protection",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s08__no_rate_limit",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s08__no_burst_detection",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s08__no_consistency_check",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s08__always_on",
+  "scenario": "replay",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s09__full_secure",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s09__no_security",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s09__no_cooldown",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s09__no_early_exit",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s09__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s09__no_replay_protection",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s09__no_rate_limit",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s09__no_burst_detection",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s09__no_consistency_check",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s09__always_on",
+  "scenario": "replay",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s10__full_secure",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "replay__s10__no_security",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "replay__s10__no_cooldown",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "replay__s10__no_early_exit",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "replay__s10__no_adaptive_trigger",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "replay__s10__no_replay_protection",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "replay__s10__no_rate_limit",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "replay__s10__no_burst_detection",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "replay__s10__no_consistency_check",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "replay__s10__always_on",
+  "scenario": "replay",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s01__full_secure",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s01__no_security",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__no_cooldown",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__no_early_exit",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s01__always_on",
+  "scenario": "mixed",
+  "seed": 1,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s02__full_secure",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s02__no_security",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__no_cooldown",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__no_early_exit",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s02__always_on",
+  "scenario": "mixed",
+  "seed": 2,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s03__full_secure",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s03__no_security",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__no_cooldown",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__no_early_exit",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s03__always_on",
+  "scenario": "mixed",
+  "seed": 3,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s04__full_secure",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s04__no_security",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__no_cooldown",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__no_early_exit",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s04__always_on",
+  "scenario": "mixed",
+  "seed": 4,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s05__full_secure",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s05__no_security",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__no_cooldown",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__no_early_exit",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s05__always_on",
+  "scenario": "mixed",
+  "seed": 5,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s06__full_secure",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s06__no_security",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__no_cooldown",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__no_early_exit",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s06__always_on",
+  "scenario": "mixed",
+  "seed": 6,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s07__full_secure",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s07__no_security",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__no_cooldown",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__no_early_exit",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s07__always_on",
+  "scenario": "mixed",
+  "seed": 7,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s08__full_secure",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s08__no_security",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__no_cooldown",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__no_early_exit",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s08__always_on",
+  "scenario": "mixed",
+  "seed": 8,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s09__full_secure",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s09__no_security",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__no_cooldown",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__no_early_exit",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s09__always_on",
+  "scenario": "mixed",
+  "seed": 9,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s10__full_secure",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "full_secure",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ },
+ {
+  "run_id": "mixed__s10__no_security",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_security",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-security"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__no_cooldown",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_cooldown",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-cooldown"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__no_early_exit",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_early_exit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-early-exit"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__no_adaptive_trigger",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_adaptive_trigger",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-adaptive-trigger"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__no_replay_protection",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_replay_protection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-replay-protection"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__no_rate_limit",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_rate_limit",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-rate-limit"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__no_burst_detection",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_burst_detection",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-burst-detection"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__no_consistency_check",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "secure",
+  "label": "no_consistency_check",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": [
+   "--disable-consistency-check"
+  ]
+ },
+ {
+  "run_id": "mixed__s10__always_on",
+  "scenario": "mixed",
+  "seed": 10,
+  "seconds": 3600.0,
+  "mode": "always_on",
+  "label": "always_on",
+  "group": "ablation",
+  "workload_args": {},
+  "sim_args": []
+ }
+]

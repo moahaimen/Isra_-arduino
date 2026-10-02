@@ -1,0 +1,11 @@
+workload,file_hash,runs,all_runs_match
+normal__s1__300s__default,243d59af5f3b2f5b,6,True
+normal__s2__300s__default,ac6cf62bb8db85ca,6,True
+busy__s1__300s__default,579d6d0795d1e24c,6,True
+busy__s2__300s__default,f9f0ccbf9aa6a92c,6,True
+trigger_spam__s1__300s__default,0a844d8103b10029,6,True
+trigger_spam__s2__300s__default,5bc1124f6545c640,6,True
+replay__s1__300s__default,da701326b4b4553e,6,True
+replay__s2__300s__default,262f5ab18cd6accb,6,True
+mixed__s1__300s__default,f3e7319eb3987493,6,True
+mixed__s2__300s__default,1358b7a6be5044dd,6,True
