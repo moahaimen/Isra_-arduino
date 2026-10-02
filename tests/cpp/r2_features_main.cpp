@@ -17,7 +17,7 @@ static int run(const std::vector<unsigned char>& buf, int n) {
     static X ex;  // large state: static storage
     const int fsz = X::N + X::FPW * X::FPH;
     std::printf("motion,temporal,visual,edge_change,consistency,noise,r2_motion,r2_temporal,r2_visual,"
-                "r2_consistency,gain,motion_cells,fg_count,fg,fp,sig64\n");
+                "r2_consistency,gain,motion_cells,fg_count,fg,fp,sig64,thumb192\n");
     for (int i = 0; i < n; ++i) {
         const unsigned char* p = buf.data() + static_cast<size_t>(i) * fsz;
         sim::FrameFeaturesOut o = ex.step(p, p + X::N);
@@ -28,7 +28,11 @@ static int run(const std::vector<unsigned char>& buf, int n) {
         for (int k = 0; k < 12; ++k) std::printf("%016llx", static_cast<unsigned long long>(o.fg[k]));
         std::printf(",");
         for (int k = 0; k < 4; ++k) std::printf("%016llx", static_cast<unsigned long long>(o.fp[k]));
-        std::printf(",%016llx\n", static_cast<unsigned long long>(o.sig64));
+        std::printf(",%016llx,", static_cast<unsigned long long>(o.sig64));
+        uint8_t th[192];
+        X::thumb192(p, th);
+        for (int k = 0; k < 192; ++k) std::printf("%02x", th[k]);
+        std::printf("\n");
     }
     return 0;
 }

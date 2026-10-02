@@ -155,6 +155,17 @@ public:
         }
     }
 
+    // R3: 24 x 8 block thumbnail, integer mean of each 4 x 4 block of L.
+    static void thumb192(const uint8_t* L, uint8_t* out) {
+        for (int by = 0; by < 8; ++by)
+            for (int bx = 0; bx < 24; ++bx) {
+                int s = 0;
+                for (int y = 0; y < 4; ++y)
+                    for (int x = 0; x < 4; ++x) s += L[(4 * by + y) * W + 4 * bx + x];
+                out[by * 24 + bx] = static_cast<uint8_t>(s / 16);
+            }
+    }
+
     static uint64_t dhash64(const uint8_t* L) {
         int s[8][9];
         for (int y = 0; y < 8; ++y)
