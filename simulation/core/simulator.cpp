@@ -11,13 +11,13 @@ namespace sim {
 
 WatcherParams watcher_params_from(const SimConfig& c) {
     WatcherParams p;
-    p.motion_only = (c.watcher_kind == "motion");
+    p.motion_only = (c.watcher_kind == "motion" || c.watcher_kind == "mog2");
     p.w_motion = c.w_motion;
     p.w_visual = c.w_visual;
     p.w_temporal = c.w_temporal;
     p.w_consistency = c.w_consistency;
     p.theta = c.trigger_threshold;
-    p.motion_threshold = c.motion_threshold;
+    p.motion_threshold = c.watcher_kind == "mog2" ? c.mog2_threshold : c.motion_threshold;
     p.use_cooldown = c.cooldown;
     p.cooldown_ms = c.cooldown_ms;
     p.adaptive = c.adaptive_trigger;
@@ -46,6 +46,55 @@ SecurityParams security_params_from(const SimConfig& c) {
     return p;
 }
 
+RobustWatcherParams robust_watcher_params_from(const SimConfig& c) {
+    RobustWatcherParams p;
+    p.w_motion = c.w_motion;
+    p.w_visual = c.w_visual;
+    p.w_temporal = c.w_temporal;
+    p.w_consistency = c.w_consistency;
+    p.bg_window = c.robust_bg_window;
+    p.bg_min = c.robust_bg_min;
+    p.z_on = c.robust_z_on;
+    p.z_off = c.robust_z_off;
+    p.theta_min = c.robust_theta_min;
+    p.theta_max = c.robust_theta_max;
+    p.sigma_floor = c.robust_sigma_floor;
+    p.persist_k = c.robust_persist_k;
+    p.release_k = c.robust_release_k;
+    p.robust_threshold = c.robust_threshold;
+    p.content_cooldown = c.content_cooldown;
+    p.content_cooldown_ms = c.content_cooldown_ms;
+    p.overlap_thr = c.content_overlap_thr;
+    p.region_ttl_ms = c.region_ttl_ms;
+    return p;
+}
+
+RobustGateParams robust_gate_params_from(const SimConfig& c) {
+    RobustGateParams p;
+    p.consistency_on = c.rg_consistency;
+    p.consistency_threshold = c.rg_consistency_threshold;
+    p.replay_on = c.rg_replay;
+    p.replay_window_ms = c.rg_replay_window_ms;
+    p.replay_min_age_ms = c.rg_replay_min_age_ms;
+    p.fg_jaccard_thr = c.rg_fg_jaccard_thr;
+    p.dhash_max = c.rg_dhash_max;
+    p.fg_min = c.rg_fg_min;
+    p.history_capacity = c.rg_history;
+    p.content_bucket_on = c.rg_content_bucket;
+    p.content_capacity = c.rg_content_capacity;
+    p.content_refill_per_s = c.rg_content_refill_per_s;
+    p.content_overlap_thr = c.content_overlap_thr;
+    p.content_ttl_ms = c.rg_content_ttl_ms;
+    p.global_bucket_on = c.rg_global_bucket;
+    p.global_capacity = c.rg_global_capacity;
+    p.global_refill_per_s = c.rg_global_refill_per_s;
+    p.emergency_on = c.rg_emergency;
+    p.emergency_capacity = c.rg_emergency_capacity;
+    p.emergency_refill_per_s = c.rg_emergency_refill_per_s;
+    p.z_emergency = c.rg_z_emergency;
+    return p;
+}
+
 Simulator::Simulator(const SimConfig& cfg, const Workload& wl, const PowerModel& pm)
     : cfg_(cfg),
       wl_(wl),
@@ -54,11 +103,30 @@ Simulator::Simulator(const SimConfig& cfg, const Workload& wl, const PowerModel&
       always_on_(cfg.mode == "always_on"),
       watcher_(watcher_params_from(cfg)),
       gate_(security_params_from(cfg)),
+      rwatcher_(robust_watcher_params_from(cfg)),
+      rgate_(robust_gate_params_from(cfg)),
+      robust_watcher_(cfg.watcher_kind == "robust"),
+      robust_gate_(cfg.security_kind == "robust"),
       rpc_(cfg),
       det_(make_detector(cfg)),
       m4_(always_on_ ? M4_IDLE : M4_MONITOR, 0.0),
       m7_(M7_SLEEP, 0.0) {
     rec_.resize(wl.events.size());
+    if (cfg.watcher_kind != "score" && cfg.watcher_kind != "motion" && cfg.watcher_kind != "robust" &&
+        cfg.watcher_kind != "mog2")
+        throw std::runtime_error("unknown watcher_kind: " + cfg.watcher_kind);
+    if (cfg.security_kind != "legacy" && cfg.security_kind != "robust")
+        throw std::runtime_error("unknown security_kind: " + cfg.security_kind);
+    if (cfg.watcher_frontend != "basic" && cfg.watcher_frontend != "r2")
+        throw std::runtime_error("unknown watcher_frontend: " + cfg.watcher_frontend);
+    const bool needs_r2 = cfg.watcher_frontend == "r2" || cfg.watcher_kind == "robust" ||
+                          cfg.watcher_kind == "mog2" || (cfg.security && cfg.security_kind == "robust");
+    if (needs_r2) {
+        for (const auto& e : wl.events)
+            if (!e.obs.has_r2)
+                throw std::runtime_error("mode needs R2 real-frame features; workload event " +
+                                         std::to_string(e.obs.event_id) + " has none");
+    }
     bg_noise_ = is_valid_scenario(wl.scenario) ? scenario_params(wl.scenario, cfg).noise_base : 0.12;
     for (size_t i = 0; i < wl.events.size(); ++i) {
         const auto& o = wl.events[i].obs;
@@ -77,8 +145,23 @@ void Simulator::push(double t, int type, int64_t a) { q_.push(Ev{t, seq_++, type
 
 SecurityFrame Simulator::frame_of(int64_t idx) const {
     const Observable& o = wl_.events[static_cast<size_t>(idx)].obs;
+    if (cfg_.watcher_frontend == "r2")
+        return SecurityFrame{o.timestamp_ms, o.r2_motion, o.r2_visual, o.r2_temporal, o.r2_consistency,
+                             o.content_signature};
     return SecurityFrame{o.timestamp_ms, o.motion_score, o.visual_score, o.temporal_change_score,
                          o.sensor_consistency_score, o.content_signature};
+}
+
+RobustFrame Simulator::robust_frame_of(int64_t idx) const {
+    const Observable& o = wl_.events[static_cast<size_t>(idx)].obs;
+    RobustFrame f;
+    f.t_ms = o.timestamp_ms;
+    f.consistency = cfg_.watcher_frontend == "r2" ? o.r2_consistency : o.sensor_consistency_score;
+    f.cells = o.motion_cells;
+    for (int k = 0; k < 4; ++k) f.fp[k] = o.fp256[k];
+    for (int k = 0; k < 12; ++k) f.fg[k] = o.fg768[k];
+    f.fg_count = o.fg_count;
+    return f;
 }
 
 void Simulator::log_begin_event(double t, const char* ev, int64_t idx) {
@@ -168,16 +251,41 @@ void Simulator::m4_start_next(double t) {
 void Simulator::on_watch_done(double t, int64_t idx) {
     const Observable& o = wl_.events[static_cast<size_t>(idx)].obs;
     ObsRecord& r = rec_[static_cast<size_t>(idx)];
-    WatcherFeatures f{o.motion_score, o.visual_score, o.temporal_change_score, o.sensor_consistency_score,
-                      o.noise_score};
-    WatcherDecision d = watcher_.evaluate(o.timestamp_ms, f);
+    WatcherDecision d;
+    if (robust_watcher_) {
+        const bool r2 = cfg_.watcher_frontend == "r2";
+        RobustFeatures rf{r2 ? o.r2_motion : o.motion_score, r2 ? o.r2_visual : o.visual_score,
+                          r2 ? o.r2_temporal : o.temporal_change_score,
+                          r2 ? o.r2_consistency : o.sensor_consistency_score, o.motion_cells};
+        RobustDecision rd = rwatcher_.evaluate(o.timestamp_ms, rf);
+        d.score = rd.score;
+        d.threshold = rd.threshold;
+        d.raw_positive = rd.raw_positive;
+        d.trigger = rd.trigger;
+        d.suppress = rd.suppress == RS_CONTENT_COOLDOWN ? WS_COOLDOWN : (rd.trigger ? WS_NONE : WS_BELOW_THRESHOLD);
+        r.z = rd.z;
+        r.novel = rd.novel;
+        if (rd.suppress == RS_PERSISTENCE) r.suppress_reason = "PERSISTENCE";
+    } else if (cfg_.watcher_kind == "mog2") {
+        WatcherFeatures f{o.mog2_fg, 0.0, 0.0, 0.0, o.noise_score};
+        d = watcher_.evaluate(o.timestamp_ms, f);
+    } else if (cfg_.watcher_frontend == "r2") {
+        WatcherFeatures f{o.r2_motion, o.r2_visual, o.r2_temporal, o.r2_consistency, o.noise_score};
+        d = watcher_.evaluate(o.timestamp_ms, f);
+    } else {
+        WatcherFeatures f{o.motion_score, o.visual_score, o.temporal_change_score, o.sensor_consistency_score,
+                          o.noise_score};
+        d = watcher_.evaluate(o.timestamp_ms, f);
+    }
     r.m4_evaluated = true;
     r.decision_ms = t;
     r.score = d.score;
     r.threshold = d.threshold;
     r.raw_positive = d.raw_positive;
     r.triggered = d.trigger;
-    r.suppress_reason = d.suppress == WS_COOLDOWN ? "COOLDOWN" : (d.suppress == WS_BELOW_THRESHOLD ? "BELOW_THRESHOLD" : "NONE");
+    if (r.suppress_reason != "PERSISTENCE")
+        r.suppress_reason =
+            d.suppress == WS_COOLDOWN ? "COOLDOWN" : (d.suppress == WS_BELOW_THRESHOLD ? "BELOW_THRESHOLD" : "NONE");
     ++sum_.watcher_evaluations;
     if (d.raw_positive) ++sum_.raw_positives;
     if (log_.enabled(LOG_FULL)) {
@@ -201,7 +309,7 @@ void Simulator::on_watch_done(double t, int64_t idx) {
             .kv("gt_action", wl_.events[static_cast<size_t>(idx)].gt.ground_truth_action)
             .end();
     }
-    if (cfg_.security && d.raw_positive) gate_.note_candidate(o.timestamp_ms);
+    if (cfg_.security && !robust_gate_ && d.raw_positive) gate_.note_candidate(o.timestamp_ms);
     if (!d.trigger) {
         if (d.raw_positive) {
             ++sum_.suppressed_cooldown;
@@ -228,8 +336,17 @@ void Simulator::on_watch_done(double t, int64_t idx) {
 
 void Simulator::on_sec_done(double t, int64_t idx) {
     ObsRecord& r = rec_[static_cast<size_t>(idx)];
-    SecurityDecision d = gate_.decide(frame_of(idx));
-    std::string reason = security_reason_name(d.reason);
+    SecurityDecision d;
+    if (robust_gate_) {
+        RobustGateDecision rd = rgate_.decide(robust_frame_of(idx), r.novel, r.z);
+        d.accept = rd.accept;
+        d.reason = rd.reason;
+        d.consistency_metric = robust_frame_of(idx).consistency;
+        d.matched_age_ms = rd.matched_age_ms;
+    } else {
+        d = gate_.decide(frame_of(idx));
+    }
+    std::string reason = robust_gate_ ? robust_reason_name(d.reason) : security_reason_name(d.reason);
     if (d.accept && cfg_.debug_random_block_prob > 0.0) {
         // DEBUG ONLY: legacy probability-based blocking, kept for simulator
         // validation. Runs using it are flagged research_valid=false.
@@ -322,7 +439,10 @@ void Simulator::on_tx_done(double t, int64_t idx) {
 }
 
 void Simulator::m4_finish(double t, int64_t idx) {
-    if (cfg_.security) gate_.observe(frame_of(idx));
+    if (cfg_.security) {
+        if (robust_gate_) rgate_.observe(robust_frame_of(idx));
+        else gate_.observe(frame_of(idx));
+    }
     m4_start_next(t);
 }
 
@@ -603,7 +723,7 @@ void Simulator::write_outputs(const std::string& dir, const std::string& workloa
                      "rpc_channel_wait_ms,rpc_tx_ms,rpc_receive_ms,enqueue_ms,dequeue_ms,queue_delay_ms,wake_wait_ms,caused_wake,"
                      "started,processed,detect_start_ms,s1_conf,s1_class,s1_ms,early_exit,second_pass,s2_conf,"
                      "s2_class,s2_ms,post_ms,final_conf,final_class,num_boxes,detected,result_m7_ms,"
-                     "result_delivered_ms,result_rpc_ms\n");
+                     "result_delivered_ms,result_rpc_ms,watcher_z,watcher_novel\n");
         for (size_t i = 0; i < rec_.size(); ++i) {
             const Observable& o = wl_.events[i].obs;
             const GroundTruth& g = wl_.events[i].gt;
@@ -611,7 +731,7 @@ void Simulator::write_outputs(const std::string& dir, const std::string& workloa
             std::fprintf(f,
                          "%llu,%lld,%s,%.3f,%.3f,%s,%s,%s,%s,%lld,%lld,%s,%s,%s,%s,%.3f,%.4f,%.4f,%s,%s,%s,%s,%s,%s,"
                          "%.4f,%s,%.3f,%.4f,%.4f,%.3f,%.3f,%.3f,%.3f,%.3f,%s,%s,%s,%.3f,%.4f,%s,%.3f,%s,%s,%.4f,%s,%.3f,"
-                         "%.3f,%.4f,%s,%d,%s,%.3f,%.3f,%.4f\n",
+                         "%.3f,%.4f,%s,%d,%s,%.3f,%.3f,%.4f,%.4f,%s\n",
                          static_cast<unsigned long long>(o.event_id), static_cast<long long>(g.episode_id),
                          g.episode_type.c_str(), o.timestamp_ms, o.duration_ms, b(g.is_legitimate), b(g.object_present),
                          class_name(g.object_class), g.attack_type.c_str(), static_cast<long long>(g.replay_id),
@@ -624,7 +744,7 @@ void Simulator::write_outputs(const std::string& dir, const std::string& workloa
                          r.detect_start_ms, r.s1_conf, class_name(r.s1_class), r.s1_ms, b(r.early_exit),
                          b(r.second_pass), r.s2_conf, class_name(r.s2_class), r.s2_ms, r.post_ms, r.final_conf,
                          class_name(r.final_class), r.num_boxes, b(r.detected), r.result_m7_ms, r.result_delivered_ms,
-                         r.result_rpc_ms);
+                         r.result_rpc_ms, r.z, b(r.novel));
         }
         std::fclose(f);
     }

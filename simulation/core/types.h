@@ -29,6 +29,21 @@ struct Observable {
     double sensor_consistency_score = 0.0;  // agreement between sensing channels
     double noise_score = 0.0;             // estimated sensor noise level
     uint64_t content_signature = 0;       // perceptual hash of the captured frame
+
+    // --- R2 real-frame features (present when has_r2; see
+    // scripts/r2/frame_features.py for the exact equations). All are
+    // computed by the M4 from the displayed low-resolution frame only.
+    bool has_r2 = false;
+    double edge_change_score = 0.0;  // scale-invariant edge-map change
+    double r2_motion = 0.0;          // gain-compensated frame-difference fraction
+    double r2_temporal = 0.0;        // gain-compensated background deviation
+    double r2_visual = 0.0;          // gain-compensated cell activity
+    double r2_consistency = 0.0;     // agreement of compensated motion and edge change
+    double mog2_fg = 0.0;            // MOG2 foreground fraction (literature baseline input)
+    uint64_t motion_cells = 0;       // 12 x 4 cell motion bitmask (bit = cy*12 + cx)
+    uint64_t fp256[4] = {0, 0, 0, 0};  // 256-bit difference hash of a 17 x 16 thumbnail
+    uint64_t fg768[12] = {};         // 48 x 16 foreground mask (gain-compensated)
+    int fg_count = 0;                // set bits in fg768
 };
 
 // Labels known only to the workload generator and the evaluator.

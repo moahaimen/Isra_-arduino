@@ -16,6 +16,7 @@ namespace sim {
 struct SimConfig {
     // --- run identity ---------------------------------------------------
     std::string mode = "secure";       // always_on|motion_only|fixed_threshold|event|event_no_early_exit|secure
+                                       // R2: robust_event|robust_secure|mog2_event
     std::string scenario = "normal";   // quiet|normal|busy|burst|noisy|trigger_spam|replay|mixed
     uint64_t seed = 1;
     double seconds = 600.0;
@@ -33,7 +34,8 @@ struct SimConfig {
     double replay_perturb_prob = 0.3;  // fraction of replays perturbed to defeat exact hashing
 
     // --- M4 watcher --------------------------------------------------------
-    std::string watcher_kind = "score";  // score|motion
+    std::string watcher_kind = "score";  // score|motion (R1); robust|mog2 (R2)
+    std::string watcher_frontend = "basic";  // basic|r2 (gain-compensated, R2 workloads only)
     double w_motion = 0.30, w_visual = 0.35, w_temporal = 0.20, w_consistency = 0.15;
     double trigger_threshold = 0.55;
     double motion_threshold = 0.55;
@@ -44,9 +46,27 @@ struct SimConfig {
     double adaptive_noise_ref = 0.15;
     double adaptive_ewma_alpha = 0.05;
     double m4_process_ms = 1.0;
+    // R2 robust watcher (simulation/watcher/robust_watcher.h)
+    int robust_bg_window = 64;
+    int robust_bg_min = 8;
+    double robust_z_on = 4.0;
+    double robust_z_off = 2.0;
+    double robust_theta_min = 0.20;
+    double robust_theta_max = 0.55;
+    double robust_sigma_floor = 0.02;
+    int robust_persist_k = 2;
+    int robust_release_k = 3;
+    bool robust_threshold = true;
+    bool content_cooldown = true;
+    double content_cooldown_ms = 1000.0;
+    double content_overlap_thr = 0.3;
+    double region_ttl_ms = 3000.0;
+    // MOG2 background-subtraction trigger (literature baseline)
+    double mog2_threshold = 0.02;
 
     // --- security gate -------------------------------------------------------
     bool security = false;
+    std::string security_kind = "legacy";  // legacy (R1 gate) | robust (R2 gate)
     bool rate_limit_enabled = true;
     int rate_limit = 20;
     double rate_window_ms = 60000.0;
@@ -63,6 +83,27 @@ struct SimConfig {
     int security_history = 512;
     double security_process_ms = 0.4;
     double debug_random_block_prob = 0.0;  // DEBUG ONLY: legacy probability blocking
+    // R2 robust gate (simulation/security/robust_gate.h)
+    bool rg_consistency = true;
+    double rg_consistency_threshold = 0.3;
+    bool rg_replay = true;
+    double rg_replay_window_ms = 60000.0;
+    double rg_replay_min_age_ms = 2000.0;
+    double rg_fg_jaccard_thr = 0.80;
+    int rg_dhash_max = 32;
+    int rg_fg_min = 12;
+    int rg_history = 256;
+    bool rg_content_bucket = true;
+    double rg_content_capacity = 3.0;
+    double rg_content_refill_per_s = 0.5;
+    double rg_content_ttl_ms = 10000.0;
+    bool rg_global_bucket = true;
+    double rg_global_capacity = 10.0;
+    double rg_global_refill_per_s = 1.0;
+    bool rg_emergency = true;
+    double rg_emergency_capacity = 3.0;
+    double rg_emergency_refill_per_s = 0.1;
+    double rg_z_emergency = 6.0;
 
     // --- RPC / inter-core communication ---------------------------------------
     double rpc_latency_ms = 0.5;
@@ -73,6 +114,7 @@ struct SimConfig {
     // --- detector workload model -------------------------------------------------
     std::string detector_backend = "synthetic_distribution";  // synthetic_distribution|trace_replay
     std::string detector_trace;
+    std::string trace_timing = "trace";     // trace: latencies from the trace; simulated: M7 timing model
     double inference_ms = 140.0;            // median stage-1 inference latency
     double inference_sigma = 0.08;          // log-normal sigma of inference latency
     double second_pass_cost_ms = 110.0;     // median stage-2 latency

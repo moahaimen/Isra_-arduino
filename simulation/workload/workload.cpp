@@ -436,6 +436,31 @@ std::string hex64(uint64_t v) {
     return buf;
 }
 
+namespace {
+
+uint64_t parse_hex_word(const std::string& s, size_t word) {
+    if (s.size() < 16 * (word + 1)) throw std::runtime_error("hex field too short: " + s);
+    return std::strtoull(s.substr(16 * word, 16).c_str(), nullptr, 16);
+}
+
+std::string r2_jsonl_suffix(const Observable& o) {
+    char buf[512];
+    std::snprintf(buf, sizeof(buf),
+                  ",\"edge_change_score\":%.4f,\"r2_motion\":%.4f,\"r2_temporal\":%.4f,\"r2_visual\":%.4f,"
+                  "\"r2_consistency\":%.4f,\"mog2_fg\":%.5f,\"motion_cells\":\"%s\",\"fg_count\":%d",
+                  o.edge_change_score, o.r2_motion, o.r2_temporal, o.r2_visual, o.r2_consistency, o.mog2_fg,
+                  hex64(o.motion_cells).c_str(), o.fg_count);
+    std::string out = buf;
+    out += ",\"fp256\":\"";
+    for (uint64_t w : o.fp256) out += hex64(w);
+    out += "\",\"fg768\":\"";
+    for (uint64_t w : o.fg768) out += hex64(w);
+    out += "\"";
+    return out;
+}
+
+}  // namespace
+
 std::string workload_event_to_jsonl(const WorkloadEvent& e) {
     const Observable& o = e.obs;
     const GroundTruth& g = e.gt;
@@ -454,7 +479,13 @@ std::string workload_event_to_jsonl(const WorkloadEvent& e) {
                   hex64(o.content_signature).c_str(), g.attack_type.c_str(), static_cast<long long>(g.replay_id),
                   static_cast<long long>(g.burst_id), g.ground_truth_action.c_str(),
                   g.frame_has_object ? "true" : "false", class_name(g.frame_object_class));
-    return buf;
+    std::string line = buf;
+    if (o.has_r2) {
+        // R2 fields are appended inside the object; R1 workloads are unchanged.
+        line.pop_back();
+        line += r2_jsonl_suffix(o) + "}";
+    }
+    return line;
 }
 
 void save_workload(const Workload& wl, const std::string& path, const SimConfig& cfg) {
@@ -514,6 +545,20 @@ Workload load_workload(const std::string& path) {
         g.frame_has_object = v.has("frame_has_object") ? v.at("frame_has_object").as_bool() : g.object_present;
         g.frame_object_class = v.has("frame_object_class") ? class_from_name(v.at("frame_object_class").as_string())
                                                            : g.object_class;
+        if (v.has("fp256")) {
+            o.has_r2 = true;
+            o.edge_change_score = v.at("edge_change_score").as_number();
+            o.r2_motion = v.at("r2_motion").as_number();
+            o.r2_temporal = v.at("r2_temporal").as_number();
+            o.r2_visual = v.at("r2_visual").as_number();
+            o.r2_consistency = v.at("r2_consistency").as_number();
+            o.mog2_fg = v.has("mog2_fg") ? v.at("mog2_fg").as_number() : 0.0;
+            o.motion_cells = std::strtoull(v.at("motion_cells").as_string().c_str(), nullptr, 16);
+            o.fg_count = static_cast<int>(v.at("fg_count").as_number());
+            const std::string fp = v.at("fp256").as_string(), fg = v.at("fg768").as_string();
+            for (size_t k = 0; k < 4; ++k) o.fp256[k] = parse_hex_word(fp, k);
+            for (size_t k = 0; k < 12; ++k) o.fg768[k] = parse_hex_word(fg, k);
+        }
         if (!wl.events.empty() && o.timestamp_ms < wl.events.back().obs.timestamp_ms)
             throw std::runtime_error("workload not sorted by timestamp at line " + std::to_string(lineno));
         max_end = std::max(max_end, o.timestamp_ms + o.duration_ms);

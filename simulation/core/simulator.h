@@ -22,7 +22,9 @@
 #include "detector/detector.h"
 #include "energy/energy_model.h"
 #include "logging/event_log.h"
+#include "security/robust_gate.h"
 #include "security/security_gate.h"
+#include "watcher/robust_watcher.h"
 #include "watcher/watcher.h"
 
 namespace sim {
@@ -38,6 +40,8 @@ struct ObsRecord {
     bool raw_positive = false;
     bool triggered = false;
     std::string suppress_reason = "NONE";
+    double z = 0.0;           // robust watcher z-score (R2)
+    bool novel = false;       // robust watcher: trigger opened a new content region
     // Security
     bool sec_evaluated = false;
     bool sec_accept = false;
@@ -153,6 +157,10 @@ private:
 
     Watcher watcher_;
     SecurityGate<2048> gate_;
+    RobustWatcher rwatcher_;
+    RobustGate<512> rgate_;
+    bool robust_watcher_;
+    bool robust_gate_;
     RpcChannel rpc_;
     std::unique_ptr<DetectorBackend> det_;
     CoreStateTracker m4_, m7_;
@@ -206,9 +214,12 @@ private:
     void on_ao_cycle(double t);
 
     SecurityFrame frame_of(int64_t idx) const;
+    RobustFrame robust_frame_of(int64_t idx) const;
 };
 
 WatcherParams watcher_params_from(const SimConfig& cfg);
 SecurityParams security_params_from(const SimConfig& cfg);
+RobustWatcherParams robust_watcher_params_from(const SimConfig& cfg);
+RobustGateParams robust_gate_params_from(const SimConfig& cfg);
 
 }  // namespace sim

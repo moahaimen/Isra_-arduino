@@ -13,7 +13,8 @@ namespace sim {
 
 namespace {
 
-const char* kModes[] = {"always_on", "motion_only", "fixed_threshold", "event", "event_no_early_exit", "secure"};
+const char* kModes[] = {"always_on", "motion_only", "fixed_threshold", "event",       "event_no_early_exit",
+                        "secure",    "robust_event", "robust_secure",  "mog2_event"};
 const char* kScenarios[] = {"quiet", "normal", "busy", "burst", "noisy", "trigger_spam", "replay", "mixed"};
 
 std::string normalize(std::string name) {
@@ -81,7 +82,8 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_DBL(arrival_scale, "legitimate arrival-rate multiplier");
     P_DBL(spam_sophistication, "fraction of spam triggers mimicking consistent sensors");
     P_DBL(replay_perturb_prob, "fraction of replays perturbed to defeat exact hashing");
-    P_STR(watcher_kind, "watcher decision rule: score|motion");
+    P_STR(watcher_kind, "watcher decision rule: score|motion|robust|mog2");
+    P_STR(watcher_frontend, "watcher feature front end: basic|r2 (gain-compensated)");
     P_DBL(w_motion, "watcher weight for motion_score");
     P_DBL(w_visual, "watcher weight for visual_score");
     P_DBL(w_temporal, "watcher weight for temporal_change_score");
@@ -95,7 +97,23 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_DBL(adaptive_noise_ref, "adaptive threshold noise reference");
     P_DBL(adaptive_ewma_alpha, "adaptive threshold EWMA factor");
     P_DBL(m4_process_ms, "M4 watcher processing time per observation");
+    P_INT(robust_bg_window, "robust watcher: background score history length");
+    P_INT(robust_bg_min, "robust watcher: history needed before the robust threshold is used");
+    P_DBL(robust_z_on, "robust watcher: on threshold in robust z units");
+    P_DBL(robust_z_off, "robust watcher: off (hysteresis) threshold in robust z units");
+    P_DBL(robust_theta_min, "robust watcher: lower bound of the on threshold");
+    P_DBL(robust_theta_max, "robust watcher: upper bound of the on threshold");
+    P_DBL(robust_sigma_floor, "robust watcher: minimum robust sigma");
+    P_INT(robust_persist_k, "robust watcher: consecutive frames above threshold to activate");
+    P_INT(robust_release_k, "robust watcher: consecutive frames below off threshold to release");
+    P_BOOL(robust_threshold, "robust watcher: robust noise-normalised threshold (off = fixed theta_max)");
+    P_BOOL(content_cooldown, "robust watcher: per-content cooldown (off = one global cooldown)");
+    P_DBL(content_cooldown_ms, "robust watcher: re-trigger period of one content region");
+    P_DBL(content_overlap_thr, "robust watcher/gate: cell-mask overlap for the same content");
+    P_DBL(region_ttl_ms, "robust watcher: forget a content region after this idle time");
+    P_DBL(mog2_threshold, "MOG2 baseline: foreground-fraction trigger threshold");
     P_BOOL(security, "enable the security gate");
+    P_STR(security_kind, "security gate: legacy|robust");
     P_BOOL(rate_limit_enabled, "enable trigger rate limiting");
     P_INT(rate_limit, "max accepted triggers per rate window");
     P_DBL(rate_window_ms, "rate-limit window");
@@ -112,12 +130,33 @@ std::vector<std::pair<std::string, Param>>& registry() {
     P_INT(security_history, "security history ring-buffer capacity");
     P_DBL(security_process_ms, "security processing time per trigger");
     P_DBL(debug_random_block_prob, "DEBUG ONLY legacy random blocking probability");
+    P_BOOL(rg_consistency, "robust gate: consistency check");
+    P_DBL(rg_consistency_threshold, "robust gate: minimum compensated consistency");
+    P_BOOL(rg_replay, "robust gate: content-fingerprint replay check");
+    P_DBL(rg_replay_window_ms, "robust gate: replay history window");
+    P_DBL(rg_replay_min_age_ms, "robust gate: minimum age of a replay match");
+    P_DBL(rg_fg_jaccard_thr, "robust gate: foreground-mask Jaccard for a replay match");
+    P_INT(rg_dhash_max, "robust gate: max dHash-256 Hamming distance for a replay match");
+    P_INT(rg_fg_min, "robust gate: minimum foreground bits for replay checking/history");
+    P_INT(rg_history, "robust gate: fingerprint history capacity");
+    P_BOOL(rg_content_bucket, "robust gate: per-content token bucket");
+    P_DBL(rg_content_capacity, "robust gate: per-content bucket capacity");
+    P_DBL(rg_content_refill_per_s, "robust gate: per-content refill rate");
+    P_DBL(rg_content_ttl_ms, "robust gate: per-content slot lifetime");
+    P_BOOL(rg_global_bucket, "robust gate: global token bucket");
+    P_DBL(rg_global_capacity, "robust gate: global bucket capacity");
+    P_DBL(rg_global_refill_per_s, "robust gate: global refill rate");
+    P_BOOL(rg_emergency, "robust gate: emergency budget for novel high-z content");
+    P_DBL(rg_emergency_capacity, "robust gate: emergency budget capacity");
+    P_DBL(rg_emergency_refill_per_s, "robust gate: emergency budget refill rate");
+    P_DBL(rg_z_emergency, "robust gate: minimum watcher z for the emergency budget");
     P_DBL(rpc_latency_ms, "RPC base transmission latency");
     P_DBL(rpc_jitter_ms, "RPC jitter scale (half-normal)");
     P_DBL(rpc_loss, "RPC request loss probability");
     P_INT(rpc_queue_capacity, "M7 request queue capacity");
     P_STR(detector_backend, "synthetic_distribution|trace_replay");
     P_STR(detector_trace, "detector trace CSV for trace_replay");
+    P_STR(trace_timing, "trace_replay latencies: trace|simulated");
     P_DBL(inference_ms, "median stage-1 inference latency");
     P_DBL(inference_sigma, "log-normal sigma of inference latency");
     P_DBL(second_pass_cost_ms, "median stage-2 latency");
@@ -189,7 +228,27 @@ void apply_mode_defaults(SimConfig& cfg, const std::string& mode) {
         cfg.watcher_kind = "score";
         cfg.adaptive_trigger = true;
         cfg.security = true;
+        cfg.security_kind = "legacy";
         cfg.early_exit = true;
+    } else if (mode == "robust_event") {
+        cfg.watcher_kind = "robust";
+        cfg.watcher_frontend = "r2";
+        cfg.security = false;
+        cfg.early_exit = true;
+    } else if (mode == "robust_secure") {
+        cfg.watcher_kind = "robust";
+        cfg.watcher_frontend = "r2";
+        cfg.security = true;
+        cfg.security_kind = "robust";
+        cfg.early_exit = true;
+    } else if (mode == "mog2_event") {
+        // Literature baseline: MOG2 background subtraction (Zivkovic 2004/2006)
+        // foreground fraction >= threshold, global cooldown, no security,
+        // no early exit (like the other trigger baselines).
+        cfg.watcher_kind = "mog2";
+        cfg.adaptive_trigger = false;
+        cfg.security = false;
+        cfg.early_exit = false;
     }
 }
 
@@ -301,6 +360,7 @@ std::string cli_help() {
         "edge_sim - secure dual-core event-triggered object detection simulator\n\n"
         "Usage: edge_sim [--config FILE] [--mode MODE] [options]\n\n"
         "Modes: always_on motion_only fixed_threshold event event_no_early_exit secure\n"
+        "       robust_event robust_secure mog2_event (R2, real-frame workloads)\n"
         "Scenarios: quiet normal busy burst noisy trigger_spam replay mixed\n\n"
         "Flags without value:\n"
         "  --generate-only --disable-security --disable-cooldown --disable-early-exit\n"

@@ -9,7 +9,9 @@
 #include "core/rng.h"
 #include "core/simulator.h"
 #include "energy/energy_model.h"
+#include "security/robust_gate.h"
 #include "security/security_gate.h"
+#include "watcher/robust_watcher.h"
 #include "watcher/watcher.h"
 #include "workload/workload.h"
 
@@ -262,6 +264,192 @@ static void test_simulator() {
     CHECK(std::fabs(se.energy_mj() - (pm.power_mw[M4_MONITOR] + pm.power_mw[M7_SLEEP]) * 60.0) < 1e-6);
 }
 
+// ------------------------------------------------------------------ R2
+
+static uint64_t cells_at(int cx, int cy, int w = 1, int h = 1) {
+    uint64_t m = 0;
+    for (int y = cy; y < cy + h; ++y)
+        for (int x = cx; x < cx + w; ++x) m |= 1ULL << (y * 12 + x);
+    return m;
+}
+
+static void test_robust_watcher() {
+    std::printf("test_robust_watcher\n");
+    RobustWatcherParams p;
+    p.persist_k = 2;
+    p.content_cooldown_ms = 1000.0;
+    // Background: quiet frames, then a persistent object.
+    {
+        RobustWatcher w(p);
+        double t = 0.0;
+        for (int i = 0; i < 40; ++i, t += 100.0) {
+            RobustDecision d = w.evaluate(t, {0.02, 0.02, 0.02, 1.0, 0});
+            CHECK(!d.trigger);
+        }
+        // a single-frame flash is not persistent -> no trigger
+        RobustDecision d1 = w.evaluate(t, {0.9, 0.9, 0.9, 1.0, cells_at(3, 1)});
+        t += 100.0;
+        CHECK(!d1.trigger && d1.suppress == RS_PERSISTENCE);
+        RobustDecision d2 = w.evaluate(t, {0.02, 0.02, 0.02, 1.0, 0});
+        t += 100.0;
+        CHECK(!d2.trigger);
+        // persistent object: triggers on its 2nd frame, then content cooldown
+        int trig = 0;
+        for (int i = 0; i < 10; ++i, t += 100.0) trig += w.evaluate(t, {0.8, 0.7, 0.8, 1.0, cells_at(5, 2)}).trigger;
+        CHECK(trig == 1);
+        // after the cooldown the same object re-triggers (periodic re-detection)
+        for (int i = 0; i < 10; ++i, t += 100.0) trig += w.evaluate(t, {0.8, 0.7, 0.8, 1.0, cells_at(5, 2)}).trigger;
+        CHECK(trig == 2);
+    }
+    // Legitimate multi-object burst: distinct objects close in time all trigger
+    // with the per-content cooldown, but only one with a global cooldown.
+    for (int mode = 0; mode < 2; ++mode) {
+        RobustWatcherParams q = p;
+        q.content_cooldown = (mode == 0);
+        RobustWatcher w(q);
+        double t = 0.0;
+        for (int i = 0; i < 20; ++i, t += 100.0) w.evaluate(t, {0.02, 0.02, 0.02, 1.0, 0});
+        int trig = 0;
+        uint64_t objs = 0;
+        for (int k = 0; k < 4; ++k) {
+            objs |= cells_at(2 * k + 1, k % 4);  // object k appears at frame k
+            for (int rep = 0; rep < 2; ++rep, t += 100.0) trig += w.evaluate(t, {0.8, 0.7, 0.8, 1.0, objs}).trigger;
+        }
+        // with one cell per object the union mask overlaps each new object
+        // only partly; separate objects in separate frames:
+        RobustWatcher w2(q);
+        double t2 = 0.0;
+        for (int i = 0; i < 20; ++i, t2 += 100.0) w2.evaluate(t2, {0.02, 0.02, 0.02, 1.0, 0});
+        int trig2 = 0;
+        for (int i = 0; i < 2; ++i, t2 += 100.0) trig2 += w2.evaluate(t2, {0.8, 0.7, 0.8, 1.0, cells_at(0, 0)}).trigger;
+        for (int k = 1; k < 4; ++k, t2 += 100.0)
+            trig2 += w2.evaluate(t2, {0.8, 0.7, 0.8, 1.0, cells_at(3 * k, k % 4)}).trigger;
+        if (mode == 0) CHECK(trig2 == 4);
+        else CHECK(trig2 == 1);
+        (void)trig;
+    }
+    // Noise robustness: a noisy but object-free background raises the robust
+    // threshold within [theta_min, theta_max] and does not trigger.
+    {
+        RobustWatcher w(p);
+        Rng r(5);
+        double t = 0.0, max_thr = 0.0;
+        int trig = 0;
+        for (int i = 0; i < 300; ++i, t += 100.0) {
+            const double n = 0.15 + 0.05 * r.normal(0.0, 1.0);
+            RobustDecision d = w.evaluate(t, {n, n, n, 1.0, 0});
+            trig += d.trigger;
+            if (d.threshold > max_thr) max_thr = d.threshold;
+        }
+        CHECK(trig <= 3);
+        CHECK(max_thr <= p.theta_max + 1e-12);
+    }
+}
+
+static RobustFrame rframe(double t, uint64_t cells, int fg_seed, int fg_bits, uint64_t fp0 = 0x1234) {
+    RobustFrame f{};
+    f.t_ms = t;
+    f.consistency = 1.0;
+    f.cells = cells;
+    f.fp[0] = fp0;
+    f.fp[1] = 0xabcdefULL;
+    f.fp[2] = 0;
+    f.fp[3] = 0;
+    for (int k = 0; k < 12; ++k) f.fg[k] = 0;
+    f.fg_count = 0;
+    for (int b = 0; b < fg_bits; ++b) {
+        const int bit = (fg_seed * 37 + b * 7) % 768;
+        if (!(f.fg[bit / 64] >> (bit % 64) & 1ULL)) ++f.fg_count;
+        f.fg[bit / 64] |= 1ULL << (bit % 64);
+    }
+    return f;
+}
+
+static void test_robust_gate() {
+    std::printf("test_robust_gate\n");
+    RobustGateParams p;
+    p.replay_min_age_ms = 2000.0;
+    p.fg_jaccard_thr = 0.8;
+    p.dhash_max = 8;
+    // exact replay of a recorded frame is blocked; the live frame is accepted
+    {
+        RobustGate<512> g(p);
+        RobustFrame orig = rframe(1000.0, cells_at(2, 1), 1, 40);
+        RobustGateDecision d0 = g.decide(orig, true, 8.0);
+        CHECK(d0.accept);
+        g.observe(orig);
+        RobustFrame rep = orig;
+        rep.t_ms = 6000.0;
+        RobustGateDecision d1 = g.decide(rep, true, 8.0);
+        CHECK(!d1.accept && d1.reason == RR_REPLAY);
+        CHECK(std::fabs(d1.matched_age_ms - 5000.0) < 1e-9);
+        // too recent to be a replay (continuous live scene)
+        RobustGate<512> g2(p);
+        g2.observe(orig);
+        RobustFrame live = orig;
+        live.t_ms = 1500.0;
+        CHECK(g2.decide(live, false, 8.0).accept);
+    }
+    // perturbed replay: a few foreground bits and dHash bits differ -> still blocked;
+    // a different foreground (new object) -> accepted
+    {
+        RobustGate<512> g(p);
+        RobustFrame orig = rframe(1000.0, cells_at(2, 1), 1, 60);
+        g.observe(orig);
+        RobustFrame pert = orig;
+        pert.t_ms = 7000.0;
+        pert.fg[0] ^= 0x3ULL;  // two bits differ
+        pert.fp[0] ^= 0x7ULL;  // three dHash bits differ
+        RobustGateDecision d = g.decide(pert, true, 8.0);
+        CHECK(!d.accept && d.reason == RR_REPLAY);
+        RobustFrame other = rframe(7100.0, cells_at(8, 2), 9, 60);
+        CHECK(g.decide(other, true, 8.0).accept);
+    }
+    // multi-object legitimate burst: distinct contents are all accepted
+    {
+        RobustGate<512> g(p);
+        int acc = 0;
+        for (int k = 0; k < 6; ++k) acc += g.decide(rframe(1000.0 + 50.0 * k, cells_at(2 * k, k % 4), 20 + k, 30), true, 8.0).accept;
+        CHECK(acc == 6);
+    }
+    // high-spam degradation: repeated same-content spam is rate-limited per
+    // content, while novel legitimate content is still accepted
+    {
+        RobustGateParams q = p;
+        q.replay_on = false;
+        RobustGate<512> g(q);
+        int spam_acc = 0, legit_acc = 0, legit_n = 0;
+        double t = 0.0;
+        for (int i = 0; i < 200; ++i, t += 100.0) {
+            spam_acc += g.decide(rframe(t, cells_at(6, 3), 3, 30), false, 5.0).accept;
+            if (i % 25 == 10) {  // novel objects in the top row, away from the spam region
+                ++legit_n;
+                legit_acc += g.decide(rframe(t + 1.0, cells_at(i / 25, 0), 50 + i, 30), true, 9.0).accept;
+            }
+        }
+        CHECK(spam_acc <= 3 + 20 * q.content_refill_per_s + 1);  // capacity + refill over 20 s
+        CHECK(legit_acc == legit_n);
+    }
+    // global budget exhausted by many distinct contents: the emergency budget
+    // still admits novel high-z content, low-z content is rate-limited
+    {
+        RobustGateParams q = p;
+        q.replay_on = false;
+        q.global_capacity = 2.0;
+        q.global_refill_per_s = 0.0;
+        RobustGate<512> g(q);
+        CHECK(g.decide(rframe(0.0, cells_at(0, 0), 1, 30), true, 9.0).accept);
+        CHECK(g.decide(rframe(10.0, cells_at(4, 0), 2, 30), true, 9.0).accept);
+        RobustGateDecision low = g.decide(rframe(20.0, cells_at(8, 0), 3, 30), true, 1.0);
+        CHECK(!low.accept && low.reason == RR_RATE_LIMIT);
+        RobustGateDecision hi = g.decide(rframe(30.0, cells_at(8, 3), 4, 30), true, 9.0);
+        CHECK(hi.accept && hi.used_emergency);
+    }
+    // dilation stays inside the 12 x 4 grid
+    CHECK(dilate_cells(cells_at(11, 0)) == (cells_at(10, 0, 2, 2)));
+    CHECK(dilate_cells(cells_at(0, 3)) == (cells_at(0, 2, 2, 2)));
+}
+
 int main() {
     test_rng();
     test_energy_tracker();
@@ -269,6 +457,8 @@ int main() {
     test_security_gate();
     test_workload();
     test_simulator();
+    test_robust_watcher();
+    test_robust_gate();
     std::printf("unit_tests: %d passed, %d failed\n", g_pass, g_fail);
     return g_fail == 0 ? 0 : 1;
 }

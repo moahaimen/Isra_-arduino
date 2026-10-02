@@ -93,11 +93,17 @@ struct TraceRow {
     double s2_confidence = 0.0;
     int s2_predicted_class = CLS_NONE;
     double s2_ms = 0.0;
+    int s2_num_boxes = 0;
 };
 
 class TraceReplayDetector : public DetectorBackend {
 public:
-    explicit TraceReplayDetector(const SimConfig& cfg) : cfg_(cfg) { load(cfg.detector_trace); }
+    explicit TraceReplayDetector(const SimConfig& cfg) : cfg_(cfg) {
+        if (cfg.trace_timing != "trace" && cfg.trace_timing != "simulated")
+            throw std::runtime_error("unknown trace_timing: " + cfg.trace_timing);
+        simulated_ = cfg.trace_timing == "simulated";
+        load(cfg.detector_trace);
+    }
 
     std::string name() const override { return "trace_replay"; }
 
@@ -111,7 +117,9 @@ public:
         s.confidence = row.confidence;
         s.predicted_class = row.predicted_class;
         s.num_boxes = row.num_boxes;
-        s.latency_ms = row.inference_ms;
+        s.latency_ms = simulated_ ? Rng::keyed(cfg_.seed, "det_s1", in.key).lognormal_median(cfg_.inference_ms,
+                                                                                            cfg_.inference_sigma)
+                                  : row.inference_ms;
         return s;
     }
 
@@ -128,17 +136,24 @@ public:
         }
         s.confidence = row.s2_confidence;
         s.predicted_class = row.s2_predicted_class;
-        s.latency_ms = row.s2_ms;
+        s.num_boxes = row.s2_num_boxes;
+        s.latency_ms = simulated_ ? Rng::keyed(cfg_.seed, "det_s2", in.key).lognormal_median(cfg_.second_pass_cost_ms,
+                                                                                            cfg_.inference_sigma)
+                                  : row.s2_ms;
         return s;
     }
 
-    double postprocess_ms(const DetectorInput& in, const StageOutput&) override {
+    double postprocess_ms(const DetectorInput& in, const StageOutput& out) override {
         if (in.background) return cfg_.postprocess_base_ms;
+        if (simulated_) return cfg_.postprocess_base_ms + cfg_.postprocess_per_box_ms * out.num_boxes;
         return get(in.key).postprocess_ms;
     }
 
 private:
     const SimConfig& cfg_;
+    // trace_timing == "simulated": predictions come from the (real) trace,
+    // M7 latencies from the simulator's calibration-pending timing model.
+    bool simulated_ = false;
     std::map<uint64_t, TraceRow> rows_;
 
     const TraceRow& get(uint64_t id) {
@@ -192,6 +207,7 @@ private:
                 r.s2_confidence = num("second_pass_confidence", 0.0);
                 r.s2_predicted_class = parse_class(m["second_pass_predicted_class"]);
                 r.s2_ms = num("second_pass_ms", cfg_.second_pass_cost_ms);
+                r.s2_num_boxes = static_cast<int>(num("second_pass_num_boxes", r.num_boxes));
             }
             rows_[id] = r;
         }

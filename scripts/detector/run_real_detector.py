@@ -68,18 +68,20 @@ class MediaPipeDetector:
         self.it.invoke()
         return (time.perf_counter() - t0) * 1000.0
 
-    def __call__(self, img: np.ndarray):
+    def __call__(self, img: np.ndarray, timing: bool = True):
         t0 = time.perf_counter()
         r = self.det.detect(self.mp.Image(image_format=self.mp.ImageFormat.SRGB, data=np.ascontiguousarray(img)))
         total = (time.perf_counter() - t0) * 1000.0
-        inf = self._raw_invoke_ms(img)
+        # timing=False skips the separate raw-invoke measurement (used for
+        # attack/noise variants, whose host timing is never used).
+        inf = self._raw_invoke_ms(img) if timing else float("nan")
         out = []
         for d in r.detections:
             b = d.bounding_box
             c = d.categories[0]
             out.append((c.category_name, float(c.score), float(b.origin_x), float(b.origin_y),
                         float(b.origin_x + b.width), float(b.origin_y + b.height)))
-        return out, inf, max(0.0, total - inf)
+        return out, inf, (max(0.0, total - inf) if timing else total)
 
 
 def main() -> int:
