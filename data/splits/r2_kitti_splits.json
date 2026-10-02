@@ -1,0 +1,80 @@
+{
+  "dataset": "KITTI tracking training split, image_02, static-camera segments",
+  "selection_rule": "OXTS speed hypot(vf,vl) < 0.2 m/s for >= 30 consecutive frames (scripts/detector/kitti.py)",
+  "assignment_rule": "by whole segment (no frame of a segment appears in two splits). Fixed on 2026-10-02 from OXTS and GT track counts only, before any watcher, security or simulator result on these frames was computed. Validation mixes a vehicle scene (0006) and a pedestrian scene (0017); test holds the remaining segments with >= 30 frames and >= 1 moving track; development holds short or nearly empty segments used only for debugging.",
+  "segments": [
+    {
+      "sequence": "0001",
+      "first_frame": 403,
+      "last_frame": 446,
+      "n_frames": 44,
+      "split": "development"
+    },
+    {
+      "sequence": "0002",
+      "first_frame": 162,
+      "last_frame": 232,
+      "n_frames": 71,
+      "split": "development"
+    },
+    {
+      "sequence": "0006",
+      "first_frame": 0,
+      "last_frame": 181,
+      "n_frames": 182,
+      "split": "validation"
+    },
+    {
+      "sequence": "0012",
+      "first_frame": 0,
+      "last_frame": 77,
+      "n_frames": 78,
+      "split": "test"
+    },
+    {
+      "sequence": "0015",
+      "first_frame": 90,
+      "last_frame": 375,
+      "n_frames": 286,
+      "split": "test"
+    },
+    {
+      "sequence": "0016",
+      "first_frame": 0,
+      "last_frame": 208,
+      "n_frames": 209,
+      "split": "test"
+    },
+    {
+      "sequence": "0017",
+      "first_frame": 0,
+      "last_frame": 144,
+      "n_frames": 145,
+      "split": "validation"
+    },
+    {
+      "sequence": "0019",
+      "first_frame": 618,
+      "last_frame": 706,
+      "n_frames": 89,
+      "split": "test"
+    },
+    {
+      "sequence": "0019",
+      "first_frame": 1003,
+      "last_frame": 1052,
+      "n_frames": 50,
+      "split": "test"
+    },
+    {
+      "sequence": "0020",
+      "first_frame": 802,
+      "last_frame": 836,
+      "n_frames": 35,
+      "split": "development"
+    }
+  ],
+  "development_frames": 150,
+  "validation_frames": 327,
+  "test_frames": 712
+}
