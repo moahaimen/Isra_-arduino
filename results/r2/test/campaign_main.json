@@ -1,0 +1,60 @@
+{
+ "split": "test",
+ "campaign": "main",
+ "scenarios": [
+  "clean",
+  "noisy",
+  "replay_exact",
+  "replay_perturbed",
+  "mixed"
+ ],
+ "intensities": [
+  1.0
+ ],
+ "seeds": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30
+ ],
+ "modes": [
+  "always_on",
+  "motion_only",
+  "fixed_threshold",
+  "mog2_event",
+  "event",
+  "secure",
+  "robust_event",
+  "robust_secure"
+ ],
+ "frozen_sha256": "84e8712f653201dd88a23cf4e6e11da88f687d7b595953e5937d001e57e0dc9e",
+ "frozen_commit": "714870b9e6e9786113a125df32c1379872afcdf4 2026-10-02T11:40:31+00:00",
+ "n_runs": 6000,
+ "wall_s": 281.22654128074646
+}

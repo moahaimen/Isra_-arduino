@@ -23,6 +23,7 @@ import stats  # noqa: E402
 
 MODES = ["always_on", "motion_only", "mog2_event", "fixed_threshold", "event", "secure", "robust_event",
          "robust_secure"]
+COLORS = dict(zip(MODES, ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]))
 METRICS = ["timely_recall", "track_recall", "burst_timely_recall", "burst_recall", "mean_track_latency_ms",
            "duty_cycle", "energy_mJ", "energy_per_min_mJ", "attack_success", "spam_success", "replay_success",
            "replay_exact_success", "replay_pert_success", "session_success", "frr", "frr_object",
@@ -171,14 +172,15 @@ def figures(sweep, out):
                 continue
             x = mu.index.values
             ci = 2.045 * sd / np.sqrt(n)
-            ax.plot(x, mu.values, marker="o", ms=3, label=md)
-            ax.fill_between(x, (mu - ci).values, (mu + ci).values, alpha=0.15)
+            ax.plot(x, mu.values, marker="o", ms=3, label=md, color=COLORS[md])
+            ax.fill_between(x, (mu - ci).values, (mu + ci).values, alpha=0.15, color=COLORS[md])
         ax.set_xscale("symlog", linthresh=0.5)
         ax.set_xlabel("spam intensity (x)")
         ax.set_title(title, fontsize=9)
         ax.grid(alpha=0.3)
-    axes[0].legend(fontsize=6)
-    fig.tight_layout()
+    h, lab = axes[0].get_legend_handles_labels()
+    fig.legend(h, lab, loc="lower center", ncol=8, fontsize=7, frameon=False)
+    fig.tight_layout(rect=(0, 0.08, 1, 1))
     fig.savefig(os.path.join(out, "fig_spam_sweep.png"), dpi=150)
     plt.close(fig)
 
@@ -188,8 +190,8 @@ def figure_main(desc, out):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     scen = ["clean", "noisy", "replay_exact", "replay_perturbed", "mixed"]
-    fig, axes = plt.subplots(1, 3, figsize=(13, 3.6))
-    for ax, met in zip(axes, ["timely_recall", "duty_cycle", "attack_success"]):
+    fig, axes = plt.subplots(1, 4, figsize=(16, 3.8))
+    for ax, met in zip(axes, ["track_recall", "timely_recall", "duty_cycle", "attack_success"]):
         w = 0.1
         for k, md in enumerate(MODES):
             vals, errs = [], []
@@ -197,13 +199,14 @@ def figure_main(desc, out):
                 r = desc[(desc.scenario == sc) & (desc["mode"] == md) & (desc.metric == met)]
                 vals.append(r["mean"].iloc[0] if len(r) and r["n"].iloc[0] else np.nan)
                 errs.append(r["std"].iloc[0] if len(r) and r["n"].iloc[0] else 0)
-            ax.bar(np.arange(len(scen)) + (k - 3.5) * w, vals, w, yerr=errs, label=md, capsize=1)
+            ax.bar(np.arange(len(scen)) + (k - 3.5) * w, vals, w, yerr=errs, label=md, capsize=1, color=COLORS[md])
         ax.set_xticks(range(len(scen)))
         ax.set_xticklabels(scen, rotation=20, fontsize=8)
         ax.set_title(met, fontsize=9)
         ax.grid(axis="y", alpha=0.3)
-    axes[0].legend(fontsize=6, ncol=2)
-    fig.tight_layout()
+    h, lab = axes[0].get_legend_handles_labels()
+    fig.legend(h, lab, loc="lower center", ncol=8, fontsize=7, frameon=False)
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     fig.savefig(os.path.join(out, "fig_main.png"), dpi=150)
     plt.close(fig)
 

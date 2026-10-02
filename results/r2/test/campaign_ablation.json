@@ -1,0 +1,54 @@
+{
+ "ablations": {
+  "robust_event": {
+   "full": {},
+   "basic_frontend": {
+    "watcher_frontend": "basic"
+   },
+   "no_persistence": {
+    "robust_persist_k": 1
+   },
+   "global_cooldown": {
+    "content_cooldown": false
+   },
+   "fixed_threshold": {
+    "robust_threshold": false
+   }
+  },
+  "robust_secure": {
+   "full": {},
+   "no_replay_check": {
+    "rg_replay": false
+   },
+   "no_content_bucket": {
+    "rg_content_bucket": false
+   },
+   "no_global_bucket": {
+    "rg_global_bucket": false
+   },
+   "no_emergency": {
+    "rg_emergency": false
+   }
+  }
+ },
+ "conditions": [
+  [
+   "noisy",
+   1.0
+  ],
+  [
+   "mixed",
+   1.0
+  ],
+  [
+   "replay_perturbed",
+   1.0
+  ],
+  [
+   "spam",
+   8.0
+  ]
+ ],
+ "frozen_sha256": "84e8712f653201dd88a23cf4e6e11da88f687d7b595953e5937d001e57e0dc9e",
+ "n_runs": 6000
+}
