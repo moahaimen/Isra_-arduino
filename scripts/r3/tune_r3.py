@@ -41,6 +41,9 @@ import data_r3  # noqa: E402
 import metrics_r3  # noqa: E402
 
 DUTY_MAX, FRR_MAX, MAX_CONFIGS = 0.25, 0.05, 120
+# Gate C compute budget (set before any Gate C result, see docs/R3_GATE_C.md):
+# 5 overlay seeds and at most 40 sampled configurations per secure method.
+MAX_CONFIGS_C, SEEDS_C = 40, list(range(1001, 1006))
 SEEDS = list(range(1001, 1011))
 CLEAN_SEEDS = [1001, 1002, 1003]
 B_CONDS = [("clean", 1.0), ("noisy", 1.0)]
@@ -74,20 +77,21 @@ def check_split(split: str) -> None:
         raise SystemExit(f"refusing to tune on split '{split}'")
 
 
-def configs(grid, seed=0):
+def configs(grid, seed=0, cap=MAX_CONFIGS):
     keys = list(grid)
     allc = [dict(zip(keys, v)) for v in itertools.product(*[grid[k] for k in keys])]
-    if len(allc) > MAX_CONFIGS:
+    if len(allc) > cap:
         random.Random(seed).shuffle(allc)
-        allc = allc[:MAX_CONFIGS]
+        allc = allc[:cap]
     return allc
 
 
 def jobs(root, mode, params, conds, thr):
     out = []
+    seeds = SEEDS_C if conds is C_CONDS else SEEDS
     for g in data_r3.segments("validation"):
         for sc, it in conds:
-            for sd in (CLEAN_SEEDS if sc == "clean" else SEEDS):
+            for sd in (CLEAN_SEEDS if sc == "clean" else seeds):
                 out.append((cr.wl_dir(root, data_r3.seg_name(g), sc, it, sd), [mode], params, "validation", thr))
     return out
 
@@ -156,7 +160,7 @@ def main() -> int:
     root = os.path.join(data_r3.DATA, f"workloads_validation_{a.det_thr:.2f}")
     t0 = time.time()
     cr.build_all("validation", root, sorted({c for c, _ in conds}), sorted({i for _, i in conds}),
-                 sorted(set(SEEDS) | set(CLEAN_SEEDS)), a.det_thr, a.workers)
+                 sorted(set(SEEDS if a.gate == "B" else SEEDS_C) | set(CLEAN_SEEDS)), a.det_thr, a.workers)
     print(f"workloads ready {time.time() - t0:.0f}s", flush=True)
     common = {"detection_threshold": a.det_thr}
     with ProcessPoolExecutor(a.workers) as ex:
@@ -167,7 +171,7 @@ def main() -> int:
             if a.gate == "C" and method in PARENT:
                 base = json.load(open(os.path.join(a.out, f"gateB_{PARENT[method]}.json")))["selected"]
             rows = []
-            for k, cfg in enumerate(configs(GRIDS[method])):
+            for k, cfg in enumerate(configs(GRIDS[method], cap=MAX_CONFIGS if a.gate == "B" else MAX_CONFIGS_C)):
                 p = {**base, **cfg}
                 df = run(ex, root, method, {"common": common, method: p}, conds, a.det_thr)
                 s = summarize_b(df, ref) if a.gate == "B" else summarize_c(df, ref)
