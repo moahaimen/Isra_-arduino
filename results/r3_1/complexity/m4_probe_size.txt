@@ -1,0 +1,50 @@
+/tmp/m4_probe.o  :
+section                                                                     size   addr
+.group                                                                         8      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                         8      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                         8      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                        12      0
+.group                                                                         8      0
+.text                                                                          0      0
+.data                                                                          0      0
+.bss                                                                           0      0
+.text.startup._Z41__static_initialization_and_destruction_0v                 852      0
+.text._ZN3sim12dilate_cellsEy                                                 84      0
+.text._ZN3sim12UgsScheduler5isortEPdi                                         80      0
+.text._ZNK3sim12UgsScheduler5statsERdS1_                                     300      0
+.text._ZN3sim12UgsScheduler8evaluateEdRKNS_8UgsInputE                       1844      0
+.text._ZN3sim21FrameFeatureExtractorIfE8edge_mapEPKhPh                       188      0
+.text._ZN3sim21FrameFeatureExtractorIfE9cell_meanIfEEdPKT_ii                  96      0
+.text._ZZN3sim21FrameFeatureExtractorIfE11noise_sigmaEPKhENKUliiE_clEii       28      0
+.text._ZN3sim21FrameFeatureExtractorIfE11noise_sigmaEPKh                     256      0
+.text._ZN3sim21FrameFeatureExtractorIfE6medianEPdi                           124      0
+.text._ZN3sim21FrameFeatureExtractorIfE7dhash64EPKh                          182      0
+.text._ZN3sim21FrameFeatureExtractorIfE4stepEPKhS3_                         2276      0
+.text._ZN3sim7UgsGateILi256EE9median192EPKh                                  104      0
+.text._ZNK3sim7UgsGateILi256EE8changed0ERKNS_12UgsGateFrameES4_ii            380      0
+.text._ZNK3sim7UgsGateILi256EE7changedERKNS_12UgsGateFrameES4_                86      0
+.text._ZN3sim7UgsGateILi256EE8classifyERNS_12UgsGateFrameE                   524      0
+.text._Z7m4_stepPKhS0_dRN3sim12UgsGateFrameE                                 844      0
+.text.startup._GLOBAL__sub_I__Z7m4_stepPKhS0_dRN3sim12UgsGateFrameE            4      0
+.init_array                                                                    4      0
+.bss._ZZN3sim21FrameFeatureExtractorIfE8edge_mapEPKhPhE1G                  12288      0
+.bss._ZL4gate                                                              53960      0
+.bss._ZL5sched                                                              1888      0
+.bss._ZL2fx                                                                76804      0
+.rodata                                                                       96      0
+.comment                                                                      39      0
+.ARM.attributes                                                               52      0
+Total                                                                     153559
+
+

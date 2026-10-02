@@ -229,7 +229,7 @@ private:
                               p(1, -1) - 2 * p(1, 0) + p(1, 1);
                 acc += c < 0 ? -c : c;
             }
-        return std::sqrt(M_PI / 2.0) * static_cast<double>(acc) / (6.0 * (W - 2) * (H - 2));
+        return std::sqrt(3.14159265358979323846 / 2.0) * static_cast<double>(acc) / (6.0 * (W - 2) * (H - 2));
     }
     static double median(double* a, int n) {
         for (int i = 1; i < n; ++i) {

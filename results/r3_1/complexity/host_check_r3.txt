@@ -1,0 +1,4 @@
+memory: FrameFeatureExtractor<float>=76804 B, UgsScheduler=1888 B, UgsGate<256>=53960 B, UgsGate<64>=14024 B
+worst-case ops/frame: scheduler median/MAD sort 2x64^2/2=4096 cmp, components <=48x8 dilations, region match 8x8 popcounts; gate: 2 medians (192) + history 256 x 192 block compares = 49152
+requests=13 two-object=3 (regions 2) flash=0 replay=0 static_blocked=0
+firmware_host_check_r3: PASS
