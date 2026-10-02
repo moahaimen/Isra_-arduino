@@ -14,7 +14,7 @@ namespace sim {
 namespace {
 
 const char* kModes[] = {"always_on", "motion_only", "fixed_threshold", "event",       "event_no_early_exit",
-                        "secure",    "robust_event", "robust_secure",  "mog2_event", "ugs_event", "ugs_secure"};
+                        "secure",    "robust_event", "robust_secure",  "mog2_event", "ugs_event", "ugs_secure", "event_ugs_gate", "event_plain_limit"};
 const char* kScenarios[] = {"quiet", "normal", "busy", "burst", "noisy", "trigger_spam", "replay", "mixed"};
 
 std::string normalize(std::string name) {
@@ -302,6 +302,18 @@ void apply_mode_defaults(SimConfig& cfg, const std::string& mode) {
         cfg.security = true;
         cfg.security_kind = "ugs";
         cfg.early_exit = true;
+    } else if (mode == "event_ugs_gate" || mode == "event_plain_limit") {
+        // R3.1: legacy event watcher + the R3/R3.1 gate (replay + budget), or a plain global token bucket only
+        cfg.watcher_kind = "score";
+        cfg.adaptive_trigger = true;
+        cfg.security = true;
+        cfg.security_kind = "ugs";
+        cfg.early_exit = true;
+        if (mode == "event_plain_limit") {
+            cfg.ug_replay = false;
+            cfg.ug_novelty_capacity = 0.0;
+            cfg.ug_content_on = 0;
+        }
     } else if (mode == "mog2_event") {
         // Literature baseline: MOG2 background subtraction (Zivkovic 2004/2006)
         // foreground fraction >= threshold, global cooldown, no security,
