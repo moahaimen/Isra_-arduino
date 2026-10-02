@@ -1,0 +1,327 @@
+{
+ "method": "robust_secure",
+ "split": "validation",
+ "best_params": {
+  "detection_threshold": 0.3,
+  "early_exit_threshold": 0.6,
+  "early_exit_low_threshold": 0.3,
+  "robust_z_on": 5.0,
+  "robust_theta_min": 0.1,
+  "robust_theta_max": 0.7,
+  "robust_persist_k": 2,
+  "content_cooldown_ms": 1000,
+  "content_overlap_thr": 0.3,
+  "rg_fg_jaccard_thr": 0.0,
+  "rg_dhash_max": 6,
+  "rg_fg_min": 0,
+  "rg_consistency_threshold": 0.0,
+  "rg_content_capacity": 5,
+  "rg_content_refill_per_s": 0.5,
+  "rg_global_capacity": 5,
+  "rg_global_refill_per_s": 1.0,
+  "rg_z_emergency": 4.0
+ },
+ "objective": {
+  "J": 0.28960592546089936,
+  "timely": 0.37071428571428566,
+  "duty": 0.11708746206494829,
+  "attack_success": 0.04512925844182438,
+  "recall": 0.47428571428571425,
+  "per_condition": [
+   {
+    "scenario": "clean",
+    "intensity": 1.0,
+    "timely": 0.4000000000000001,
+    "duty": 0.11400729867482161,
+    "atk": NaN,
+    "recall": 0.5,
+    "frr": 0.2903225806451613
+   },
+   {
+    "scenario": "mixed",
+    "intensity": 1.0,
+    "timely": 0.395,
+    "duty": 0.1123204740061162,
+    "atk": 0.04938956433637285,
+    "recall": 0.505,
+    "frr": 0.28703767311664974
+   },
+   {
+    "scenario": "noisy",
+    "intensity": 1.0,
+    "timely": 0.265,
+    "duty": 0.12401735168195718,
+    "atk": NaN,
+    "recall": 0.395,
+    "frr": 0.11496245059288537
+   },
+   {
+    "scenario": "replay_exact",
+    "intensity": 1.0,
+    "timely": 0.38,
+    "duty": 0.11104110703363915,
+    "atk": 0.0,
+    "recall": 0.485,
+    "frr": 0.28033979554001803
+   },
+   {
+    "scenario": "replay_perturbed",
+    "intensity": 1.0,
+    "timely": 0.38,
+    "duty": 0.1171191987767584,
+    "atk": 0.04141647825858352,
+    "recall": 0.48,
+    "frr": 0.2546118267818708
+   },
+   {
+    "scenario": "spam",
+    "intensity": 1.0,
+    "timely": 0.40499999999999997,
+    "duty": 0.11653149847094799,
+    "atk": 0.05185439560439561,
+    "recall": 0.495,
+    "frr": 0.29288190582128293
+   },
+   {
+    "scenario": "spam",
+    "intensity": 8.0,
+    "timely": 0.37,
+    "duty": 0.12457530581039755,
+    "atk": 0.08298585400976993,
+    "recall": 0.45999999999999996,
+    "frr": 0.26720977496366116
+   }
+  ]
+ },
+ "grid": {
+  "rg_fg_jaccard_thr|rg_dhash_max": [
+   [
+    0.0,
+    2
+   ],
+   [
+    0.0,
+    4
+   ],
+   [
+    0.0,
+    6
+   ],
+   [
+    0.0,
+    8
+   ],
+   [
+    0.0,
+    12
+   ],
+   [
+    0.0,
+    16
+   ],
+   [
+    0.0,
+    32
+   ],
+   [
+    0.5,
+    2
+   ],
+   [
+    0.5,
+    4
+   ],
+   [
+    0.5,
+    6
+   ],
+   [
+    0.5,
+    8
+   ],
+   [
+    0.5,
+    12
+   ],
+   [
+    0.5,
+    16
+   ],
+   [
+    0.5,
+    32
+   ],
+   [
+    0.6,
+    2
+   ],
+   [
+    0.6,
+    4
+   ],
+   [
+    0.6,
+    6
+   ],
+   [
+    0.6,
+    8
+   ],
+   [
+    0.6,
+    12
+   ],
+   [
+    0.6,
+    16
+   ],
+   [
+    0.6,
+    32
+   ],
+   [
+    0.7,
+    2
+   ],
+   [
+    0.7,
+    4
+   ],
+   [
+    0.7,
+    6
+   ],
+   [
+    0.7,
+    8
+   ],
+   [
+    0.7,
+    12
+   ],
+   [
+    0.7,
+    16
+   ],
+   [
+    0.7,
+    32
+   ],
+   [
+    0.8,
+    2
+   ],
+   [
+    0.8,
+    4
+   ],
+   [
+    0.8,
+    6
+   ],
+   [
+    0.8,
+    8
+   ],
+   [
+    0.8,
+    12
+   ],
+   [
+    0.8,
+    16
+   ],
+   [
+    0.8,
+    32
+   ]
+  ],
+  "rg_fg_min": [
+   0,
+   12
+  ],
+  "rg_consistency_threshold": [
+   0.0,
+   0.2,
+   0.3,
+   0.5
+  ],
+  "rg_content_capacity": [
+   2,
+   3,
+   5
+  ],
+  "rg_content_refill_per_s": [
+   0.25,
+   0.5,
+   1.0
+  ],
+  "rg_global_capacity": [
+   5,
+   10,
+   20
+  ],
+  "rg_global_refill_per_s": [
+   0.5,
+   1.0,
+   2.0
+  ],
+  "rg_z_emergency": [
+   4.0,
+   6.0,
+   8.0
+  ]
+ },
+ "parent": "robust_event",
+ "conditions": [
+  [
+   "clean",
+   1.0
+  ],
+  [
+   "noisy",
+   1.0
+  ],
+  [
+   "spam",
+   1.0
+  ],
+  [
+   "spam",
+   8.0
+  ],
+  [
+   "replay_exact",
+   1.0
+  ],
+  [
+   "replay_perturbed",
+   1.0
+  ],
+  [
+   "mixed",
+   1.0
+  ]
+ ],
+ "seeds": [
+  1001,
+  1002,
+  1003,
+  1004,
+  1005,
+  1006,
+  1007,
+  1008,
+  1009,
+  1010
+ ],
+ "clean_seeds": [
+  1001,
+  1002,
+  1003
+ ],
+ "lambda_duty": 0.5,
+ "lambda_attack": 0.5,
+ "n_configs_evaluated": 103,
+ "detection_threshold": 0.3
+}

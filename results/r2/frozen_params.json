@@ -1,0 +1,120 @@
+{
+ "_objective_always_on": {
+  "J": -0.35826154208472827,
+  "attack_success": 0.61985641750279,
+  "duty": 0.9999999999999999,
+  "recall": 0.5807142857142857,
+  "timely": 0.45166666666666666
+ },
+ "_objective_event": {
+  "J": 0.1553072683133705,
+  "attack_success": 0.17745545507269123,
+  "duty": 0.269072865443425,
+  "recall": 0.5250000000000001,
+  "timely": 0.3785714285714286
+ },
+ "_objective_fixed_threshold": {
+  "J": 0.17880604748656767,
+  "attack_success": 0.10659702472979175,
+  "duty": 0.2600765945827872,
+  "recall": 0.5607142857142857,
+  "timely": 0.36214285714285716
+ },
+ "_objective_mog2_event": {
+  "J": 0.1499884420627235,
+  "attack_success": 0.05672543042239055,
+  "duty": 0.1790119711664482,
+  "recall": 0.4821428571428572,
+  "timely": 0.26785714285714285
+ },
+ "_objective_motion_only": {
+  "J": 0.15750895946580867,
+  "attack_success": 0.11626208325274257,
+  "duty": 0.21729142638706858,
+  "recall": 0.5285714285714287,
+  "timely": 0.32428571428571423
+ },
+ "_objective_robust_event": {
+  "J": 0.22326622835979265,
+  "attack_success": 0.13082449435075091,
+  "duty": 0.16407162035823503,
+  "recall": 0.4857142857142857,
+  "timely": 0.37071428571428566
+ },
+ "_objective_robust_secure": {
+  "J": 0.28960592546089936,
+  "attack_success": 0.04512925844182438,
+  "duty": 0.11708746206494829,
+  "recall": 0.47428571428571425,
+  "timely": 0.37071428571428566
+ },
+ "_objective_secure": {
+  "J": 0.14847178642074632,
+  "attack_success": 0.028975236536692883,
+  "duty": 0.08550976205038589,
+  "recall": 0.3335714285714285,
+  "timely": 0.2057142857142857
+ },
+ "_procedure": "docs/PREREGISTERED_R2_ANALYSIS.md section 4",
+ "_tuned_on": "validation",
+ "always_on": {},
+ "common": {
+  "detection_threshold": 0.3,
+  "early_exit_low_threshold": 0.3,
+  "early_exit_threshold": 0.6
+ },
+ "event": {
+  "adaptive_gain": 1.0,
+  "adaptive_noise_ref": 0.1,
+  "cooldown_ms": 500,
+  "trigger_threshold": 0.3
+ },
+ "fixed_threshold": {
+  "cooldown_ms": 1000,
+  "trigger_threshold": 0.25
+ },
+ "mog2_event": {
+  "cooldown_ms": 1500,
+  "mog2_threshold": 0.0025
+ },
+ "motion_only": {
+  "cooldown_ms": 1000,
+  "motion_threshold": 0.4
+ },
+ "robust_event": {
+  "content_cooldown_ms": 1000,
+  "content_overlap_thr": 0.3,
+  "robust_persist_k": 2,
+  "robust_theta_max": 0.7,
+  "robust_theta_min": 0.1,
+  "robust_z_on": 5.0
+ },
+ "robust_secure": {
+  "content_cooldown_ms": 1000,
+  "content_overlap_thr": 0.3,
+  "rg_consistency_threshold": 0.0,
+  "rg_content_capacity": 5,
+  "rg_content_refill_per_s": 0.5,
+  "rg_dhash_max": 6,
+  "rg_fg_jaccard_thr": 0.0,
+  "rg_fg_min": 0,
+  "rg_global_capacity": 5,
+  "rg_global_refill_per_s": 1.0,
+  "rg_z_emergency": 4.0,
+  "robust_persist_k": 2,
+  "robust_theta_max": 0.7,
+  "robust_theta_min": 0.1,
+  "robust_z_on": 5.0
+ },
+ "secure": {
+  "adaptive_gain": 1.0,
+  "adaptive_noise_ref": 0.1,
+  "burst_threshold": 60,
+  "consistency_threshold": 0.7,
+  "cooldown_ms": 500,
+  "duplicate_window_ms": 500,
+  "rate_limit": 10,
+  "replay_feature_eps": 0.005,
+  "trigger_threshold": 0.3
+ }
+}
