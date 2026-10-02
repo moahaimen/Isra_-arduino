@@ -1,0 +1,50 @@
+{
+ "dataset": "KITTI tracking static segments, test split, original frames",
+ "detector": "tinyissimo_v8b_256_fp32",
+ "class_map": "VOC person->person, VOC car->car",
+ "mAP50": 0.12127696766895121,
+ "mAP50_95": 0.03133586242588361,
+ "per_class": {
+  "car": {
+   "AP50": 0.06496478026120674,
+   "AP50_95": 0.01639518750740427
+  },
+  "person": {
+   "AP50": 0.1775891550766957,
+   "AP50_95": 0.04627653734436296
+  }
+ },
+ "operating_points": [
+  {
+   "F1": 0.04059976931949251,
+   "FN": 4118,
+   "FP": 41,
+   "TP": 88,
+   "iou_threshold": 0.5,
+   "precision": 0.6821705426356589,
+   "recall": 0.020922491678554447,
+   "score_threshold": 0.3
+  },
+  {
+   "F1": 0.00945179584120983,
+   "FN": 4186,
+   "FP": 6,
+   "TP": 20,
+   "iou_threshold": 0.5,
+   "precision": 0.7692307692307693,
+   "recall": 0.004755111745126011,
+   "score_threshold": 0.5
+  }
+ ],
+ "host_timing_ms": {
+  "inference_mean": 10.517424804728751,
+  "inference_median": 9.934432499903778,
+  "inference_p95": 13.86125944991363,
+  "note": "host CPU, ONNX Runtime 1 thread, NOT Portenta H7",
+  "postprocess_mean": 1.9511492977487117
+ },
+ "n_frames": 712,
+ "n_gt_boxes": 10555,
+ "n_predicted_boxes": 35245,
+ "model_sha256": "4319a2d536868a4f49b6d9adc9c9340d2380b20f3476c58d13717ca0adf36919"
+}

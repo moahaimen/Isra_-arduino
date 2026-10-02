@@ -32,9 +32,12 @@ gate).
   pinned commit outside this repository (`scripts/detector/tinyissimo/setup.sh`);
   this repository only contains adapter scripts (VOC conversion, training,
   evaluation/export). A CPU-only training run was executed in the cloud
-  container with a much shorter schedule than upstream (see
-  `results/r2/DETECTORS.md`); it is reported as an under-trained MCU-target
-  reference, not as TinyissimoYOLO's attainable accuracy.
+  container: 30 epochs, batch 64, VOC 2007 trainval, 2.0 h on 4 CPU cores
+  (upstream: 1000 epochs, batch 512, GPU). VOC 2007 test: FP32 mAP50 0.258 /
+  mAP50:95 0.118; INT8 (ONNX Runtime static PTQ of every Conv, 1.09 MB)
+  0.257 / 0.118; 0.185 GMACs. It is reported as an UNDER-TRAINED MCU-target
+  reference, not as TinyissimoYOLO's attainable accuracy
+  (`results/r2/DETECTORS.md`).
 * **Host-reference detectors** (real pretrained weights, real predictions):
   MediaPipe EfficientDet-Lite0 INT8 / FP32, SSD-MobileNetV2 FP32,
   EfficientDet-Lite2 INT8 (Apache-2.0, COCO-trained, SHA-256 pinned in

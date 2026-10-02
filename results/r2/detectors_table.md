@@ -4,6 +4,8 @@
 | EfficientDet-Lite0 | host_reference_primary | INT8 (post-training quantized weights/activations, float I/O decode) | 320x320 | 3.323 M | 4.60 MB | 0.97 G | PASCAL VOC 2007 test | 4952 | 14976 | 279652 | 0.708 | 0.459 | 15.3 | NOT MEASURED |
 | EfficientDet-Lite2 | host_reference_upper | INT8 | 448x448 | 5.524 M | 7.52 MB | 3.37 G | PASCAL VOC 2007 test | 4952 | 14976 | 260503 | 0.766 | 0.533 | 55.5 | NOT MEASURED |
 | SSD MobileNetV2 (RetinaNet-style head) | host_reference | FP32 | 256x256 | 2.726 M | 11.32 MB | 0.74 G | PASCAL VOC 2007 test | 4952 | 14976 | 298467 | 0.665 | 0.428 | 17.9 | NOT MEASURED |
+| TinyissimoYOLO v8 (scale b) | mcu_target | FP32 | 256x256 | 0.839 M | 3.41 MB | 0.18 G | PASCAL VOC 2007 test | 4952 | 14976 | 262359 | 0.258 | 0.118 | 9.4 | NOT MEASURED |
+| TinyissimoYOLO v8 (scale b) | mcu_target | INT8 | 256x256 | 0.839 M | 1.09 MB | 0.18 G | PASCAL VOC 2007 test | 4952 | 14976 | 262615 | 0.257 | 0.118 | 12.9 | NOT MEASURED |
 | EfficientDet-Lite0 | host_reference_primary | INT8 | 320x320 | 3.323 M | 4.60 MB | 0.97 G | KITTI tracking static segments (validation, original frames) | 327 | 3716 | 13386 | 0.297 | 0.167 | 26.8 | NOT MEASURED |
 | EfficientDet-Lite0 | host_reference_primary | INT8 | 320x320 | 3.323 M | 4.60 MB | 0.97 G | KITTI tracking static segments (test, original frames) | 712 | 10555 | 42095 | 0.231 | 0.068 | 37.9 | NOT MEASURED |
 | EfficientDet-Lite2 | host_reference_upper | INT8 | 448x448 | 5.524 M | 7.52 MB | 3.37 G | KITTI tracking static segments (validation, original frames) | 327 | 3716 | 14615 | 0.346 | 0.209 | 114.3 | NOT MEASURED |

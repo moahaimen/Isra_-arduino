@@ -1,0 +1,22 @@
+{
+ "upstream": "https://github.com/ETH-PBL/TinyissimoYOLO",
+ "upstream_commit": "19bea4bd1ea1e2c29a6ee6b14bd7494ce8c6ba25",
+ "variant": "tinyissimo-v8 (scale b)",
+ "imgsz": 256,
+ "epochs": 30,
+ "batch": 64,
+ "optimizer": "SGD",
+ "data": "/home/claude/data_r2/voc_yolo/voc2007.yaml",
+ "train_split": "VOC2007 trainval (5011 images, difficult boxes excluded)",
+ "val_during_training": false,
+ "checkpoint_used": "last.pt (final epoch)",
+ "device": "cpu",
+ "torch": "2.5.1+cu124",
+ "host": "Linux-6.18.44-fc-v51-x86_64-with-glibc2.39",
+ "cpu_count": 4,
+ "parameters": 839392,
+ "upstream_recipe": "a_train_export.py: 256x256, epochs=1000, batch=512, SGD, GPU",
+ "train_wall_s": 7322.195342540741,
+ "last_pt_sha256": "7a8d1a126a1e82a6ec73401dc6a88e08542c2ca8d113ddcb23af7d1da1610ca9",
+ "note": "weights kept outside git (trained with the AGPL-3.0 upstream code); reproduce with scripts/detector/tinyissimo/train.py --epochs 30"
+}

@@ -85,6 +85,12 @@ def main() -> int:
                      f"The upstream recipe is {tr['upstream_recipe']}. Its accuracy is therefore that of an "
                      "UNDER-TRAINED model and must not be read as TinyissimoYOLO's attainable accuracy. "
                      f"INT8: {json.load(open(os.path.join(tiy[-1], 'model_metadata.json'))).get('int8')}.")
+    kp = os.path.join(out, "tinyissimo", "kitti_test_fp32_metrics.json")
+    if os.path.exists(kp):
+        k = json.load(open(kp))
+        notes.append(f"* TinyissimoYOLO FP32 on the R2 KITTI test frames ({k['n_frames']} images, {k['class_map']}): "
+                     f"mAP50 {k['mAP50']:.3f}, mAP50:95 {k['mAP50_95']:.3f} (EfficientDet-Lite0 INT8 on the same "
+                     "frames: see the table). It was not used as the simulator's stage-1 detector.")
     notes.append("* **Host-reference detectors** (MediaPipe EfficientDet-Lite0/Lite2, SSD-MobileNetV2; Apache-2.0, "
                  "COCO-trained, SHA-256 pinned) are NOT MCU-class. VOC results use the COCO->VOC class map without "
                  "fine-tuning; KITTI results map Car->car and Pedestrian->person.")

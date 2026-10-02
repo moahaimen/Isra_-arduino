@@ -159,9 +159,12 @@ MEASURED" everywhere; `config/power_model.json` stays `calibrated: false`;
 4. **Replay check:** a scene-specific fingerprint that is not fooled by
    static backgrounds (e.g. compare only within the active motion region),
    evaluated with FRR as a constraint.
-5. **MCU-target detector:** TinyissimoYOLO was trained here for 30 epochs on
-   CPU (upstream: 1000 epochs, GPU); a fully trained, INT8-exported model and
-   its on-board latency are required (`docs/HARDWARE_MINIMAL_R2.md`).
+5. **MCU-target detector:** TinyissimoYOLO (839k parameters, 0.185 GMACs) was
+   trained here for 30 epochs on CPU (upstream: 1000 epochs, GPU) and reaches
+   only VOC07-test mAP50 0.258 (INT8 1.09 MB: 0.257), versus 0.708 for the
+   host-reference EfficientDet-Lite0. A fully trained model (GPU), its
+   TFLite-Micro/X-CUBE-AI export and its on-board latency are required
+   (`docs/HARDWARE_MINIMAL_R2.md`).
 6. **Hardware calibration** of power and timing, end-to-end energy of one
    fixed trace.
 7. A published wake-up baseline beyond MOG2 (e.g. a learned low-power trigger)
