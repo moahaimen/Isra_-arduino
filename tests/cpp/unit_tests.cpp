@@ -735,6 +735,33 @@ static void test_ugs_gate_r31() {
         }
         CHECK(blocked == 0);
     }
+    // gradient tolerance: a sub-block displacement (modelled as a 0.4-block horizontal blend) is matched with grad_c, not without
+    {
+        auto blend = [](const UgsGateFrame& f) {
+            UgsGateFrame o = f;
+            o.med = -1;
+            for (int y = 0; y < 8; ++y)
+                for (int x = 0; x < 24; ++x) {
+                    const int xs = x > 0 ? x - 1 : 0;
+                    o.thumb[y * 24 + x] = static_cast<uint8_t>(0.6 * f.thumb[y * 24 + x] + 0.4 * f.thumb[y * 24 + xs]);
+                }
+            return o;
+        };
+        auto run2 = [&](double gc) {
+            UgsGateParams q = p;
+            q.grad_c = gc;
+            UgsGate<256> g(q);
+            double t = 0.0;
+            for (int i = 0; i < 60; ++i, t += 100.0) {
+                UgsGateFrame f = gframe(t, 1 + i / 3, 40);
+                g.decide(f, true);
+                g.observe(f);
+            }
+            return g.decide(blend(gframe(t, 2, 40)), true);
+        };
+        CHECK(run2(0.0).accept);                      // R3 comparison: the blended replay slips through
+        CHECK(!run2(1.0).accept);                     // gradient-tolerant: recognised as stale
+    }
     // per-content bucket: one region cannot drain the global budget; another region still passes
     {
         UgsGateParams b = p;
