@@ -1,0 +1,180 @@
+{
+ "name": "R3 splits",
+ "created": "2026-10-02, before any R3 detector or scheduler result on these partitions",
+ "rules": [
+  "Scheduler development/validation: all KITTI-tracking static segments used in R2 (R2 test segments become R3 validation; their R2 test results are known, so they are NOT used as R3 test).",
+  "Scheduler test: static segments (OXTS speed < 0.2 m/s for >= 30 frames) of the KITTI raw drives (2011_09_26, tracklet labels) that are NOT the source of any KITTI tracking sequence (mapping by exact OXTS match, scripts/r3/kitti_raw.py). Never used in R1/R2, never used for any tuning or detector training.",
+  "Detector training: all frames of KITTI tracking training sequences det_train EXCEPT frames inside development/validation segments; detector checkpoint selection on det_val sequences (all frames). Sequences containing validation segments (0006, 0012, 0015, 0016, 0017, 0019) are excluded from detector training entirely. No raw drive of the test split is a source of any tracking sequence."
+ ],
+ "segments": [
+  {
+   "source": "kitti_tracking",
+   "sequence": "0001",
+   "first_frame": 403,
+   "last_frame": 446,
+   "n_frames": 44,
+   "split": "development",
+   "r2_split": "development"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0002",
+   "first_frame": 162,
+   "last_frame": 232,
+   "n_frames": 71,
+   "split": "development",
+   "r2_split": "development"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0006",
+   "first_frame": 0,
+   "last_frame": 181,
+   "n_frames": 182,
+   "split": "validation",
+   "r2_split": "validation"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0012",
+   "first_frame": 0,
+   "last_frame": 77,
+   "n_frames": 78,
+   "split": "validation",
+   "r2_split": "test"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0015",
+   "first_frame": 90,
+   "last_frame": 375,
+   "n_frames": 286,
+   "split": "validation",
+   "r2_split": "test"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0016",
+   "first_frame": 0,
+   "last_frame": 208,
+   "n_frames": 209,
+   "split": "validation",
+   "r2_split": "test"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0017",
+   "first_frame": 0,
+   "last_frame": 144,
+   "n_frames": 145,
+   "split": "validation",
+   "r2_split": "validation"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0019",
+   "first_frame": 618,
+   "last_frame": 706,
+   "n_frames": 89,
+   "split": "validation",
+   "r2_split": "test"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0019",
+   "first_frame": 1003,
+   "last_frame": 1052,
+   "n_frames": 50,
+   "split": "validation",
+   "r2_split": "test"
+  },
+  {
+   "source": "kitti_tracking",
+   "sequence": "0020",
+   "first_frame": 802,
+   "last_frame": 836,
+   "n_frames": 35,
+   "split": "development",
+   "r2_split": "development"
+  },
+  {
+   "source": "kitti_raw",
+   "sequence": "2011_09_26_drive_0017",
+   "first_frame": 0,
+   "last_frame": 113,
+   "n_frames": 114,
+   "split": "test",
+   "r2_split": null
+  },
+  {
+   "source": "kitti_raw",
+   "sequence": "2011_09_26_drive_0019",
+   "first_frame": 413,
+   "last_frame": 466,
+   "n_frames": 54,
+   "split": "test",
+   "r2_split": null
+  },
+  {
+   "source": "kitti_raw",
+   "sequence": "2011_09_26_drive_0029",
+   "first_frame": 202,
+   "last_frame": 263,
+   "n_frames": 62,
+   "split": "test",
+   "r2_split": null
+  },
+  {
+   "source": "kitti_raw",
+   "sequence": "2011_09_26_drive_0051",
+   "first_frame": 208,
+   "last_frame": 363,
+   "n_frames": 156,
+   "split": "test",
+   "r2_split": null
+  },
+  {
+   "source": "kitti_raw",
+   "sequence": "2011_09_26_drive_0057",
+   "first_frame": 0,
+   "last_frame": 285,
+   "n_frames": 286,
+   "split": "test",
+   "r2_split": null
+  },
+  {
+   "source": "kitti_raw",
+   "sequence": "2011_09_26_drive_0084",
+   "first_frame": 0,
+   "last_frame": 50,
+   "n_frames": 51,
+   "split": "test",
+   "r2_split": null
+  }
+ ],
+ "detector_train_sequences": [
+  "0000",
+  "0001",
+  "0002",
+  "0003",
+  "0004",
+  "0005",
+  "0007",
+  "0008",
+  "0009",
+  "0010",
+  "0011",
+  "0014",
+  "0020"
+ ],
+ "detector_val_sequences": [
+  "0013",
+  "0018"
+ ],
+ "tracking_to_raw_mapping": "results/r3/gate_a/tracking_to_raw.csv",
+ "counts": {
+  "development": 150,
+  "validation": 1039,
+  "test": 723
+ }
+}
