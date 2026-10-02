@@ -59,8 +59,8 @@ GRIDS = {
               "adaptive_gain": [0.25, 0.5, 1.0, 2.0]},
     "robust_event": {"robust_z_on": [2, 3, 4, 5, 6], "robust_theta_max": [0.4, 0.5, 0.55, 0.6, 0.7],
                      "robust_theta_min": [0.1, 0.2, 0.3], "content_cooldown_ms": [500, 1000, 2000]},
-    "ugs_event": {"ugs_z0": [0.5, 1.0, 2.0], "ugs_a_on": [4.5, 5.0, 6.0, 8.0], "ugs_dt_retry_ms": [200, 300, 500],
-                  "ugs_dt_track_ms": [500, 1000, 2000], "ugs_k_retry": [2, 3, 5], "ugs_awake_factor": [0.5, 1.0]},
+    "ugs_event": {"ugs_rho": [0.7, 0.85], "ugs_a_off": [1.0, 2.0], "ugs_a_on": [4.5, 6.0], "ugs_z0": [0.5, 1.0],
+                  "ugs_dt_retry_ms": [300, 500], "ugs_k_retry": [3, 5], "ugs_dt_track_ms": [1000, 3000]},
     # Gate C (watcher parameters inherited from the Gate-B point of the non-secure counterpart)
     "secure": {"rate_limit": [10, 20, 60, 120], "burst_threshold": [10, 30, 60],
                "replay_feature_eps": [0.005, 0.01, 0.03], "consistency_threshold": [0.0, 0.3, 0.5]},

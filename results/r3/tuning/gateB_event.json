@@ -1,0 +1,45 @@
+{
+ "method": "event",
+ "gate": "B",
+ "split": "validation",
+ "selected": {
+  "trigger_threshold": 0.4,
+  "cooldown_ms": 500.0,
+  "adaptive_gain": 2.0
+ },
+ "selected_metrics": {
+  "UR_timely": 0.8378839590443686,
+  "UR_track": 0.9093264248704663,
+  "UR_burst": 0.8667953667953668,
+  "UR_frame": 0.25034844042870186,
+  "timely_recall": 0.6191677175283733,
+  "duty": 0.23586988080254684,
+  "energy_per_min_mJ": 9755.291772651217,
+  "noisy_UR_timely": 0.8955916473317865
+ },
+ "constraint_met": true,
+ "n_configs": 80,
+ "grid": {
+  "trigger_threshold": [
+   0.25,
+   0.3,
+   0.4,
+   0.5,
+   0.6
+  ],
+  "cooldown_ms": [
+   300,
+   500,
+   1000,
+   2000
+  ],
+  "adaptive_gain": [
+   0.25,
+   0.5,
+   1.0,
+   2.0
+  ]
+ },
+ "rule": "max UR_timely s.t. duty<=0.25",
+ "det_thr": 0.45
+}

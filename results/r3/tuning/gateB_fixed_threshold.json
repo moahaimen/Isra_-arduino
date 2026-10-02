@@ -1,0 +1,42 @@
+{
+ "method": "fixed_threshold",
+ "gate": "B",
+ "split": "validation",
+ "selected": {
+  "trigger_threshold": 0.4,
+  "cooldown_ms": 1000.0
+ },
+ "selected_metrics": {
+  "UR_timely": 0.7969283276450512,
+  "UR_track": 0.961139896373057,
+  "UR_burst": 0.8436293436293436,
+  "UR_frame": 0.19075311193348393,
+  "timely_recall": 0.5889029003783102,
+  "duty": 0.2369469023469313,
+  "energy_per_min_mJ": 9823.32359902273,
+  "noisy_UR_timely": 0.8190255220417634
+ },
+ "constraint_met": true,
+ "n_configs": 36,
+ "grid": {
+  "trigger_threshold": [
+   0.25,
+   0.3,
+   0.35,
+   0.4,
+   0.45,
+   0.5,
+   0.55,
+   0.6,
+   0.7
+  ],
+  "cooldown_ms": [
+   300,
+   500,
+   1000,
+   2000
+  ]
+ },
+ "rule": "max UR_timely s.t. duty<=0.25",
+ "det_thr": 0.45
+}

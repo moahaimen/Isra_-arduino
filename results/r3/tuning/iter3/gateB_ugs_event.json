@@ -1,0 +1,58 @@
+{
+ "method": "ugs_event",
+ "gate": "B",
+ "split": "validation",
+ "selected": {
+  "ugs_rho": 0.85,
+  "ugs_a_off": 1.0,
+  "ugs_a_on": 4.5,
+  "ugs_z0": 0.5,
+  "ugs_dt_retry_ms": 500.0,
+  "ugs_k_retry": 5.0,
+  "ugs_dt_track_ms": 1000.0
+ },
+ "selected_metrics": {
+  "UR_timely": 0.8174061433447098,
+  "UR_track": 0.9766839378238342,
+  "UR_burst": 0.8378378378378378,
+  "UR_frame": 0.26443023982313646,
+  "timely_recall": 0.6040353089533418,
+  "duty": 0.2447493218331236,
+  "energy_per_min_mJ": 9975.775263211668,
+  "noisy_UR_timely": 0.7842227378190255
+ },
+ "constraint_met": true,
+ "n_configs": 120,
+ "grid": {
+  "ugs_rho": [
+   0.7,
+   0.85
+  ],
+  "ugs_a_off": [
+   1.0,
+   2.0
+  ],
+  "ugs_a_on": [
+   4.5,
+   6.0
+  ],
+  "ugs_z0": [
+   0.5,
+   1.0
+  ],
+  "ugs_dt_retry_ms": [
+   300,
+   500
+  ],
+  "ugs_k_retry": [
+   3,
+   5
+  ],
+  "ugs_dt_track_ms": [
+   1000,
+   3000
+  ]
+ },
+ "rule": "max UR_timely s.t. duty<=0.25",
+ "det_thr": 0.45
+}
