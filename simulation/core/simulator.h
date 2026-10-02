@@ -180,6 +180,7 @@ private:
     size_t ao_next_ = 0;
     std::deque<int64_t> ao_pending_;
     uint64_t bg_counter_ = 0;
+    double bg_noise_ = 0.12;
 
     void push(double t, int type, int64_t a);
     void log_begin_event(double t, const char* ev, int64_t idx);

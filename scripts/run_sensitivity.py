@@ -9,7 +9,7 @@ Energy-model parameters are swept without re-simulation by
 aggregate.energy_model_sensitivity (modeled energy is linear in power).
 
 Example:
-    python3 scripts/run_sensitivity.py --seeds 1:5 --seconds 1800
+    python3 scripts/run_sensitivity.py --seeds 1:10 --seconds 3600
 """
 from __future__ import annotations
 
@@ -50,8 +50,8 @@ SWEEPS = {
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--params", nargs="+", default=list(SWEEPS))
-    ap.add_argument("--seeds", default="1:5")
-    ap.add_argument("--seconds", type=float, default=1800.0)
+    ap.add_argument("--seeds", default="1:10")
+    ap.add_argument("--seconds", type=float, default=3600.0)
     ap.add_argument("--campaign-id", default=None)
     ap.add_argument("--campaign-root", default=os.path.join(campaign.REPO, "results", "campaigns"))
     ap.add_argument("--config", default=campaign.DEFAULT_CONFIG)

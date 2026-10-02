@@ -59,6 +59,7 @@ Simulator::Simulator(const SimConfig& cfg, const Workload& wl, const PowerModel&
       m4_(always_on_ ? M4_IDLE : M4_MONITOR, 0.0),
       m7_(M7_SLEEP, 0.0) {
     rec_.resize(wl.events.size());
+    bg_noise_ = is_valid_scenario(wl.scenario) ? scenario_params(wl.scenario, cfg).noise_base : 0.12;
     for (size_t i = 0; i < wl.events.size(); ++i) {
         const auto& o = wl.events[i].obs;
         if (o.timestamp_ms < 0.0 || o.timestamp_ms >= T_)
@@ -566,7 +567,8 @@ void Simulator::on_ao_cycle(double t) {
     job.in.background = true;
     job.in.frame_has_object = false;
     job.in.visual_score = 0.1;
-    job.in.noise_score = wl_.events.empty() ? 0.1 : wl_.events.front().obs.noise_score;
+    // Empty-scene frames carry the scenario's background noise level.
+    job.in.noise_score = bg_noise_;
     start_job(t, job);
 }
 

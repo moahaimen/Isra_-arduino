@@ -24,7 +24,7 @@ cmake --build build -j"$JOBS"
 echo "== 2. tests"
 bash tests/run_tests.sh
 
-if [[ $QUICK == 1 ]]; then SEEDS=1:3; SECS=600; SSEEDS=1:2; SSECS=600; else SEEDS=1:10; SECS=3600; SSEEDS=1:5; SSECS=1800; fi
+if [[ $QUICK == 1 ]]; then SEEDS=1:3; SECS=600; SSEEDS=1:2; SSECS=600; else SEEDS=1:10; SECS=3600; SSEEDS=1:10; SSECS=3600; fi
 
 echo "== 3. main campaign (8 scenarios x 6 modes x seeds $SEEDS, $SECS s)"
 python3 scripts/run_experiments.py --campaign-id "main_$TS" --seeds "$SEEDS" --seconds "$SECS" --jobs "$JOBS" \
