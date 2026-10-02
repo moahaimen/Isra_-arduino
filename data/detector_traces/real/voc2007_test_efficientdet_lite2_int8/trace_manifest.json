@@ -1,0 +1,18 @@
+{
+  "dataset": "PASCAL VOC 2007",
+  "detector_name": "efficientdet_lite2_int8",
+  "model_sha256": "b3f50554cb0ea559e90328845f7d9ba4d13c8bff372914d24e06bc8bb72fa896",
+  "n_frames": 4952,
+  "n_gt_boxes": 14976,
+  "n_gt_boxes_non_ignored": 12032,
+  "n_predicted_boxes": 260504,
+  "schema": "detector_trace_v2",
+  "selection": {},
+  "sha256": {
+    "frames.csv": "a6f30871fa3a5e7e3edb04ef7dc4699572ce51e01f1890e3a109889fba20bb14",
+    "ground_truth.csv": "3f7c8de874af0333065748ae87c63f906cdd68248a16515f29f5cbc750ddced6",
+    "predictions.csv": "7f2ec95cb683b8096ef15de8c73969db6337c922dc69b3864358260a477f398b"
+  },
+  "split": "test",
+  "timing_note": "host_*_ms are host measurements, NOT Portenta H7 timings"
+}

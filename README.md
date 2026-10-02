@@ -13,6 +13,29 @@ detector with early exit and goes back to sleep.
 > `docs/HARDWARE_VALIDATION_PLAN.md` for what must be measured before any
 > physical claim.
 
+## R2: real-detector-trace study (this branch)
+
+R2 keeps R1 unchanged as the archived synthetic baseline and adds a second
+study built on REAL data: real pretrained detectors (EfficientDet-Lite0/Lite2,
+SSD-MobileNetV2, TinyissimoYOLO trained here), standard pycocotools mAP,
+watcher features computed from real KITTI frames, image-domain noise /
+spam / replay overlays, a robust watcher and a diversity-aware security gate,
+a MOG2 literature baseline, validation-only tuning and a pre-registered test
+campaign. Timing and power remain simulated (calibration pending).
+
+* Results: `results/r2/RESULTS_R2.md` (generated), detectors:
+  `results/r2/DETECTORS.md`; honest audit: `docs/Q1_READINESS_R2.md`.
+* Method: `docs/R2_METHOD.md`; plan: `docs/PREREGISTERED_R2_ANALYSIS.md`;
+  hardware calibration: `docs/HARDWARE_MINIMAL_R2.md`.
+* Reproduce: `bash scripts/r2/reproduce_r2.sh` (downloads data, builds the
+  image bank, tunes on validation, runs the frozen test campaign).
+* Headline (test split, 30 realizations): the robust watcher cuts M7 duty
+  and modeled energy versus always-on (confirmed) and the R2 gate cuts the
+  false-rejection rate of the legacy gate (0.27 vs 0.65 under spam x8,
+  confirmed), but neither improves detection recall: the robust watcher is
+  significantly WORSE than the legacy rule on the noisy scenario, and all
+  methods are limited by the detector (always-on moving-track recall 0.28).
+
 ## Layout
 
 | path | contents |
