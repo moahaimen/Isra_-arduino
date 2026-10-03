@@ -1,0 +1,19 @@
+{
+  "status": "MEASURED_HOST_ONLY",
+  "checkpoint_sha256": "047b09fa8bbc7d06aae161f1f69e5b33e31754e8590913f82938ea4223ccec88",
+  "device": "cpu",
+  "images": 300,
+  "repeats": 5,
+  "size": 256,
+  "conf": 0.01,
+  "iou": 0.7,
+  "median_image_total_ms": 13.170749,
+  "max_over_median_image_total": 1.7463142756725525,
+  "limitations": [
+    "No adversarial inputs generated; natural-image variation only",
+    "No measured energy or Portenta timing",
+    "Pre-NMS candidate proxy excludes exact NMS internal comparison counts",
+    "Forward and NMS measured separately; preprocessing excluded",
+    "Model compatibility with installed Ultralytics must be smoke-tested"
+  ]
+}
