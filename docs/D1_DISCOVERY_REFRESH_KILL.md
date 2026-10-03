@@ -1,6 +1,6 @@
 # D1 kill-test: discovery vs maintenance under a hard M7 budget
 
-Status: **hypothesis only — not a claimed contribution.**
+Status: **KILLED at K0 novelty audit after K1 feasibility check. Do not proceed to K2/K3 as a Q1 contribution.**
 
 ## Why this direction exists
 
@@ -18,9 +18,16 @@ Tentative mechanism (only if the kill tests pass):
 
 This is deliberately **not** CAGE: no adversarial workload-cost prediction, no work contracts, and no slowdown/NMS claim.
 
-## Novelty audit: current state
+## Novelty audit: final K0 decision
 
-A rapid literature check already finds nearby work, so novelty is **not established**:
+A deeper literature audit found direct prior-art overlap. Novelty is **not strong enough for D1 as the primary Q1 contribution**:
+
+- **AdaPyramid** (Shi et al., IEEE TMC, DOI 10.1109/TMC.2023.3343448) explicitly separates handling of already-known/predicted objects from a dedicated **new-object detector**. The new-object detector runs every frame because missed new objects accumulate omissions, restricts work to regions where new objects can appear, chooses a cheap configuration meeting a recall target, and merges the new-object result back into the tracked-object pipeline. This directly occupies much of D1's discovery-vs-maintenance design space.
+- **FrameBoost** (Yang et al., IEEE Access 2025, DOI 10.1109/ACCESS.2025.3558251) formulates inference-trigger-frame selection under resource constraints, identifies both redundant detector triggers and delayed triggers, and selects new detector inference based on estimated tracking error. This directly overlaps D1's motivation of avoiding redundant refresh while protecting timely detection.
+- **Zhang & Tan, Real-time Accurate Object Tracking for Resource-constrained Edge Devices** (2024, DOI 10.11896/jsjkx.231200167) combines prediction/correction for known objects with a dedicated new-object detector based on clustered frame-difference features, again making the discovery/maintenance split itself prior art.
+- Generic AoI/AoT scheduling already covers freshness-aware resource allocation under energy/computation constraints; a "discovery debt" variable or protected budget by itself would therefore need substantially stronger technical novelty than currently present.
+
+The exact phrase **protected discovery reserve on an M4/M7 MCU** was not found in this audit. That implementation detail is not enough to rescue D1: the surrounding problem decomposition, new-object handling, redundant-refresh avoidance, and resource-constrained inference scheduling are already established. Continuing to K2/K3 would risk engineering a composition rather than creating a defensible Q1 contribution.
 - Adaptive frame-rate / frame-sampling systems save detector work by skipping or warping frames.
 - Edge tracking systems explicitly discuss delayed detection of newly entering objects under frame skipping.
 - Some systems use frame differences or dedicated new-object detectors while propagating existing tracks.
@@ -61,7 +68,20 @@ Primary decision:
 - if the *optimistic LP upper bound* is < 0.90 timely recall at duty 0.25 -> **KILL**;
 - if >= 0.90 -> proceed to K2; this only proves headroom exists.
 
+
+### K1 result (completed before K0 closure)
+Validation only; locked test was not opened. Seven KITTI validation segments, 61 moving tracks, duty budget 0.25, detector threshold 0.45.
+
+- Corrected cascade simulated LP upper = **0.8689**; greedy = **0.8689**.
+- Deliberately optimistic stage-1-cost / best-stage-hits LP upper = **0.9180**; greedy = **0.9180**.
+- The budget was generally not binding; the limiting factor was detector timely-detection ceiling.
+- The optimistic pass is thin: 56/61 tracks and only +0.018 above the 0.90 gate.
+
+K1 therefore showed only narrow clairvoyant headroom under an intentionally generous detector model. It does **not** override the K0 novelty failure.
+
 ### K2 — M4 observability
+**CANCELLED because K0 failed.**
+
 Without using GT at runtime, test whether cheap M4 features can distinguish a **new-track opportunity** from redundant/empty refresh work.
 
 Use validation only, group-separated evaluation. Report AUROC/AUPRC and precision lift at the wake budget.
