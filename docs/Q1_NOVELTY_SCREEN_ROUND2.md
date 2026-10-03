@@ -206,3 +206,47 @@ Four directions are closed before implementation. **S4 is the only first-pass su
 This does **not** mean S4 is novel or Q1-ready. It means only that it has earned the next, cheaper step: a deep K0.5 literature audit. If that survives, run the small real-hardware K1 effect-size experiment. If either fails, close it immediately.
 
 Do not implement an interference-aware scheduler yet.
+
+
+---
+
+## S4 K0.5 deeper audit — current status
+
+A second, narrower search pass was performed before any hardware code. Queries covered combinations of:
+- `STM32H747` / `STM32H745` / `Cortex-M7 Cortex-M4` + interference / shared SRAM / shared bus / real-time;
+- dual-core MCU + shared-resource interference;
+- TinyML / embedded vision + multicore interference;
+- asymmetric MCU / mixed-criticality MCU + memory contention;
+- citation trails around multicore memory-bandwidth regulation and interference-channel stress testing.
+
+### Direct collisions found
+The following clearly occupy the generic systems territory and therefore constrain any novelty claim:
+- **MemPol (RTAS 2023)**: memory-bandwidth regulation for temporal isolation on embedded MPSoCs.
+- **Bechtel & Yun (2023)**: characterization and mitigation of shared-resource contention on heterogeneous multicore platforms.
+- **VanderLeest & Thompson (2021)**: systematic interference-channel stress methodology for multicore avionics.
+- newer Arm multicore bandwidth-regulation work continues the same line on larger real-time platforms.
+
+These works mean S4 cannot claim novelty for “multicore interference exists,” “measure contention,” or “throttle memory bandwidth.”
+
+### What was not found in this pass
+No indexed peer-reviewed paper was found that specifically combines:
+1. an STM32H747-class asymmetric Cortex-M7/Cortex-M4 MCU;
+2. a continuously running low-power vision watcher on M4;
+3. bursty DNN inference on M7;
+4. simultaneous characterization of watcher deadline/jitter, shared-memory/IPC/camera-DMA effects, and low-power-domain coupling;
+5. a vision-specific isolation/control policy evaluated on the real MCU.
+
+Searches also found STM32H747 application-partitioning examples and TinyML benchmarks comparing M4 and M7 performance separately, but not concurrent cross-core interference characterization for this vision architecture.
+
+### Important prior-art boundary
+The low-power-watcher-wakes-high-performance-core architecture itself is **not novel**. Commercial heterogeneous MCUs and prior low-power visual-trigger systems already use an always-on efficient domain/core to wake a more capable compute domain. S4 can survive only if its contribution is specifically the **cross-core interference + power-domain coupling problem and its mitigation**, not the wake architecture.
+
+### Vendor evidence vs novelty evidence
+ST architecture, safety, and power-management documentation confirms that shared resources and power-domain choices can create cross-core timing/power interactions. This establishes plausibility of the mechanism, not research novelty. A paper still needs both:
+- a repeatable, materially large hardware effect; and
+- a mitigation that is not just a direct application of known memory-bandwidth throttling or static partitioning.
+
+### K0.5 decision
+**SURVIVES K0.5 SO FAR, but novelty is not proven.** One final citation-chasing pass around the closest multicore-interference papers is still required before hardware implementation. No interference-aware scheduler should be written yet.
+
+If that final pass reveals an equivalent MCU-class system, kill S4. Otherwise proceed to the pre-registered hardware K1 effect-size test.
