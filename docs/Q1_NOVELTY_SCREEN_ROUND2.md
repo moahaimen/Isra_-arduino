@@ -250,3 +250,28 @@ ST architecture, safety, and power-management documentation confirms that shared
 **SURVIVES K0.5 SO FAR, but novelty is not proven.** One final citation-chasing pass around the closest multicore-interference papers is still required before hardware implementation. No interference-aware scheduler should be written yet.
 
 If that final pass reveals an equivalent MCU-class system, kill S4. Otherwise proceed to the pre-registered hardware K1 effect-size test.
+
+
+### Critical direct-platform prior art found in final citation chase
+
+The final citation-chasing pass found a substantially closer paper that must become the primary baseline:
+
+**Lee, Kim & Hong, “Dual-Core-Based Microcontrollers Inference Design and Performance Analysis,” IEEE Access, 2024, DOI 10.1109/ACCESS.2024.3443406.**
+
+This paper uses the **same STM32H747 class of MCU** and explicitly places camera/data input and preprocessing on Cortex-M4 while Cortex-M7 performs deep-learning inference. It uses shared SRAM4/D3 for inter-core data exchange, runs preprocessing and inference concurrently, compares single-core and dual-core execution, and reports latency and power. Therefore S4 absolutely cannot claim novelty for:
+- splitting camera/preprocessing onto M4 and inference onto M7;
+- concurrent dual-core MCU inference;
+- SRAM4 shared-memory exchange;
+- or latency/power benefits of dual-core vision inference.
+
+However, the paper does **not** frame or evaluate the problem as cross-core temporal interference/isolation. Searches within the paper found no interference analysis; its measurements optimize aggregate throughput/latency rather than measuring how M7 load perturbs M4 P99/WCET-like latency, deadline misses, or shared-resource/power-domain interference. No mitigation policy for that problem is proposed.
+
+This narrows S4 sharply:
+
+> **S4 is no longer “dual-core vision architecture.” It is only the question of predictable temporal isolation of a latency-critical M4 watcher from bursty M7 DNN/shared-resource activity on an asymmetric MCU, with measured interference channels and a mitigation beyond ordinary static partitioning.**
+
+### Final K0.5 decision after citation chase
+
+**SURVIVES, NARROWLY.** The closest exact-platform vision paper occupies the architecture/performance space, while MemPol / RT-Gang++ / avionics interference work occupies generic temporal-isolation methods. The remaining research gap is the intersection: **measured and controlled interference in concurrent MCU-class vision on STM32H747-like asymmetric cores**.
+
+This is now a high-risk direction, not a novelty claim. It proceeds to hardware K1 only because no equivalent interference-focused system was found. The paper must be killed if hardware effect size is small or if the eventual mitigation reduces to trivial static memory placement / known bandwidth throttling.
