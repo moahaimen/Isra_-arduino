@@ -1,0 +1,25 @@
+{
+  "status": "PROCEED_TO_K2",
+  "rule": "Kill only if optimistic LP upper bound < 0.90 at duty <=0.25",
+  "det_thr": 0.45,
+  "duty": 0.25,
+  "summary": {
+    "corrected_cascade_simulated": {
+      "segments": 7,
+      "tracks": 61,
+      "weighted_lp_upper_timely_recall": 0.8688524590163934,
+      "weighted_greedy_timely_recall": 0.8688524590163934,
+      "min_segment_lp_upper": 0.5,
+      "max_segment_lp_upper": 1.0
+    },
+    "optimistic_stage1_cost_best_stage_hits": {
+      "segments": 7,
+      "tracks": 61,
+      "weighted_lp_upper_timely_recall": 0.9180327868852459,
+      "weighted_greedy_timely_recall": 0.9180327868852459,
+      "min_segment_lp_upper": 0.5,
+      "max_segment_lp_upper": 1.0
+    }
+  },
+  "caveat": "Costs are simulator assumptions, not Portenta measurements; LP is intentionally clairvoyant/fractional."
+}

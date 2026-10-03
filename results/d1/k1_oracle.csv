@@ -1,0 +1,15 @@
+cost_model,segment,group,frames,tracks,candidates,duty_budget,budget_ms,lp_upper_timely_recall,lp_fractional_spent_ms,greedy_timely_recall,greedy_spent_ms,greedy_invocations
+corrected_cascade_simulated,0006_0000,kitti_0006,182,11,49,0.25,4550.0,1.0,3912.0,1.0,3906.0,9
+corrected_cascade_simulated,0012_0000,kitti_0012,78,2,5,0.25,1950.0,0.5,432.0,0.5,432.0,1
+corrected_cascade_simulated,0015_0090,kitti_0015,286,10,30,0.25,7150.0,1.0,3051.0,1.0,3046.5,7
+corrected_cascade_simulated,0016_0000,kitti_0016,209,16,17,0.25,5225.0,0.6875,3213.0,0.6875,3648.0,6
+corrected_cascade_simulated,0017_0000,kitti_0017,145,9,11,0.25,3625.0,0.8888888888888888,2514.0,0.8888888888888888,2182.5,5
+corrected_cascade_simulated,0019_0618,kitti_0019,89,11,21,0.25,2225.0,0.9090909090909091,1767.0,0.9090909090909091,1758.0,4
+corrected_cascade_simulated,0019_1003,kitti_0019,50,2,4,0.25,1250.0,1.0,1250.0,1.0,432.0,1
+optimistic_stage1_cost_best_stage_hits,0006_0000,kitti_0006,182,11,54,0.25,4550.0,1.0,4550.0,1.0,3807.0,9
+optimistic_stage1_cost_best_stage_hits,0012_0000,kitti_0012,78,2,6,0.25,1950.0,0.5,1950.0,0.5,423.0,1
+optimistic_stage1_cost_best_stage_hits,0015_0090,kitti_0015,286,10,30,0.25,7150.0,1.0,2538.0,1.0,2538.0,6
+optimistic_stage1_cost_best_stage_hits,0016_0000,kitti_0016,209,16,26,0.25,5225.0,0.75,2538.0,0.75,2538.0,6
+optimistic_stage1_cost_best_stage_hits,0017_0000,kitti_0017,145,9,17,0.25,3625.0,1.0,2115.0,1.0,2115.0,5
+optimistic_stage1_cost_best_stage_hits,0019_0618,kitti_0019,89,11,22,0.25,2225.0,1.0,2225.0,1.0,1692.0,4
+optimistic_stage1_cost_best_stage_hits,0019_1003,kitti_0019,50,2,6,0.25,1250.0,1.0,1250.0,1.0,423.0,1
