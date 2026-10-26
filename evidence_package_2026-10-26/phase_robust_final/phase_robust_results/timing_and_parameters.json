@@ -1,0 +1,38 @@
+{
+  "20261026": {
+    "descriptor_extraction_ms_per_sample": {
+      "revision1": 0.5146157741546631,
+      "phase_robust": 0.79276442527771
+    },
+    "mlp_predict_ms_per_sample": 0.0006601665959213719,
+    "params_layer": 6868,
+    "params_fault": 7113,
+    "ngspice_wall_seconds": 908.1,
+    "n_ngspice_runs": 13878,
+    "workers": 3
+  },
+  "20261027": {
+    "descriptor_extraction_ms_per_sample": {
+      "revision1": 0.3962826728820801,
+      "phase_robust": 0.8229458332061768
+    },
+    "mlp_predict_ms_per_sample": 0.0008835334970493509,
+    "params_layer": 6868,
+    "params_fault": 7113,
+    "ngspice_wall_seconds": 908.9,
+    "n_ngspice_runs": 13878,
+    "workers": 3
+  },
+  "20261028": {
+    "descriptor_extraction_ms_per_sample": {
+      "revision1": 0.5114400386810303,
+      "phase_robust": 0.7400178909301758
+    },
+    "mlp_predict_ms_per_sample": 0.0005051343127934619,
+    "params_layer": 6868,
+    "params_fault": 7113,
+    "ngspice_wall_seconds": 905.9,
+    "n_ngspice_runs": 13878,
+    "workers": 3
+  }
+}

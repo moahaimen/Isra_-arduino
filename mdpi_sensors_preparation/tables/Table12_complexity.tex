@@ -1,0 +1,22 @@
+\begin{table}[H]
+\caption{Model and computational complexity.\label{tab:table12_complexity}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{5.4cm}p{5.4cm}}
+\toprule
+\textbf{Quantity} & \textbf{Value} & \textbf{Source} \\
+\midrule
+MLP architecture & 20--96--48 hidden layout; 20 inputs; ReLU; output 4 (layer) or 9 (fault) & PAPER\_TABLES.csv T10; parameter count check \\
+MLP parameters & 6,868 (layer head); 7,113 (fault head) & timing\_and\_parameters.json \\
+Multiply-accumulates per inference & 6,720 (layer); 6,960 (fault) & derived from the architecture \\
+MLP inference time & 0.68 $\mu$s per record (batched, Python, mean of 3 seeds) & timing\_and\_parameters.json \\
+Descriptor extraction time & Phase-robust 0.79 ms; Revision-1 0.47 ms per record (Python, 1 core) & timing\_and\_parameters.json \\
+MLP training time (PRr models) & mean 0.72 s, max 1.49 s per model & seed\_*/model\_info.json \\
+ngspice runs & 13,878 per seed; 41,634 total & seed\_*/meta.json \\
+Validation runtime per seed & 20261026: total 1175.6 s (ngspice wall 908.1 s, behavioral 707.7 s); 20261027: total 1179.0 s (ngspice wall 908.9 s, behavioral 708.5 s); 20261028: total 1179.1 s (ngspice wall 905.9 s, behavioral 703.8 s) & seed\_*/meta.json \\
+ngspice workers & 3 parallel workers & timing\_and\_parameters.json \\
+Important assumptions & Timings are desktop Python (macOS arm64) measurements, not microcontroller measurements; no energy, power, area or hardware cost was measured & REPRODUCIBILITY\_CHECKLIST.md (environment) \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize No embedded-target timing or energy figure exists in the evidence package; none is claimed.}
+\end{table}

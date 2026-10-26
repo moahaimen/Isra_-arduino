@@ -1,0 +1,8 @@
+token,value
+N_FAULTS,9
+PHASES,"0, 0.25, 0.5, 0.75, 0.999"
+MON_E,"0%, ±1%, ±2%, ±5%"
+ARCH,20–96–48
+N_BOOT,5000
+N_SEEDS,3
+TEST_COND,88

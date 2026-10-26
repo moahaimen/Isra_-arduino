@@ -1,0 +1,182 @@
+draft,token,value,status,source_file,key_or_row
+ABSTRACT_DRAFT,A_MIN_RET,0.916,primary,phase_robust_final/phase_robust_results/decision_rules.json,A.detail['sp|mon1|a80'].retention
+ABSTRACT_DRAFT,C_MAX,0.089,primary,phase_robust_final/phase_robust_results/decision_rules.json,C.detail['bh|known|a120'].cross_confusion
+ABSTRACT_DRAFT,D_MIN_RET,0.924,primary,phase_robust_final/phase_robust_results/decision_rules.json,D.detail['sp|a80'].retention
+ABSTRACT_DRAFT,E_DROP,0.002,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop
+ABSTRACT_DRAFT,E_DROP_HI,+0.006,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[1]
+ABSTRACT_DRAFT,E_DROP_LO,-0.003,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[0]
+ABSTRACT_DRAFT,G_PRR_MAX,0.011,primary,phase_robust_final/phase_robust_results/decision_rules.json,G.detail[*|PRr|*].range
+ABSTRACT_DRAFT,G_bh_R1_E2_RANGE,0.081,primary,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['bh|R1|mon2'].range
+ABSTRACT_DRAFT,N_SEEDS,3,protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,count of seed directories
+ABSTRACT_DRAFT,PARAMS_LAYER,"6,868",primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.params_layer
+ABSTRACT_DRAFT,PREV_DROP,0.119,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_DROP (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_BB_minus_BS)
+INTRODUCTION_DRAFT,ARCH,20–96–48,protocol,paper_package/PAPER_TABLES.csv,T10 'Classifier' row (MLP 20-96-48-{4 or 9})
+INTRODUCTION_DRAFT,E_THRESH,0.10,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate E ('<= 0.10')"
+INTRODUCTION_DRAFT,NOMON_K_x08,0.615,primary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x0.8.known
+INTRODUCTION_DRAFT,NOMON_K_x12,0.643,primary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x1.2.known
+INTRODUCTION_DRAFT,NOMON_U_x08,0.310,secondary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x0.8.unmonitored
+INTRODUCTION_DRAFT,NOMON_U_x12,0.237,secondary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x1.2.unmonitored
+INTRODUCTION_DRAFT,PARAMS_LAYER,"6,868",primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.params_layer
+INTRODUCTION_DRAFT,PREV_DROP,0.119,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_DROP (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_BB_minus_BS)
+INTRODUCTION_DRAFT,PREV_DROP_HI,0.132,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_HI (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_ci[1])
+INTRODUCTION_DRAFT,PREV_DROP_LO,0.107,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_LO (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_ci[0])
+METHODS_SECTION_DRAFT,AMPS_BH,"×0.8, ×0.9, ×1, ×1.1, ×1.2",protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,amplitudes_behavioral
+METHODS_SECTION_DRAFT,AMPS_SP,"×0.8, ×1, ×1.2",protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,amplitudes_ngspice
+METHODS_SECTION_DRAFT,ARCH,20–96–48,protocol,paper_package/PAPER_TABLES.csv,T10 'Classifier' row (MLP 20-96-48-{4 or 9})
+METHODS_SECTION_DRAFT,A_THRESH,0.85,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate A ('>= 0.85 N_d')"
+METHODS_SECTION_DRAFT,C_THRESH,0.15,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate C ('< 0.15')"
+METHODS_SECTION_DRAFT,DEV_AGREE_MAX,0.27,illustrative,paper_package/figure_data/dev_seed_verification.json,noise_free_agreement_per_phase[*].mean_rmse_mV
+METHODS_SECTION_DRAFT,DEV_AGREE_MIN,0.14,illustrative,paper_package/figure_data/dev_seed_verification.json,noise_free_agreement_per_phase[*].mean_rmse_mV
+METHODS_SECTION_DRAFT,DEV_FALLBACK_COUNT,0,illustrative,paper_package/figure_data/fallback_check_dev_seed.json,fallback_activations
+METHODS_SECTION_DRAFT,DEV_FALLBACK_N,"16,200",illustrative,paper_package/figure_data/fallback_check_dev_seed.json,n_records
+METHODS_SECTION_DRAFT,DEV_PR_MAX_SHIFT,0.15,illustrative,paper_package/figure_data/dev_seed_verification.json,descriptor_phase_invariance.phase_robust[*]
+METHODS_SECTION_DRAFT,DEV_RISE2_SHIFT,1.39,illustrative,paper_package/figure_data/dev_seed_verification.json,descriptor_phase_invariance.revision1.rise_2
+METHODS_SECTION_DRAFT,D_THRESH,0.70,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate D ('>= 0.70 N_d')"
+METHODS_SECTION_DRAFT,E_THRESH,0.10,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate E ('<= 0.10')"
+METHODS_SECTION_DRAFT,G_THRESH,0.05,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate G ('<= 0.05')"
+METHODS_SECTION_DRAFT,MACS_LAYER,"6,720",derived,derived,20·96 + 96·48 + 48·4
+METHODS_SECTION_DRAFT,MON_E,"0%, ±1%, ±2%, ±5%",protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,monitor_error_percent
+METHODS_SECTION_DRAFT,N_BOOT,5000,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,section 4 ('... 5000 resamples')
+METHODS_SECTION_DRAFT,N_FAULTS,9,protocol,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,column count (classes)
+METHODS_SECTION_DRAFT,PARAMS_FAULT,"7,113",primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.params_fault
+METHODS_SECTION_DRAFT,PARAMS_LAYER,"6,868",primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.params_layer
+METHODS_SECTION_DRAFT,PHASES,"0, 0.25, 0.5, 0.75, 0.999",protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,phases
+METHODS_SECTION_DRAFT,SEEDS,"20261026, 20261027, 20261028",protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,dataset_seed
+METHODS_SECTION_DRAFT,SPICE_RUNS_SEED,"13,878",protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,n_ngspice_runs
+METHODS_SECTION_DRAFT,SPICE_RUNS_TOTAL,"41,634",protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,n_ngspice_runs
+METHODS_SECTION_DRAFT,TEST_COND,88,protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,test_conditions
+METHODS_SECTION_DRAFT,TOTAL_COND,350,protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,conditions_total
+METHODS_SECTION_DRAFT,TRAIN_COND,222,protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,train_conditions
+METHODS_SECTION_DRAFT,VAL_COND,40,protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,val_conditions
+RESULTS_SECTION_DRAFT,ARM_bh_PRR_F,0.668,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=PRr, fault_macro_f1"
+RESULTS_SECTION_DRAFT,ARM_bh_PRR_L,0.656,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=PRr, layer_macro_f1"
+RESULTS_SECTION_DRAFT,ARM_bh_PRR_RANGE,0.006,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=PRr, layer_f1_p*"
+RESULTS_SECTION_DRAFT,ARM_bh_R1_P000,0.649,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=R1, layer_f1_p000"
+RESULTS_SECTION_DRAFT,ARM_bh_R1_P999,0.568,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=R1, layer_f1_p999"
+RESULTS_SECTION_DRAFT,ARM_bh_R1_RANGE,0.081,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=R1, layer_f1_p*"
+RESULTS_SECTION_DRAFT,ARM_sp_PRR_F,0.662,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=sp, arm=PRr, fault_macro_f1"
+RESULTS_SECTION_DRAFT,ARM_sp_PRR_L,0.649,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=sp, arm=PRr, layer_macro_f1"
+RESULTS_SECTION_DRAFT,ARM_sp_PRR_RANGE,0.010,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=sp, arm=PRr, layer_f1_p*"
+RESULTS_SECTION_DRAFT,ARM_sp_R1_P000,0.642,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=sp, arm=R1, layer_f1_p000"
+RESULTS_SECTION_DRAFT,ARM_sp_R1_P999,0.561,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=sp, arm=R1, layer_f1_p999"
+RESULTS_SECTION_DRAFT,ARM_sp_R1_RANGE,0.081,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=sp, arm=R1, layer_f1_p*"
+RESULTS_SECTION_DRAFT,ATT_bh_DESC,+0.042,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PR - R1 (descriptors alone)', diff"
+RESULTS_SECTION_DRAFT,ATT_bh_DESC_GIVEN_RAND,+0.012,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - R1r (descriptors, given randomisation)', diff"
+RESULTS_SECTION_DRAFT,ATT_bh_DESC_GIVEN_RAND_HI,+0.019,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - R1r (descriptors, given randomisation)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_bh_DESC_GIVEN_RAND_LO,+0.004,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - R1r (descriptors, given randomisation)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_bh_DESC_HI,+0.051,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PR - R1 (descriptors alone)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_bh_DESC_LO,+0.033,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PR - R1 (descriptors alone)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_bh_MIXED,+0.017,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', diff"
+RESULTS_SECTION_DRAFT,ATT_bh_MIXED_HI,+0.025,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_bh_MIXED_LO,+0.008,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_bh_RAND,+0.030,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='R1r - R1 (phase randomisation alone)', diff"
+RESULTS_SECTION_DRAFT,ATT_bh_RAND_GIVEN_DESC,+0.000,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', diff"
+RESULTS_SECTION_DRAFT,ATT_bh_RAND_GIVEN_DESC_HI,+0.006,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_bh_RAND_GIVEN_DESC_LO,-0.005,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_bh_RAND_HI,+0.038,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='R1r - R1 (phase randomisation alone)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_bh_RAND_LO,+0.023,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='R1r - R1 (phase randomisation alone)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_bh_VS_A0,+0.375,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - A0 (vs old method)', diff"
+RESULTS_SECTION_DRAFT,ATT_bh_VS_A0_HI,+0.387,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - A0 (vs old method)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_bh_VS_A0_LO,+0.363,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - A0 (vs old method)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_sp_DESC,+0.041,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PR - R1 (descriptors alone)', diff"
+RESULTS_SECTION_DRAFT,ATT_sp_DESC_GIVEN_RAND,+0.014,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRr - R1r (descriptors, given randomisation)', diff"
+RESULTS_SECTION_DRAFT,ATT_sp_DESC_GIVEN_RAND_HI,+0.022,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRr - R1r (descriptors, given randomisation)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_sp_DESC_GIVEN_RAND_LO,+0.006,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRr - R1r (descriptors, given randomisation)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_sp_DESC_HI,+0.049,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PR - R1 (descriptors alone)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_sp_DESC_LO,+0.032,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PR - R1 (descriptors alone)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_sp_MIXED,+0.014,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRrM - PRr (mixed training)', diff"
+RESULTS_SECTION_DRAFT,ATT_sp_MIXED_HI,+0.024,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRrM - PRr (mixed training)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_sp_MIXED_LO,+0.005,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRrM - PRr (mixed training)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_sp_RAND,+0.029,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='R1r - R1 (phase randomisation alone)', diff"
+RESULTS_SECTION_DRAFT,ATT_sp_RAND_GIVEN_DESC,+0.003,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRr - PR (randomisation, given robust descriptors)', diff"
+RESULTS_SECTION_DRAFT,ATT_sp_RAND_GIVEN_DESC_HI,+0.009,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRr - PR (randomisation, given robust descriptors)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_sp_RAND_GIVEN_DESC_LO,-0.004,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low"
+RESULTS_SECTION_DRAFT,ATT_sp_RAND_HI,+0.037,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='R1r - R1 (phase randomisation alone)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_sp_RAND_LO,+0.022,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='R1r - R1 (phase randomisation alone)', ci_low"
+RESULTS_SECTION_DRAFT,A_MIN_RET,0.916,primary,phase_robust_final/phase_robust_results/decision_rules.json,A.detail['sp|mon1|a80'].retention
+RESULTS_SECTION_DRAFT,A_MIN_RET_WHERE,"ngspice, monitor E = ±1%, ×0.8",primary,phase_robust_final/phase_robust_results/decision_rules.json,argmin key
+RESULTS_SECTION_DRAFT,B_MIN_CI,+0.112,primary,phase_robust_final/phase_robust_results/decision_rules.json,B.detail['known|a120|vs afe_only_mlp@PRr_k'].ci_low
+RESULTS_SECTION_DRAFT,B_MIN_CI_WHERE,"known reference, ×1.2, vs AFE-only PRr",primary,phase_robust_final/phase_robust_results/decision_rules.json,argmin key
+RESULTS_SECTION_DRAFT,B_N,70,primary,phase_robust_final/phase_robust_results/decision_rules.json,len(B.detail)
+RESULTS_SECTION_DRAFT,C_MAX,0.089,primary,phase_robust_final/phase_robust_results/decision_rules.json,C.detail['bh|known|a120'].cross_confusion
+RESULTS_SECTION_DRAFT,C_MAX_WHERE,"behavioral, known reference, ×1.2",primary,phase_robust_final/phase_robust_results/decision_rules.json,argmax key
+RESULTS_SECTION_DRAFT,C_MIN_ADC,0.773,primary,phase_robust_final/phase_robust_results/decision_rules.json,C.detail[*].adc_recall
+RESULTS_SECTION_DRAFT,C_MIN_AFE,0.863,primary,phase_robust_final/phase_robust_results/decision_rules.json,C.detail[*].afe_recall
+RESULTS_SECTION_DRAFT,DECISION,GO,primary,phase_robust_final/phase_robust_results/decision_rules.json,decision
+RESULTS_SECTION_DRAFT,DESC_MS_PR,0.79,primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.descriptor_extraction_ms_per_sample.phase_robust
+RESULTS_SECTION_DRAFT,DESC_MS_R1,0.47,primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.descriptor_extraction_ms_per_sample.revision1
+RESULTS_SECTION_DRAFT,D_MIN_RET,0.924,primary,phase_robust_final/phase_robust_results/decision_rules.json,D.detail['sp|a80'].retention
+RESULTS_SECTION_DRAFT,D_MIN_RET_WHERE,"ngspice, ×0.8",primary,phase_robust_final/phase_robust_results/decision_rules.json,argmin key
+RESULTS_SECTION_DRAFT,E_DROP,0.002,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop
+RESULTS_SECTION_DRAFT,E_DROP_HI,+0.006,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[1]
+RESULTS_SECTION_DRAFT,E_DROP_LO,-0.003,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[0]
+RESULTS_SECTION_DRAFT,E_E2_MSBS,+0.014,secondary,phase_robust_final/phase_robust_results/decision_rules.json,E.all.mon2.MS_minus_BS
+RESULTS_SECTION_DRAFT,E_E2_MSBS_HI,+0.024,secondary,phase_robust_final/phase_robust_results/decision_rules.json,E.all.mon2.MS_minus_BS_ci[1]
+RESULTS_SECTION_DRAFT,E_E2_MSBS_LO,+0.005,secondary,phase_robust_final/phase_robust_results/decision_rules.json,E.all.mon2.MS_minus_BS_ci[0]
+RESULTS_SECTION_DRAFT,E_PRIMARY_BB,0.650,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.BB
+RESULTS_SECTION_DRAFT,E_PRIMARY_BS,0.649,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.BS
+RESULTS_SECTION_DRAFT,E_PRIMARY_MS,0.663,secondary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.MS
+RESULTS_SECTION_DRAFT,E_THRESH,0.10,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate E ('<= 0.10')"
+RESULTS_SECTION_DRAFT,G_PRR_MAX,0.011,primary,phase_robust_final/phase_robust_results/decision_rules.json,G.detail[*|PRr|*].range
+RESULTS_SECTION_DRAFT,G_PRR_MIN,0.005,primary,phase_robust_final/phase_robust_results/decision_rules.json,G.detail[*|PRr|*].range
+RESULTS_SECTION_DRAFT,G_THRESH,0.05,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,"section 5, gate G ('<= 0.05')"
+RESULTS_SECTION_DRAFT,MACS_LAYER,"6,720",derived,derived,20·96 + 96·48 + 48·4
+RESULTS_SECTION_DRAFT,MLP_US,0.68,primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.mlp_predict_ms_per_sample
+RESULTS_SECTION_DRAFT,NOMON_K_x08,0.615,primary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x0.8.known
+RESULTS_SECTION_DRAFT,NOMON_K_x12,0.643,primary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x1.2.known
+RESULTS_SECTION_DRAFT,NOMON_U_x08,0.310,secondary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x0.8.unmonitored
+RESULTS_SECTION_DRAFT,NOMON_U_x12,0.237,secondary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x1.2.unmonitored
+RESULTS_SECTION_DRAFT,N_BH,0.659,primary,phase_robust_final/phase_robust_results/decision_rules.json,N.bh
+RESULTS_SECTION_DRAFT,N_BOOT,5000,protocol,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,section 4 ('... 5000 resamples')
+RESULTS_SECTION_DRAFT,N_SEEDS,3,protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,count of seed directories
+RESULTS_SECTION_DRAFT,N_SP,0.660,primary,phase_robust_final/phase_robust_results/decision_rules.json,N.sp
+RESULTS_SECTION_DRAFT,PARAMS_FAULT,"7,113",primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.params_fault
+RESULTS_SECTION_DRAFT,PARAMS_LAYER,"6,868",primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.params_layer
+RESULTS_SECTION_DRAFT,PREV_DROP,0.119,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_DROP (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_BB_minus_BS)
+RESULTS_SECTION_DRAFT,PREV_DROP_HI,0.132,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_HI (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_ci[1])
+RESULTS_SECTION_DRAFT,PREV_DROP_LO,0.107,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_LO (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_ci[0])
+RESULTS_SECTION_DRAFT,RF_bh_PRR_ADC_CLIPPING,0.447,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column adc_clipping"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_ADC_GAIN,0.922,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column adc_gain"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_ADC_OFFSET,0.997,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column adc_offset"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_AFE_BANDWIDTH,0.955,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column afe_bandwidth"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_AFE_OFFSET,0.857,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column afe_offset"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_HEALTHY,0.294,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column healthy"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_SENSOR_BIAS,0.260,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column sensor_bias"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_SENSOR_GAIN,0.314,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column sensor_gain"
+RESULTS_SECTION_DRAFT,RF_bh_PRR_SENSOR_NOISE,0.984,primary,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"row domain=bh, arm=PRr, column sensor_noise"
+RESULTS_SECTION_DRAFT,RL_bh_PRR_HEALTHY,0.142,primary,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"row domain=bh, arm='PRr', scope='pooled E=2%', column healthy"
+RESULTS_SECTION_DRAFT,RL_sp_PRR_HEALTHY,0.134,primary,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"row domain=sp, arm='PRr', scope='pooled E=2%', column healthy"
+RESULTS_SECTION_DRAFT,SEPX_bh_assumed_a120_AFE,0.375,secondary,phase_robust_final/phase_robust_results/seed_*/predictions.npz,"keys bh_a120_p*_assumed|two_point_mlp@PRr_k|{11,22}|layer"
+RESULTS_SECTION_DRAFT,SEPX_bh_assumed_a120_X,0.336,secondary,phase_robust_final/phase_robust_results/seed_*/predictions.npz,"keys bh_a120_p*_assumed|two_point_mlp@PRr_k|{11,22}|layer"
+RESULTS_SECTION_DRAFT,SEPX_bh_assumed_a80_AFE,0.426,secondary,phase_robust_final/phase_robust_results/seed_*/predictions.npz,"keys bh_a80_p*_assumed|two_point_mlp@PRr_k|{11,22}|layer"
+RESULTS_SECTION_DRAFT,SEPX_bh_assumed_a80_X,0.230,secondary,phase_robust_final/phase_robust_results/seed_*/predictions.npz,"keys bh_a80_p*_assumed|two_point_mlp@PRr_k|{11,22}|layer"
+DISCUSSION_SECTION_DRAFT,ARM_bh_PRR_RANGE,0.006,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=PRr, layer_f1_p*"
+DISCUSSION_SECTION_DRAFT,ARM_bh_R1R_RANGE,0.025,primary,phase_robust_final/phase_robust_results/attribution_arms.csv,"row domain=bh, arm=R1r, layer_f1_p*"
+DISCUSSION_SECTION_DRAFT,ATT_bh_DESC,+0.042,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PR - R1 (descriptors alone)', diff"
+DISCUSSION_SECTION_DRAFT,ATT_bh_MIXED,+0.017,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', diff"
+DISCUSSION_SECTION_DRAFT,ATT_bh_RAND,+0.030,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='R1r - R1 (phase randomisation alone)', diff"
+DISCUSSION_SECTION_DRAFT,ATT_bh_RAND_GIVEN_DESC,+0.000,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', diff"
+DISCUSSION_SECTION_DRAFT,ATT_bh_RAND_GIVEN_DESC_HI,+0.006,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_high"
+DISCUSSION_SECTION_DRAFT,ATT_bh_RAND_GIVEN_DESC_LO,-0.005,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low"
+DISCUSSION_SECTION_DRAFT,ATT_sp_DESC,+0.041,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PR - R1 (descriptors alone)', diff"
+DISCUSSION_SECTION_DRAFT,ATT_sp_MIXED,+0.014,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=sp, comparison='PRrM - PRr (mixed training)', diff"
+DISCUSSION_SECTION_DRAFT,C_MAX,0.089,primary,phase_robust_final/phase_robust_results/decision_rules.json,C.detail['bh|known|a120'].cross_confusion
+DISCUSSION_SECTION_DRAFT,DEV_AGREE_MAX,0.27,illustrative,paper_package/figure_data/dev_seed_verification.json,noise_free_agreement_per_phase[*].mean_rmse_mV
+DISCUSSION_SECTION_DRAFT,DEV_AGREE_MIN,0.14,illustrative,paper_package/figure_data/dev_seed_verification.json,noise_free_agreement_per_phase[*].mean_rmse_mV
+DISCUSSION_SECTION_DRAFT,D_MIN_RET,0.924,primary,phase_robust_final/phase_robust_results/decision_rules.json,D.detail['sp|a80'].retention
+DISCUSSION_SECTION_DRAFT,NOMON_K_x12,0.643,primary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x1.2.known
+DISCUSSION_SECTION_DRAFT,NOMON_U_x12,0.237,secondary,phase_robust_final/phase_robust_results/no_monitor_control.json,no_monitor_control_layer_macro_f1.x1.2.unmonitored
+DISCUSSION_SECTION_DRAFT,N_BH,0.659,primary,phase_robust_final/phase_robust_results/decision_rules.json,N.bh
+DISCUSSION_SECTION_DRAFT,PREV_DROP,0.119,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_DROP (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_BB_minus_BS)
+DISCUSSION_SECTION_DRAFT,RL_bh_PRR_HEALTHY,0.142,primary,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"row domain=bh, arm='PRr', scope='pooled E=2%', column healthy"
+DISCUSSION_SECTION_DRAFT,SEPX_bh_assumed_a120_AFE,0.375,secondary,phase_robust_final/phase_robust_results/seed_*/predictions.npz,"keys bh_a120_p*_assumed|two_point_mlp@PRr_k|{11,22}|layer"
+DISCUSSION_SECTION_DRAFT,TEST_COND,88,protocol,phase_robust_final/phase_robust_results/seed_*/meta.json,test_conditions
+CONCLUSION_DRAFT,A_MIN_RET,0.916,primary,phase_robust_final/phase_robust_results/decision_rules.json,A.detail['sp|mon1|a80'].retention
+CONCLUSION_DRAFT,D_MIN_RET,0.924,primary,phase_robust_final/phase_robust_results/decision_rules.json,D.detail['sp|a80'].retention
+CONCLUSION_DRAFT,E_DROP,0.002,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop
+CONCLUSION_DRAFT,E_DROP_HI,+0.006,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[1]
+CONCLUSION_DRAFT,E_DROP_LO,-0.003,primary,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[0]
+CONCLUSION_DRAFT,G_PRR_MAX,0.011,primary,phase_robust_final/phase_robust_results/decision_rules.json,G.detail[*|PRr|*].range
+CONCLUSION_DRAFT,G_bh_R1_E2_RANGE,0.081,primary,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['bh|R1|mon2'].range
+CONCLUSION_DRAFT,PARAMS_LAYER,"6,868",primary,phase_robust_final/phase_robust_results/timing_and_parameters.json,<seed>.params_layer
+CONCLUSION_DRAFT,PREV_DROP,0.119,previous-stage,paper_package/NUMBER_PROVENANCE.csv,token PREV_E_DROP (original locator: reference_monitor_final/.../decision_rules.json E.primary_matched_E2.drop_BB_minus_BS)

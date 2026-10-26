@@ -1,0 +1,285 @@
+token,value,raw_value,source_file,locator
+SEEDS,"20261026, 20261027, 20261028","20261026, 20261027, 20261028",phase_robust_final/phase_robust_results/seed_*/meta.json,dataset_seed
+TRAIN_CONDITIONS,222,222,phase_robust_final/phase_robust_results/seed_*/meta.json,train_conditions
+VAL_CONDITIONS,40,40,phase_robust_final/phase_robust_results/seed_*/meta.json,val_conditions
+TEST_CONDITIONS,88,88,phase_robust_final/phase_robust_results/seed_*/meta.json,test_conditions
+N_SPICE_PER_SEED,"13,878",13878,phase_robust_final/phase_robust_results/seed_*/meta.json,n_ngspice_runs
+N_SPICE_TOTAL,"41,634",41634,phase_robust_final/phase_robust_results/seed_*/meta.json,sum n_ngspice_runs
+N_TEST_ROWS,792,792,phase_robust_final/phase_robust_results/seed_*/meta.json,test_conditions x 9 faults
+N_BOOT,5000,5000,phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md,section 4
+N_BH,0.659,0.6585019671768821,phase_robust_final/phase_robust_results/decision_rules.json,N.bh
+N_SP,0.660,0.660104299139385,phase_robust_final/phase_robust_results/decision_rules.json,N.sp
+DECISION,GO,GO,phase_robust_final/phase_robust_results/decision_rules.json,decision
+E_BB,0.650,0.6502110291155668,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.BB
+E_BS,0.649,0.6486150326165007,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.BS
+E_MS,0.663,0.663045809909223,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.MS
+E_DROP,0.002,0.0015959964990660547,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop
+E_DROP_LO,-0.003,-0.0028009652486403443,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[0]
+E_DROP_HI,0.006,0.005924417922589621,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.drop_ci[1]
+E_MS_GAIN,+0.014,0.014430777292722352,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.MS_minus_BS
+E_MS_GAIN_LO,+0.005,0.005068040450450892,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.MS_minus_BS_ci[0]
+E_MS_GAIN_HI,+0.024,0.023721350249492946,phase_robust_final/phase_robust_results/decision_rules.json,E.primary_E2.MS_minus_BS_ci[1]
+E_DROP_MIN,-0.001,-0.0007337420474942125,phase_robust_final/phase_robust_results/decision_rules.json,min E.all[*].drop
+E_DROP_MAX,0.002,0.002469159658052574,phase_robust_final/phase_robust_results/decision_rules.json,max E.all[*].drop
+PREV_E_DROP,0.119,0.11946245359243446,reference_monitor_final/reference_monitor_results/decision_rules.json,E.primary_matched_E2.drop_BB_minus_BS
+PREV_E_LO,0.107,0.10707017628030577,reference_monitor_final/reference_monitor_results/decision_rules.json,E.primary_matched_E2.drop_ci[0]
+PREV_E_HI,0.132,0.1318601312223764,reference_monitor_final/reference_monitor_results/decision_rules.json,E.primary_matched_E2.drop_ci[1]
+PREV_E_BB,0.658,0.6580357473932641,reference_monitor_final/reference_monitor_results/decision_rules.json,E.primary_matched_E2.BB
+PREV_E_BS,0.539,0.5385732938008296,reference_monitor_final/reference_monitor_results/decision_rules.json,E.primary_matched_E2.BS
+PREV_DECISION,REVISE,REVISE,reference_monitor_final/reference_monitor_results/decision_rules.json,decision
+PREV_C_MAX,0.132,0.1318181818181818,reference_monitor_final/reference_monitor_results/decision_rules.json,max C.detail[*].cross_confusion
+ALIGN_BB,0.638,0.6377098083372361,reference_monitor_final/reference_monitor_results/exploratory_spice_alignment.json,BB
+ALIGN_FROZEN,0.557,0.5566745521041793,reference_monitor_final/reference_monitor_results/exploratory_spice_alignment.json,BS_frozen_alignment
+ALIGN_ZOH,0.625,0.6254544569842716,reference_monitor_final/reference_monitor_results/exploratory_spice_alignment.json,BS_zoh_aligned
+ALIGN_RISE2_FROZEN,1.37,1.3712522983551025,reference_monitor_final/reference_monitor_results/exploratory_spice_alignment.json,mean_abs_shift_sigma_frozen.rise_2
+A_MIN_RET,0.916,0.9155169326422983,phase_robust_final/phase_robust_results/decision_rules.json,A.detail['sp|mon1|a80'].retention
+C_MAX,0.089,0.08916666666666667,phase_robust_final/phase_robust_results/decision_rules.json,C.detail['bh|known|a120'].cross_confusion
+D_MIN_RET,0.924,0.9242266491989172,phase_robust_final/phase_robust_results/decision_rules.json,D.detail['sp|a80'].retention
+B_MIN_CI,+0.112,0.1120707804144198,phase_robust_final/phase_robust_results/decision_rules.json,B.detail['known|a120|vs afe_only_mlp@PRr_k'].ci_low
+B_N,70,70,phase_robust_final/phase_robust_results/decision_rules.json,len(B.detail)
+G_PRR_BH,0.006,0.006217968197063217,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['bh|PRr|mon2'].range
+G_PRR_SP,0.010,0.010259730307286885,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['sp|PRr|mon2'].range
+G_R1_BH,0.081,0.08138741210345479,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['bh|R1|mon2'].range
+G_R1_SP,0.081,0.08082701139310366,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['sp|R1|mon2'].range
+G_PRR_BH_K,0.005,0.004582600746860455,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['bh|PRr|known'].range
+G_PRR_SP_K,0.011,0.011287291700875723,phase_robust_final/phase_robust_results/decision_rules.json,G.detail['sp|PRr|known'].range
+G_PRR_MAX,0.011,0.011287291700875723,phase_robust_final/phase_robust_results/decision_rules.json,max G.detail[*|PRr|*].range
+G_PRR_MIN,0.005,0.004582600746860455,phase_robust_final/phase_robust_results/decision_rules.json,min G.detail[*|PRr|*].range
+ARM_BH_A0_L,0.281,0.2805,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=A0, layer_macro_f1"
+ARM_BH_A0_F,0.227,0.2272,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=A0, fault_macro_f1"
+ARM_BH_A0_P0,0.279,0.2793,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=A0, layer_f1_p000"
+ARM_BH_A0_P999,0.282,0.2819,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=A0, layer_f1_p999"
+ARM_BH_A0_LBA,0.321,0.321,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=A0, layer_balanced_accuracy"
+ARM_BH_A0_FBA,0.251,0.251,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=A0, fault_balanced_accuracy"
+ARM_BH_R1_L,0.614,0.6136,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1, layer_macro_f1"
+ARM_BH_R1_F,0.638,0.6379,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1, fault_macro_f1"
+ARM_BH_R1_P0,0.649,0.6493,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1, layer_f1_p000"
+ARM_BH_R1_P999,0.568,0.5679,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1, layer_f1_p999"
+ARM_BH_R1_LBA,0.622,0.6219,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1, layer_balanced_accuracy"
+ARM_BH_R1_FBA,0.644,0.6444,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1, fault_balanced_accuracy"
+ARM_BH_R1R_L,0.644,0.6439,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1r, layer_macro_f1"
+ARM_BH_R1R_F,0.654,0.6536,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1r, fault_macro_f1"
+ARM_BH_R1R_P0,0.651,0.6508,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1r, layer_f1_p000"
+ARM_BH_R1R_P999,0.626,0.6262,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1r, layer_f1_p999"
+ARM_BH_R1R_LBA,0.647,0.6475,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1r, layer_balanced_accuracy"
+ARM_BH_R1R_FBA,0.656,0.6562,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1r, fault_balanced_accuracy"
+ARM_BH_PR_L,0.655,0.6554,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PR, layer_macro_f1"
+ARM_BH_PR_F,0.666,0.6664,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PR, fault_macro_f1"
+ARM_BH_PR_P0,0.657,0.6569,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PR, layer_f1_p000"
+ARM_BH_PR_P999,0.653,0.6533,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PR, layer_f1_p999"
+ARM_BH_PR_LBA,0.661,0.6611,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PR, layer_balanced_accuracy"
+ARM_BH_PR_FBA,0.668,0.6682,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PR, fault_balanced_accuracy"
+ARM_BH_PRR_L,0.656,0.6556,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRr, layer_macro_f1"
+ARM_BH_PRR_F,0.668,0.6677,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRr, fault_macro_f1"
+ARM_BH_PRR_P0,0.659,0.6587,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRr, layer_f1_p000"
+ARM_BH_PRR_P999,0.652,0.6525,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRr, layer_f1_p999"
+ARM_BH_PRR_LBA,0.660,0.6598,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRr, layer_balanced_accuracy"
+ARM_BH_PRR_FBA,0.670,0.6699,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRr, fault_balanced_accuracy"
+ARM_BH_PRRM_L,0.672,0.6721,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRrM, layer_macro_f1"
+ARM_BH_PRRM_F,0.675,0.6754,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRrM, fault_macro_f1"
+ARM_BH_PRRM_P0,0.677,0.6768,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRrM, layer_f1_p000"
+ARM_BH_PRRM_P999,0.667,0.6668,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRrM, layer_f1_p999"
+ARM_BH_PRRM_LBA,0.674,0.6739,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRrM, layer_balanced_accuracy"
+ARM_BH_PRRM_FBA,0.676,0.6763,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRrM, fault_balanced_accuracy"
+ARM_SP_R1_L,0.606,0.6056,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1, layer_macro_f1"
+ARM_SP_R1_F,0.631,0.6311,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1, fault_macro_f1"
+ARM_SP_R1_P0,0.642,0.642,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1, layer_f1_p000"
+ARM_SP_R1_P999,0.561,0.5612,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1, layer_f1_p999"
+ARM_SP_R1_LBA,0.616,0.6157,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1, layer_balanced_accuracy"
+ARM_SP_R1_FBA,0.638,0.6385,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1, fault_balanced_accuracy"
+ARM_SP_R1R_L,0.635,0.635,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1r, layer_macro_f1"
+ARM_SP_R1R_F,0.647,0.6475,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1r, fault_macro_f1"
+ARM_SP_R1R_P0,0.643,0.6431,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1r, layer_f1_p000"
+ARM_SP_R1R_P999,0.617,0.6173,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1r, layer_f1_p999"
+ARM_SP_R1R_LBA,0.640,0.6404,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1r, layer_balanced_accuracy"
+ARM_SP_R1R_FBA,0.651,0.6508,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1r, fault_balanced_accuracy"
+ARM_SP_PR_L,0.646,0.646,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PR, layer_macro_f1"
+ARM_SP_PR_F,0.661,0.6607,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PR, fault_macro_f1"
+ARM_SP_PR_P0,0.649,0.6489,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PR, layer_f1_p000"
+ARM_SP_PR_P999,0.642,0.6422,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PR, layer_f1_p999"
+ARM_SP_PR_LBA,0.654,0.654,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PR, layer_balanced_accuracy"
+ARM_SP_PR_FBA,0.663,0.6632,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PR, fault_balanced_accuracy"
+ARM_SP_PRR_L,0.649,0.6486,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRr, layer_macro_f1"
+ARM_SP_PRR_F,0.662,0.6621,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRr, fault_macro_f1"
+ARM_SP_PRR_P0,0.654,0.6538,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRr, layer_f1_p000"
+ARM_SP_PRR_P999,0.643,0.6435,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRr, layer_f1_p999"
+ARM_SP_PRR_LBA,0.654,0.6545,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRr, layer_balanced_accuracy"
+ARM_SP_PRR_FBA,0.665,0.665,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRr, fault_balanced_accuracy"
+ARM_SP_PRRM_L,0.663,0.663,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRrM, layer_macro_f1"
+ARM_SP_PRRM_F,0.671,0.6707,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRrM, fault_macro_f1"
+ARM_SP_PRRM_P0,0.667,0.6673,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRrM, layer_f1_p000"
+ARM_SP_PRRM_P999,0.658,0.6581,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRrM, layer_f1_p999"
+ARM_SP_PRRM_LBA,0.666,0.6662,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRrM, layer_balanced_accuracy"
+ARM_SP_PRRM_FBA,0.673,0.6727,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRrM, fault_balanced_accuracy"
+ATT_BH_DESC,+0.042,0.0418,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PR - R1 (descriptors alone)', diff"
+ATT_BH_DESC_CI,"[+0.033, +0.051]","[+0.033, +0.051]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PR - R1 (descriptors alone)', ci_low/ci_high"
+ATT_BH_RAND,+0.030,0.0303,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='R1r - R1 (phase randomisation alone)', diff"
+ATT_BH_RAND_CI,"[+0.023, +0.038]","[+0.023, +0.038]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='R1r - R1 (phase randomisation alone)', ci_low/ci_high"
+ATT_BH_DESC_GIVEN_RAND,+0.012,0.0118,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - R1r (descriptors, given randomisation)', diff"
+ATT_BH_DESC_GIVEN_RAND_CI,"[+0.004, +0.019]","[+0.004, +0.019]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - R1r (descriptors, given randomisation)', ci_low/ci_high"
+ATT_BH_RAND_GIVEN_DESC,+0.000,0.0003,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', diff"
+ATT_BH_RAND_GIVEN_DESC_CI,"[-0.005, +0.006]","[-0.005, +0.006]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low/ci_high"
+ATT_BH_COMB,+0.042,0.042,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - R1 (combination)', diff"
+ATT_BH_COMB_CI,"[+0.034, +0.050]","[+0.034, +0.050]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - R1 (combination)', ci_low/ci_high"
+ATT_BH_MIXED,+0.017,0.0165,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRrM - PRr (mixed training)', diff"
+ATT_BH_MIXED_CI,"[+0.008, +0.025]","[+0.008, +0.025]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRrM - PRr (mixed training)', ci_low/ci_high"
+ATT_BH_VS_A0,+0.375,0.3751,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - A0 (vs old method)', diff"
+ATT_BH_VS_A0_CI,"[+0.363, +0.387]","[+0.363, +0.387]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=bh, comparison='PRr - A0 (vs old method)', ci_low/ci_high"
+ATT_SP_DESC,+0.041,0.0405,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PR - R1 (descriptors alone)', diff"
+ATT_SP_DESC_CI,"[+0.032, +0.049]","[+0.032, +0.049]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PR - R1 (descriptors alone)', ci_low/ci_high"
+ATT_SP_RAND,+0.029,0.0295,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='R1r - R1 (phase randomisation alone)', diff"
+ATT_SP_RAND_CI,"[+0.022, +0.037]","[+0.022, +0.037]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='R1r - R1 (phase randomisation alone)', ci_low/ci_high"
+ATT_SP_DESC_GIVEN_RAND,+0.014,0.0136,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRr - R1r (descriptors, given randomisation)', diff"
+ATT_SP_DESC_GIVEN_RAND_CI,"[+0.006, +0.022]","[+0.006, +0.022]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRr - R1r (descriptors, given randomisation)', ci_low/ci_high"
+ATT_SP_RAND_GIVEN_DESC,+0.003,0.0026,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRr - PR (randomisation, given robust descriptors)', diff"
+ATT_SP_RAND_GIVEN_DESC_CI,"[-0.004, +0.009]","[-0.004, +0.009]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low/ci_high"
+ATT_SP_COMB,+0.043,0.0431,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRr - R1 (combination)', diff"
+ATT_SP_COMB_CI,"[+0.035, +0.051]","[+0.035, +0.051]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRr - R1 (combination)', ci_low/ci_high"
+ATT_SP_MIXED,+0.014,0.0144,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRrM - PRr (mixed training)', diff"
+ATT_SP_MIXED_CI,"[+0.005, +0.024]","[+0.005, +0.024]",phase_robust_final/phase_robust_results/attribution_comparisons.csv,"domain=sp, comparison='PRrM - PRr (mixed training)', ci_low/ci_high"
+AMP_BH_K_X08,0.615,0.6148,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr known', target=layer, x0.8"
+AMP_BH_K_X10,0.658,0.6585,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr known', target=layer, x1.0"
+AMP_BH_K_X12,0.642,0.6425,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr known', target=layer, x1.2"
+AMP_BH_K_POOLED,0.646,0.6457,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr known', target=layer, pooled"
+AMP_BH_E0_X08,0.610,0.6098,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=0%', target=layer, x0.8"
+AMP_BH_E0_X10,0.655,0.6547,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=0%', target=layer, x1.0"
+AMP_BH_E0_X12,0.642,0.6421,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=0%', target=layer, x1.2"
+AMP_BH_E0_POOLED,0.642,0.6421,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=0%', target=layer, pooled"
+AMP_BH_E1_X08,0.608,0.6079,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=1%', target=layer, x0.8"
+AMP_BH_E1_X10,0.658,0.6583,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=1%', target=layer, x1.0"
+AMP_BH_E1_X12,0.644,0.6439,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=1%', target=layer, x1.2"
+AMP_BH_E1_POOLED,0.644,0.6437,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=1%', target=layer, pooled"
+AMP_BH_E2_X08,0.614,0.6142,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=2%', target=layer, x0.8"
+AMP_BH_E2_X10,0.673,0.6731,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=2%', target=layer, x1.0"
+AMP_BH_E2_X12,0.663,0.6628,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=2%', target=layer, x1.2"
+AMP_BH_E2_POOLED,0.656,0.6556,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=2%', target=layer, pooled"
+AMP_BH_E5_X08,0.611,0.6114,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=5%', target=layer, x0.8"
+AMP_BH_E5_X10,0.661,0.6615,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=5%', target=layer, x1.0"
+AMP_BH_E5_X12,0.649,0.6488,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=5%', target=layer, x1.2"
+AMP_BH_E5_POOLED,0.648,0.6485,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='PRr E=5%', target=layer, pooled"
+AMP_BH_A0_X08,0.140,0.14,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='A0 old', target=layer, x0.8"
+AMP_BH_A0_X10,0.560,0.5603,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='A0 old', target=layer, x1.0"
+AMP_BH_A0_X12,0.121,0.1213,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='A0 old', target=layer, x1.2"
+AMP_BH_A0_POOLED,0.281,0.2805,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, series='A0 old', target=layer, pooled"
+AMP_BH_MON_POOLED_MIN,0.642,0.6421,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, min over series PRr E=0/1/2/5%, pooled"
+AMP_BH_MON_POOLED_MAX,0.656,0.6556,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=bh, max over series PRr E=0/1/2/5%, pooled"
+AMP_SP_K_X08,0.616,0.6161,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr known', target=layer, x0.8"
+AMP_SP_K_X10,0.660,0.6601,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr known', target=layer, x1.0"
+AMP_SP_K_X12,0.642,0.6423,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr known', target=layer, x1.2"
+AMP_SP_K_POOLED,0.639,0.6395,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr known', target=layer, pooled"
+AMP_SP_E0_X08,0.606,0.6058,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=0%', target=layer, x0.8"
+AMP_SP_E0_X10,0.655,0.6552,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=0%', target=layer, x1.0"
+AMP_SP_E0_X12,0.644,0.6439,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=0%', target=layer, x1.2"
+AMP_SP_E0_POOLED,0.635,0.635,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=0%', target=layer, pooled"
+AMP_SP_E1_X08,0.604,0.6043,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=1%', target=layer, x0.8"
+AMP_SP_E1_X10,0.655,0.6547,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=1%', target=layer, x1.0"
+AMP_SP_E1_X12,0.644,0.6441,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=1%', target=layer, x1.2"
+AMP_SP_E1_POOLED,0.634,0.6342,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=1%', target=layer, pooled"
+AMP_SP_E2_X08,0.611,0.6107,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=2%', target=layer, x0.8"
+AMP_SP_E2_X10,0.671,0.6709,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=2%', target=layer, x1.0"
+AMP_SP_E2_X12,0.664,0.6641,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=2%', target=layer, x1.2"
+AMP_SP_E2_POOLED,0.649,0.6486,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=2%', target=layer, pooled"
+AMP_SP_E5_X08,0.610,0.6101,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=5%', target=layer, x0.8"
+AMP_SP_E5_X10,0.663,0.6634,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=5%', target=layer, x1.0"
+AMP_SP_E5_X12,0.646,0.6465,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=5%', target=layer, x1.2"
+AMP_SP_E5_POOLED,0.640,0.6399,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, series='PRr E=5%', target=layer, pooled"
+AMP_SP_MON_POOLED_MIN,0.634,0.6342,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, min over series PRr E=0/1/2/5%, pooled"
+AMP_SP_MON_POOLED_MAX,0.649,0.6486,phase_robust_final/phase_robust_results/amplitude_curves.csv,"domain=sp, max over series PRr E=0/1/2/5%, pooled"
+CTL_K_X08,0.615,0.6148225636100616,phase_robust_final/phase_robust_results/no_monitor_control.json,x0.8.known
+CTL_U_X08,0.310,0.3101911556478929,phase_robust_final/phase_robust_results/no_monitor_control.json,x0.8.unmonitored
+CTL_K_X12,0.643,0.6425070734045095,phase_robust_final/phase_robust_results/no_monitor_control.json,x1.2.known
+CTL_U_X12,0.237,0.23699776224537938,phase_robust_final/phase_robust_results/no_monitor_control.json,x1.2.unmonitored
+PARAMS_LAYER,"6,868",6868,phase_robust_final/phase_robust_results/timing_and_parameters.json,20261026.params_layer
+PARAMS_FAULT,"7,113",7113,phase_robust_final/phase_robust_results/timing_and_parameters.json,20261026.params_fault
+MACS_LAYER,"6,720",6720,derived from the 20-96-48-4 architecture (checked against params_layer),multiply-accumulate count
+MACS_FAULT,"6,960",6960,derived from the 20-96-48-9 architecture,multiply-accumulate count
+DESC_MS_R1,0.47,0.4741128285725911,phase_robust_final/phase_robust_results/timing_and_parameters.json,mean over seeds of descriptor_extraction_ms_per_sample.revision1
+DESC_MS_PR,0.79,0.7852427164713541,phase_robust_final/phase_robust_results/timing_and_parameters.json,mean over seeds of descriptor_extraction_ms_per_sample.phase_robust
+MLP_MS,0.68,0.6829448019213948,phase_robust_final/phase_robust_results/timing_and_parameters.json,mean over seeds of mlp_predict_ms_per_sample x 1000 (microseconds)
+SPICE_WALL,908,907.6333333333333,phase_robust_final/phase_robust_results/timing_and_parameters.json,mean ngspice_wall_seconds
+SPICE_WORKERS,3,3,phase_robust_final/phase_robust_results/timing_and_parameters.json,workers
+V2_COND_M20,-0.047,-0.04727548378555857,reference_v2_results/decision_rules.json,D5['ref_m20|two_point_mlp@A2-two_point_mlp@A1j'].diff
+V2_COND_M20_CI,"[-0.060, -0.034]","[-0.060, -0.034]",reference_v2_results/decision_rules.json,D5['ref_m20|two_point_mlp@A2-two_point_mlp@A1j'].ci
+V2_COND_P20,-0.067,-0.0665779695540466,reference_v2_results/decision_rules.json,D5['ref_p20|two_point_mlp@A2-two_point_mlp@A1j'].diff
+V2_COND_P20_CI,"[-0.081, -0.052]","[-0.081, -0.052]",reference_v2_results/decision_rules.json,D5['ref_p20|two_point_mlp@A2-two_point_mlp@A1j'].ci
+RM_A2_E2_X08,0.620,0.6197,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A2m E=2% (ablation)', target=layer, x0.8"
+RM_A2_E2_X12,0.646,0.6461,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A2m E=2% (ablation)', target=layer, x1.2"
+RM_A1_E2_X08,0.669,0.6694,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A1m E=2%', target=layer, x0.8"
+RM_A1_E2_X12,0.671,0.6708,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A1m E=2%', target=layer, x1.2"
+RM_A2_E5_X08,0.611,0.6112,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A2m E=5% (ablation)', target=layer, x0.8"
+RM_A2_E5_X12,0.653,0.6526,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A2m E=5% (ablation)', target=layer, x1.2"
+RM_A1_E5_X08,0.662,0.662,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A1m E=5%', target=layer, x0.8"
+RM_A1_E5_X12,0.643,0.6432,reference_monitor_final/reference_monitor_results/amplitude_curves.csv,"series='A1m E=5%', target=layer, x1.2"
+TCN_NOM_L,+0.033,0.03347563535584427,multiseed_results/decision_rules.json,R2['nominal|layer'].diff
+TCN_NOM_L_CI,"[+0.020, +0.048]","[+0.020, +0.048]",multiseed_results/decision_rules.json,R2['nominal|layer'].ci
+TCN_NOM_F,-0.011,-0.011199812079394503,multiseed_results/decision_rules.json,R2['nominal|fault'].diff
+TCN_NOM_F_CI,"[-0.022, -0.000]","[-0.022, -0.000]",multiseed_results/decision_rules.json,R2['nominal|fault'].ci
+TCN_TOL_L,+0.011,0.011232624052010531,multiseed_results/decision_rules.json,R2['tolerance|layer'].diff
+TCN_TOL_L_CI,"[-0.004, +0.026]","[-0.004, +0.026]",multiseed_results/decision_rules.json,R2['tolerance|layer'].ci
+TCN_SEV_L,-0.013,-0.01344369029817912,multiseed_results/decision_rules.json,R2['severity|layer'].diff
+TCN_SEV_L_CI,"[-0.040, +0.012]","[-0.040, +0.012]",multiseed_results/decision_rules.json,R2['severity|layer'].ci
+NETLIST_OLD_RMSE,162,162.41893243853326,spice/spice_vs_behavioral.json,healthy.adc_out.rmse_V x1000 (mV)
+NETLIST_FIX_RMSE,7.7,7.650864480567971,spice_fixed/spice_vs_behavioral.json,healthy.adc_out.rmse_V x1000 (mV)
+REC_L_BH_PRR_HEALTHY,0.142,0.142,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm=PRr, healthy"
+REC_L_BH_PRR_SENSOR,0.780,0.7804,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm=PRr, sensor"
+REC_L_BH_PRR_AFE,0.911,0.9109,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm=PRr, afe"
+REC_L_BH_PRR_ADC,0.806,0.806,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm=PRr, adc"
+REC_F_BH_PRR_HEALTHY,0.294,0.294,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, healthy"
+REC_F_BH_PRR_SENSOR_BIAS,0.260,0.26,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, sensor_bias"
+REC_F_BH_PRR_SENSOR_GAIN,0.314,0.3139,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, sensor_gain"
+REC_F_BH_PRR_SENSOR_NOISE,0.984,0.9836,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, sensor_noise"
+REC_F_BH_PRR_AFE_OFFSET,0.857,0.8572,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, afe_offset"
+REC_F_BH_PRR_AFE_BANDWIDTH,0.955,0.9546,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, afe_bandwidth"
+REC_F_BH_PRR_ADC_OFFSET,0.997,0.9967,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, adc_offset"
+REC_F_BH_PRR_ADC_GAIN,0.922,0.922,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, adc_gain"
+REC_F_BH_PRR_ADC_CLIPPING,0.447,0.4467,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=bh, arm=PRr, adc_clipping"
+REC_L_SP_PRR_HEALTHY,0.134,0.134,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=sp, arm=PRr, healthy"
+REC_L_SP_PRR_SENSOR,0.773,0.7728,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=sp, arm=PRr, sensor"
+REC_L_SP_PRR_AFE,0.901,0.9009,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=sp, arm=PRr, afe"
+REC_L_SP_PRR_ADC,0.810,0.8102,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=sp, arm=PRr, adc"
+REC_F_SP_PRR_HEALTHY,0.266,0.2662,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, healthy"
+REC_F_SP_PRR_SENSOR_BIAS,0.263,0.2628,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, sensor_bias"
+REC_F_SP_PRR_SENSOR_GAIN,0.310,0.3097,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, sensor_gain"
+REC_F_SP_PRR_SENSOR_NOISE,0.982,0.9822,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, sensor_noise"
+REC_F_SP_PRR_AFE_OFFSET,0.845,0.8446,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, afe_offset"
+REC_F_SP_PRR_AFE_BANDWIDTH,0.942,0.9424,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, afe_bandwidth"
+REC_F_SP_PRR_ADC_OFFSET,0.995,0.9946,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, adc_offset"
+REC_F_SP_PRR_ADC_GAIN,0.907,0.9073,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, adc_gain"
+REC_F_SP_PRR_ADC_CLIPPING,0.475,0.4751,phase_robust_final/phase_robust_results/per_class_recall_fault.csv,"domain=sp, arm=PRr, adc_clipping"
+REC_L_UNMON_HEALTHY,0.000,0.0,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm='PRr known (no monitor, assumed levels)', healthy"
+REC_L_UNMON_SENSOR,0.039,0.0394,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm='PRr known (no monitor, assumed levels)', sensor"
+REC_L_UNMON_AFE,0.400,0.4004,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm='PRr known (no monitor, assumed levels)', afe"
+REC_L_UNMON_ADC,0.882,0.8818,phase_robust_final/phase_robust_results/per_class_recall_layer.csv,"domain=bh, arm='PRr known (no monitor, assumed levels)', adc"
+C_MIN_AFE_REC,0.863,0.8632575757575758,phase_robust_final/phase_robust_results/decision_rules.json,min C.detail[*].afe_recall
+C_MIN_ADC_REC,0.773,0.7733585858585859,phase_robust_final/phase_robust_results/decision_rules.json,min C.detail[*].adc_recall
+A_MIN_RET_PCT,91.6,91.55169326422983,phase_robust_final/phase_robust_results/decision_rules.json,100 x A.detail['sp|mon1|a80'].retention
+D_MIN_RET_PCT,92.4,92.42266491989172,phase_robust_final/phase_robust_results/decision_rules.json,100 x D.detail['sp|a80'].retention
+DEV_AGREE_MIN,0.14,0.13640642808038847,paper_package/figure_data/dev_seed_verification.json,min noise_free_agreement_per_phase[*].mean_rmse_mV
+DEV_AGREE_MAX,0.27,0.2706512071502705,paper_package/figure_data/dev_seed_verification.json,max noise_free_agreement_per_phase[*].mean_rmse_mV
+DEV_AGREE_WORST,2.8,2.8366590850055218,paper_package/figure_data/dev_seed_verification.json,max noise_free_agreement_per_phase[*].max_rmse_mV
+DEV_RISE2_SHIFT,1.39,1.392389178276062,paper_package/figure_data/dev_seed_verification.json,max descriptor_phase_invariance.revision1.rise_2
+DEV_PR_MAX_SHIFT,0.15,0.15391139686107635,paper_package/figure_data/dev_seed_verification.json,max over descriptor_phase_invariance.phase_robust[*]
+DEV_FALLBACK_N,"16,200",16200,paper_package/figure_data/fallback_check_dev_seed.json,n_records
+DEV_FALLBACK_COUNT,0,0,paper_package/figure_data/fallback_check_dev_seed.json,fallback_activations
+DEV_TAU_SHIFT,0.00,0.003815215779468417,paper_package/figure_data/dev_seed_verification.json,max descriptor_phase_invariance.phase_robust.tau_norm
+ARM_BH_A0_RANGE,0.003,0.00269999999999998,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=A0, max-min of layer_f1_p*"
+ARM_BH_R1_RANGE,0.081,0.08140000000000003,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1, max-min of layer_f1_p*"
+ARM_BH_R1R_RANGE,0.025,0.024600000000000066,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=R1r, max-min of layer_f1_p*"
+ARM_BH_PR_RANGE,0.004,0.0036000000000000476,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PR, max-min of layer_f1_p*"
+ARM_BH_PRR_RANGE,0.006,0.006199999999999983,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRr, max-min of layer_f1_p*"
+ARM_BH_PRRM_RANGE,0.010,0.010000000000000009,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=bh, arm=PRrM, max-min of layer_f1_p*"
+ARM_SP_R1_RANGE,0.081,0.08079999999999998,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1, max-min of layer_f1_p*"
+ARM_SP_R1R_RANGE,0.026,0.025800000000000045,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=R1r, max-min of layer_f1_p*"
+ARM_SP_PR_RANGE,0.007,0.006700000000000039,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PR, max-min of layer_f1_p*"
+ARM_SP_PRR_RANGE,0.010,0.010300000000000087,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRr, max-min of layer_f1_p*"
+ARM_SP_PRRM_RANGE,0.009,0.009199999999999986,phase_robust_final/phase_robust_results/attribution_arms.csv,"domain=sp, arm=PRrM, max-min of layer_f1_p*"
+VER_PYTHON,3.12.12,3.12.12,runtime environment,python
+VER_NUMPY,2.2.6,2.2.6,runtime environment,numpy
+VER_PANDAS,2.3.3,2.3.3,runtime environment,pandas
+VER_SCIPY,1.16.3,1.16.3,runtime environment,scipy
+VER_SCIKIT_LEARN,1.7.2,1.7.2,runtime environment,scikit-learn
+VER_MATPLOTLIB,3.10.7,3.10.7,runtime environment,matplotlib
+VER_PLATFORM,macOS-27.0.1-arm64-arm-64bit,macOS-27.0.1-arm64-arm-64bit,runtime environment,platform
+VER_TORCH,2.10.0,2.10.0,runtime environment,torch
+VER_NGSPICE,** ngspice-47 : Circuit level simulation program,** ngspice-47 : Circuit level simulation program,runtime environment,ngspice
+BUILD_DATE,2026-10-14,2026-10-14,build time,date

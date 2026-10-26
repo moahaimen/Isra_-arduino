@@ -1,0 +1,25 @@
+panel,domain,arm,layer_macro_f1,phase_range,comparison,diff,ci_low,ci_high
+"a,b",bh,A0,0.2805,0.00269999999999998,,,,
+"a,b",bh,R1,0.6136,0.08140000000000003,,,,
+"a,b",bh,R1r,0.6439,0.024600000000000066,,,,
+"a,b",bh,PR,0.6554,0.0036000000000000476,,,,
+"a,b",bh,PRr,0.6556,0.006199999999999983,,,,
+"a,b",bh,PRrM,0.6721,0.010000000000000009,,,,
+"a,b",sp,A0,,,,,,
+"a,b",sp,R1,0.6056,0.08079999999999998,,,,
+"a,b",sp,R1r,0.635,0.025800000000000045,,,,
+"a,b",sp,PR,0.646,0.006700000000000039,,,,
+"a,b",sp,PRr,0.6486,0.010300000000000087,,,,
+"a,b",sp,PRrM,0.663,0.009199999999999986,,,,
+c,bh,,,,PR - R1 (descriptors alone),0.0418,0.0332,0.0509
+c,sp,,,,PR - R1 (descriptors alone),0.0405,0.0319,0.0493
+c,bh,,,,R1r - R1 (phase randomisation alone),0.0303,0.0226,0.0382
+c,sp,,,,R1r - R1 (phase randomisation alone),0.0295,0.022,0.0369
+c,bh,,,,"PRr - R1r (descriptors, given randomisation)",0.0118,0.0042,0.0194
+c,sp,,,,"PRr - R1r (descriptors, given randomisation)",0.0136,0.0056,0.0217
+c,bh,,,,"PRr - PR (randomisation, given robust descriptors)",0.0003,-0.0055,0.006
+c,sp,,,,"PRr - PR (randomisation, given robust descriptors)",0.0026,-0.0037,0.0089
+c,bh,,,,PRr - R1 (combination),0.042,0.034,0.0502
+c,sp,,,,PRr - R1 (combination),0.0431,0.0351,0.0514
+c,bh,,,,PRrM - PRr (mixed training),0.0165,0.0078,0.0255
+c,sp,,,,PRrM - PRr (mixed training),0.0144,0.0051,0.0237

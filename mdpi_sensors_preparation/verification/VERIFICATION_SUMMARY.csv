@@ -1,0 +1,13 @@
+,value
+evidence_files_checked,85.0
+evidence_files_hash_mismatch,0.0
+recomputed_quantities,475.0
+recomputed_mismatches,0.0
+max_abs_diff_csv,4.983164983163313e-05
+max_abs_diff_json,2.220446049250313e-16
+bootstrap_point,0.0015959964990659807
+bootstrap_lo,-0.0029039187864936186
+bootstrap_hi,0.006101374178296513
+facts_total,36.0
+facts_mismatch,0.0
+facts_with_note,10.0

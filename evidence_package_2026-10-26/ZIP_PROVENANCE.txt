@@ -1,0 +1,3 @@
+Source ZIP: active_sensor_diagnosis_phase_robust_evidence_package_2026-10-26_clean.zip
+SHA-256 (verified 2026-10-26, matches value supplied by the author): 3e2f034dacfa1c66c8b554220dedb78a1527692ba7e62830d0270815d7687bec
+Contents extracted verbatim; do not edit. Per-file hashes: SHA256SUMS_EXTRACTED.txt

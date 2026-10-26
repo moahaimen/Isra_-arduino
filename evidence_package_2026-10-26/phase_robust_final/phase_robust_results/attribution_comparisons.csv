@@ -1,0 +1,14 @@
+domain,comparison,diff,ci_low,ci_high,consistent_3_seeds
+bh,PR - R1 (descriptors alone),0.0418,0.0332,0.0509,True
+bh,R1r - R1 (phase randomisation alone),0.0303,0.0226,0.0382,True
+bh,"PRr - R1r (descriptors, given randomisation)",0.0118,0.0042,0.0194,True
+bh,"PRr - PR (randomisation, given robust descriptors)",0.0003,-0.0055,0.006,False
+bh,PRr - R1 (combination),0.042,0.034,0.0502,True
+bh,PRrM - PRr (mixed training),0.0165,0.0078,0.0255,True
+bh,PRr - A0 (vs old method),0.3751,0.3632,0.3866,True
+sp,PR - R1 (descriptors alone),0.0405,0.0319,0.0493,True
+sp,R1r - R1 (phase randomisation alone),0.0295,0.022,0.0369,True
+sp,"PRr - R1r (descriptors, given randomisation)",0.0136,0.0056,0.0217,True
+sp,"PRr - PR (randomisation, given robust descriptors)",0.0026,-0.0037,0.0089,False
+sp,PRr - R1 (combination),0.0431,0.0351,0.0514,True
+sp,PRrM - PRr (mixed training),0.0144,0.0051,0.0237,True

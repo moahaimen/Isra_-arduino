@@ -1,0 +1,21 @@
+\begin{table}[H]
+\caption{Fault taxonomy: nine fault classes and their physical location.\label{tab:table02_fault_taxonomy}}
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{\#} & \textbf{Fault class} & \textbf{Layer} & \textbf{Physical location} & \textbf{Severity range (simulated)} & \textbf{Primary observability} \\
+\midrule
+0 & Healthy & --- & --- & no fault injected & --- \\
+1 & Sensor bias & Sensor & Sensor element / sensor output & $\pm$U(0.06,0.24) V & Passive sensor segments only (references replace the sensor) \\
+2 & Sensor gain & Sensor & Sensor element (sensitivity) & $\pm$U(6,28)\% & Passive sensor segments only (references replace the sensor) \\
+3 & Sensor noise & Sensor & Sensor element (excess noise) & U(25,95) mV rms & Passive sensor segments only (references replace the sensor) \\
+4 & AFE offset & AFE & Amplifier stage (offset) & $\pm$U(0.06,0.24) V & R1 window, after removing the ADC transfer from R2 \\
+5 & AFE bandwidth & AFE & RC low-pass filter (time constant $\tau$) & tau x U(1.8,4.5) & R1 window, after removing the ADC transfer from R2 \\
+6 & ADC offset & ADC & ADC (offset) & $\pm$U(0.06,0.24) V & R2 window (bypasses the AFE) \\
+7 & ADC gain & ADC & ADC (gain) & $\pm$U(6,28)\% & R2 window (bypasses the AFE) \\
+8 & ADC clipping & ADC & ADC input range (clipping) & full scale x U(0.72,0.93) & R2 window (bypasses the AFE) \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Severity ranges parsed programmatically from the 'Faults (severity)' row of paper\_package/PAPER\_TABLES.csv (src/simulate.py: make\_fault). Layer assignment follows the four-class layer label used by the classifier.}
+\end{table}

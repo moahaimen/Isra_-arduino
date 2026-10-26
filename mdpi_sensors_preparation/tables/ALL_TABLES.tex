@@ -1,0 +1,282 @@
+% Tables for the MDPI Sensors manuscript (requires booktabs, float).
+
+\begin{table}[H]
+\caption{Electronic system and circuit components of the simulated sensor interface.\label{tab:table01_system_components}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{3.6cm}p{3.6cm}p{3.6cm}}
+\toprule
+\textbf{Block} & \textbf{Model / parameters (simulation)} & \textbf{Role in the self-test} & \textbf{Source (code constant)} \\
+\midrule
+Sensor model & baseline U(0.78,1.18) V; carrier amplitude U(0.045,0.18) V; frequency U(0.45,3.0) Hz; sensor noise U(2,14) mV; slow component 25 mV at 0.12 Hz; random-walk drift 1.5 mV/step & Physical signal source; replaced by R1 during the AFE test window & src/simulate.py: make\_condition, \_base\_signal \\
+MUX 1 / reference R1 & 140-260 ms; 0.90 V then 1.30 V (two 60 ms plateaus); replaces the sensor at the AFE input & Two-level reference at the AFE input; its response passes through AFE and ADC & src/simulate.py: \_afe\_reference \\
+AFE / filter & AFE gain U(1.65,2.05); AFE tau U(8,16) ms; first-order RC low-pass with gain and offset & Amplifies and filters; faults: offset, bandwidth & src/simulate.py: make\_condition, \_base\_signal \\
+MUX 2 / reference R2 & 340-460 ms; 1.15 V then 1.75 V; bypasses the AFE at the ADC input & Two-level reference at the ADC input, bypassing the AFE; isolates the ADC transfer & src/simulate.py: \_adc\_reference \\
+ADC & 1 kHz, 512 samples per record (0.512 s), 12-bit ADC over 0-3.3 V, ADC noise 2.5 mV rms & Digitises all paths; faults: offset, gain, clipping & src/simulate.py: simulate\_sample \\
+Reference monitor & buffered 12-bit channel, 16-sample mean, 0.25 mV rms after averaging, common gain error U(-E,E), E in {0,1,2,5}\% & Measures the actual reference levels used in calibration (simulated, not built) & src/monitor\_model.py \\
+Switches (ngspice) & Ron = 0.5 Ohm, Roff = 1 MOhm, threshold 2.5 V, hysteresis 0.1 V; 1 us edges & Circuit-level multiplexer model & src/spice\_phase.py: render\_phase \\
+Extra ngspice noise & 0.5 mV rms amplifier-input noise and 0.5 mV rms on each reference rail & Circuit-domain noise not present in the behavioral model & src/spice\_domain.py: AMP\_NOISE\_V, REF\_NOISE\_V \\
+Digital classifier & MLP 20-96-48-{4 or 9}, ReLU, Adam, early stopping; 6,868 (layer) / 7,113 (fault) parameters; input: 20 (15 settled-plateau / calibration / sensor-domain + 5 phase-robust transient) & Classifies faulty layer (4 classes) and fault (9 classes) & phase\_robust\_results/timing\_and\_parameters.json; src/run\_feasibility.py: \_classifier \\
+Component tolerances (test) & AFE gain $\pm$5\%, AFE tau $\pm$10\%, ADC gain $\pm$2\%, ADC offset $\pm$10 mV, sensor baseline $\pm$5\% (uniform per sample) & Applied in both domains, drawn per sample & src/run\_reference\_monitor.py: \_draw\_tol \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Values are code constants copied programmatically from paper\_package/PAPER\_TABLES.csv (Table T1/T10); the simulator source code is not part of the evidence package, so these constants cannot be re-verified here.}
+\end{table}
+
+\begin{table}[H]
+\caption{Fault taxonomy: nine fault classes and their physical location.\label{tab:table02_fault_taxonomy}}
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{\#} & \textbf{Fault class} & \textbf{Layer} & \textbf{Physical location} & \textbf{Severity range (simulated)} & \textbf{Primary observability} \\
+\midrule
+0 & Healthy & --- & --- & no fault injected & --- \\
+1 & Sensor bias & Sensor & Sensor element / sensor output & $\pm$U(0.06,0.24) V & Passive sensor segments only (references replace the sensor) \\
+2 & Sensor gain & Sensor & Sensor element (sensitivity) & $\pm$U(6,28)\% & Passive sensor segments only (references replace the sensor) \\
+3 & Sensor noise & Sensor & Sensor element (excess noise) & U(25,95) mV rms & Passive sensor segments only (references replace the sensor) \\
+4 & AFE offset & AFE & Amplifier stage (offset) & $\pm$U(0.06,0.24) V & R1 window, after removing the ADC transfer from R2 \\
+5 & AFE bandwidth & AFE & RC low-pass filter (time constant $\tau$) & tau x U(1.8,4.5) & R1 window, after removing the ADC transfer from R2 \\
+6 & ADC offset & ADC & ADC (offset) & $\pm$U(0.06,0.24) V & R2 window (bypasses the AFE) \\
+7 & ADC gain & ADC & ADC (gain) & $\pm$U(6,28)\% & R2 window (bypasses the AFE) \\
+8 & ADC clipping & ADC & ADC input range (clipping) & full scale x U(0.72,0.93) & R2 window (bypasses the AFE) \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Severity ranges parsed programmatically from the 'Faults (severity)' row of paper\_package/PAPER\_TABLES.csv (src/simulate.py: make\_fault). Layer assignment follows the four-class layer label used by the classifier.}
+\end{table}
+
+\begin{table}[H]
+\caption{Simulation and validation protocol.\label{tab:table03_protocol}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{10.8cm}}
+\toprule
+\textbf{Item} & \textbf{Setting} \\
+\midrule
+Simulator domains & Behavioral discrete-time model; ngspice per-sample netlist of the same circuit \\
+Dataset seeds & 20261026, 20261027, 20261028 (3 seeds, unseen before the protocol freeze) \\
+Conditions per seed & 350 operating conditions $\times$ 9 fault classes \\
+Train / validation / test split & 222 / 40 / 88 conditions per seed; overlap 0 \\
+Test records per test cell & 792 (88 conditions $\times$ 9 classes) \\
+Edge phases $\psi$ (test) & 0, 0.25, 0.5, 0.75, 0.999 (5 phases); training $\psi$ $\sim$ U[0,1) for randomized arms \\
+Reference amplitudes & Behavioral $\times$0.8, $\times$0.9, $\times$1, $\times$1.1, $\times$1.2; ngspice $\times$0.8, $\times$1, $\times$1.2 \\
+Monitor gain-error bound E & 0\%, $\pm$1\%, $\pm$2\%, $\pm$5\% (matched training) and known reference \\
+Component tolerances & AFE gain $\pm$5\%, AFE tau $\pm$10\%, ADC gain $\pm$2\%, ADC offset $\pm$10 mV, sensor baseline $\pm$5\% (uniform per sample) \\
+Noise & ADC noise 2.5 mV rms; ngspice adds 0.5 mV rms amplifier-input noise and 0.5 mV rms on each reference rail \\
+Quantization & 12-bit ADC over 0-3.3 V \\
+ngspice runs & 13,878 per seed; 41,634 in total \\
+Initializations & Two initialization seeds per model, averaged \\
+Primary metric & Layer macro-F1 (4 classes); also fault macro-F1 (9 classes), balanced accuracy, per-class recall \\
+Statistics & Paired condition-level cluster bootstrap, 5000 resamples per seed; pooled CI of the mean of the three per-seed differences \\
+Pre-registration & Protocol, descriptors, arms, thresholds and decision rule frozen before validation data (source hashes recorded) \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Sources: seed\_*/meta.json, PROTOCOL\_PHASE\_ROBUST\_FROZEN.md, paper\_package/PAPER\_TABLES.csv (T1).}
+\end{table}
+
+\begin{table}[H]
+\caption{Main classification results of the primary (PRr) and secondary (PRrM) methods.\label{tab:table04_main_results}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{1.8cm}p{1.8cm}p{1.8cm}p{1.8cm}p{1.8cm}p{1.8cm}}
+\toprule
+\textbf{Method} & \textbf{Role} & \textbf{Domain} & \textbf{Layer macro-F1} & \textbf{Layer balanced acc.} & \textbf{Fault macro-F1} & \textbf{Fault balanced acc.} \\
+\midrule
+PRr & Primary (pre-registered) & Behavioral & 0.656 & 0.660 & 0.668 & 0.670 \\
+PRr & Primary (pre-registered) & ngspice & 0.649 & 0.654 & 0.662 & 0.665 \\
+PRrM & Secondary (mixed-domain training) & Behavioral & 0.672 & 0.674 & 0.675 & 0.676 \\
+PRrM & Secondary (mixed-domain training) & ngspice & 0.663 & 0.666 & 0.671 & 0.673 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Monitor E = $\pm$2\%, pooled over amplitudes (behavioral $\times$0.8--$\times$1.2; ngspice $\times$0.8, $\times$1.0, $\times$1.2) and the five phases; mean of 3 dataset seeds $\times$ 2 initializations. The behavioral and ngspice rows use different amplitude grids and must not be subtracted; the matched-grid transfer comparison is in Table 9. Nominal reference value N (known reference, $\times$1.0, pooled over phases): 0.659 behavioral, 0.660 ngspice. Source: attribution\_arms.csv; decision\_rules.json (N).}
+\end{table}
+
+\begin{table}[H]
+\caption{Pre-registered gate results for the primary method PRr.\label{tab:table05_gates}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{1.8cm}p{1.8cm}p{1.8cm}p{1.8cm}p{1.8cm}p{1.8cm}}
+\toprule
+\textbf{Gate} & \textbf{Criterion} & \textbf{Threshold} & \textbf{Observed (PRr)} & \textbf{95\% CI} & \textbf{Behavioral} & \textbf{ngspice} \\
+\midrule
+A & Retention at $\times$0.8 and $\times$1.2 (known, E $\leq$ $\pm$2\%) & $\geq$ 0.85$\cdot$N & worst 0.916 (ngspice, monitor E = $\pm$1\%, $\times$0.8) & --- & PASS & PASS \\
+B & Superiority over old method and one-point baselines (behavioral) & pooled CI lower bound > 0 & smallest lower bound +0.112 over 70 comparisons & per comparison, Table 6 & PASS & --- \\
+C & AFE--ADC cross-confusion at $\times$0.8 and $\times$1.2 & < 0.15 & largest 0.089 (behavioral, known reference, $\times$1.2) & --- & PASS & PASS \\
+D & Retention with monitor E = $\pm$5\% & $\geq$ 0.70$\cdot$N & worst 0.924 (ngspice, $\times$0.8) & --- & PASS & PASS \\
+E & Behavioral $\rightarrow$ ngspice transfer loss (E = $\pm$2\%, ngspice grid) & $\leq$ 0.10 (point estimate) & 0.002 & [-0.003, +0.006] & PASS & --- \\
+F & Every claimed improvement supported by a paired-bootstrap CI excluding zero & CI excludes 0 & satisfied & 5000 resamples & procedural† & procedural† \\
+G & Layer macro-F1 range over five phases (known, E = $\pm$2\%) & $\leq$ 0.05 & largest 0.011 (smallest 0.005) & --- & PASS & PASS \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Decision: GO (0 failed gates). N = PRr layer macro-F1 with known reference at $\times$1.0 (0.659 behavioral, 0.660 ngspice). †Gate F has no separate key in decision\_rules.json; it was checked here against the saved CIs. The mixed-domain variant PRrM also passes the ngspice-domain gates (reported only). Source: decision\_rules.json (gates, A--E, G details); PROTOCOL\_PHASE\_ROBUST\_FROZEN.md §5 (thresholds).}
+\end{table}
+
+\begin{table}[H]
+\caption{Baseline comparison (layer macro-F1, behavioral domain).\label{tab:table06_baselines}}
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Method} & \textbf{Layer macro-F1 $\times$0.8} & \textbf{Layer macro-F1 $\times$1.2} & \textbf{PRr -- method $\times$0.8 [95\% CI]} & \textbf{PRr -- method $\times$1.2 [95\% CI]} & \textbf{PRr -- method, E = $\pm$2\% pooled [95\% CI]} \\
+\midrule
+Passive (sensor signal only), old descriptors & 0.259 & 0.259 & +0.356 [+0.341, +0.371] & +0.384 [+0.368, +0.400] & --- \\
+Single-probe active test, old descriptors & 0.349 & 0.396 & +0.266 [+0.250, +0.282] & +0.246 [+0.230, +0.261] & --- \\
+AFE-only reference, old descriptors & 0.320 & 0.295 & +0.295 [+0.280, +0.311] & +0.348 [+0.329, +0.366] & --- \\
+ADC-only reference, old descriptors & 0.120 & 0.122 & +0.495 [+0.482, +0.508] & +0.521 [+0.507, +0.534] & --- \\
+A0: two-point, old descriptors (previous method) & 0.140 & 0.121 & +0.475 [+0.461, +0.489] & +0.521 [+0.507, +0.535] & +0.375 [+0.363, +0.387] \\
+AFE-only reference, PRr descriptors & 0.473 & 0.516 & +0.142 [+0.128, +0.155] & +0.126 [+0.112, +0.140] & --- \\
+ADC-only reference, PRr descriptors & 0.455 & 0.452 & +0.160 [+0.144, +0.175] & +0.190 [+0.176, +0.206] & --- \\
+R1: Revision-1 fixed-sample descriptors & 0.578 & 0.593 & --- & --- & +0.042 [+0.034, +0.050] \\
+R1r: R1 + phase-randomized training & 0.626 & 0.634 & --- & --- & +0.012 [+0.004, +0.019] \\
+PR: phase-robust descriptors, $\psi$ = 0 training & 0.612 & 0.635 & --- & --- & +0.000 [-0.005, +0.006] \\
+PRr: proposed (primary) & 0.615 & 0.643 & --- & --- & --- \\
+PRrM: PRr + mixed-domain training (secondary) & 0.660 & 0.670 & --- & --- & -0.017 [-0.025, -0.008] \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Behavioral domain, known reference, pooled over the five phases. Absolute layer macro-F1 values are computed from the saved per-sample predictions (they are not stored in a summary file); for every baseline the difference PRr -- method equals the saved paired difference in decision\_rules.json (B) to within 1e-9. Paired differences and CIs: decision\_rules.json (B) and attribution\_comparisons.csv; PRr -- PRrM is the sign-reversed PRrM -- PRr comparison (CI bounds reversed accordingly).}
+\end{table}
+
+\begin{table}[H]
+\caption{Reference-monitor robustness: layer macro-F1 versus actual reference amplitude.\label{tab:table07_reference_monitor}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}}
+\toprule
+\textbf{Reference condition} & \textbf{Behavioral $\times$0.8} & \textbf{Behavioral $\times$0.9} & \textbf{Behavioral $\times$1.0} & \textbf{Behavioral $\times$1.1} & \textbf{Behavioral $\times$1.2} & \textbf{ngspice $\times$0.8} & \textbf{ngspice $\times$1.0} & \textbf{ngspice $\times$1.2} \\
+\midrule
+Known reference & 0.615 & 0.645 & 0.658 & 0.667 & 0.642 & 0.616 & 0.660 & 0.642 \\
+Monitor E = 0\% & 0.610 & 0.638 & 0.655 & 0.665 & 0.642 & 0.606 & 0.655 & 0.644 \\
+Monitor E = $\pm$1\% & 0.608 & 0.638 & 0.658 & 0.670 & 0.644 & 0.604 & 0.655 & 0.644 \\
+Monitor E = $\pm$2\% & 0.614 & 0.647 & 0.673 & 0.681 & 0.663 & 0.611 & 0.671 & 0.664 \\
+Monitor E = $\pm$5\% & 0.611 & 0.644 & 0.661 & 0.676 & 0.649 & 0.610 & 0.663 & 0.646 \\
+No-monitor control (nominal levels assumed) & 0.310 & 0.423 & 0.659 & 0.389 & 0.237 & --- & --- & --- \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize PRr layer macro-F1 pooled over the five phases (mean of three seeds). Monitored variants are trained with the matching error bound E. The no-monitor control is the PRr known-reference classifier given the nominal levels; it was evaluated in the behavioral domain only. Retention relative to N: worst 0.916 at $\pm$20\% (known, E $\leq$ $\pm$2\%) and 0.924 at E = $\pm$5\%. Source: amplitude\_curves.csv; no\_monitor\_control.json; decision\_rules.json (A, D).}
+\end{table}
+
+\begin{table}[H]
+\caption{Phase-robustness ablation: layer macro-F1 per edge phase.\label{tab:table08_phase_ablation}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}p{1.4cm}}
+\toprule
+\textbf{Domain} & \textbf{Arm} & \textbf{$\psi$ = 0} & \textbf{$\psi$ = 0.25} & \textbf{$\psi$ = 0.5} & \textbf{$\psi$ = 0.75} & \textbf{$\psi$ = 0.999} & \textbf{Range (max -- min)} & \textbf{$\leq$ 0.05} \\
+\midrule
+Behavioral & A0 & 0.279 & 0.279 & 0.281 & 0.281 & 0.282 & 0.003 & yes \\
+Behavioral & R1 & 0.649 & 0.636 & 0.614 & 0.590 & 0.568 & 0.081 & no \\
+Behavioral & R1r & 0.651 & 0.650 & 0.648 & 0.641 & 0.626 & 0.025 & yes \\
+Behavioral & PR & 0.657 & 0.656 & 0.655 & 0.655 & 0.653 & 0.004 & yes \\
+Behavioral & PRr & 0.659 & 0.658 & 0.656 & 0.653 & 0.652 & 0.006 & yes \\
+Behavioral & PRrM & 0.677 & 0.676 & 0.672 & 0.668 & 0.667 & 0.010 & yes \\
+ngspice & R1 & 0.642 & 0.625 & 0.606 & 0.584 & 0.561 & 0.081 & no \\
+ngspice & R1r & 0.643 & 0.642 & 0.638 & 0.631 & 0.617 & 0.026 & yes \\
+ngspice & PR & 0.649 & 0.648 & 0.647 & 0.644 & 0.642 & 0.007 & yes \\
+ngspice & PRr & 0.654 & 0.651 & 0.649 & 0.645 & 0.643 & 0.010 & yes \\
+ngspice & PRrM & 0.667 & 0.665 & 0.664 & 0.659 & 0.658 & 0.009 & yes \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Layer macro-F1 per edge phase, monitor E = $\pm$2\%, pooled over amplitudes; range computed as max -- min of the five stored phase values. Gate G itself applies to PRr (known reference and E = $\pm$2\%; Table 5): PRr ranges 0.005 / 0.006 (behavioral known / E2) and 0.011 / 0.010 (ngspice). A0 was not simulated in ngspice; its flat profile reflects uniformly low accuracy. Source: attribution\_arms.csv; decision\_rules.json (G).}
+\end{table}
+
+\begin{table}[H]
+\caption{Behavioral-to-ngspice domain transfer (layer macro-F1).\label{tab:table09_domain_transfer}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}}
+\toprule
+\textbf{Reference condition} & \textbf{Behavioral BB (PRr)} & \textbf{ngspice BS (PRr)} & \textbf{Transfer loss BB -- BS} & \textbf{95\% CI} & \textbf{$\leq$ 0.10} & \textbf{ngspice MS (PRrM)} & \textbf{MS -- BS [95\% CI]} \\
+\midrule
+Known reference & 0.639 & 0.639 & -0.001 & [-0.005, 0.004] & PASS & 0.677 & +0.038 [+0.029, +0.047] \\
+Monitor E = 0\% & 0.636 & 0.635 & 0.001 & [-0.003, 0.004] & PASS & 0.675 & +0.040 [+0.031, +0.050] \\
+Monitor E = $\pm$1\% & 0.637 & 0.634 & 0.002 & [-0.001, 0.006] & PASS & 0.670 & +0.036 [+0.027, +0.045] \\
+Monitor E = $\pm$2\% & 0.650 & 0.649 & 0.002 & [-0.003, 0.006] & PASS & 0.663 & +0.014 [+0.005, +0.024] \\
+Monitor E = $\pm$5\% & 0.640 & 0.640 & 0.001 & [-0.003, 0.005] & PASS & 0.655 & +0.015 [+0.006, +0.024] \\
+Previous stage, E = $\pm$2\% (REVISE) & 0.658 & 0.539 & 0.119 & [0.107, 0.132] & FAIL & --- & --- \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Matched grid: $\times$0.8, $\times$1.0, $\times$1.2 $\times$ five phases in both domains. BB and BS use the same behavioral-trained PRr classifier; MS is the mixed-trained secondary variant PRrM. The pre-registered gate E uses E = $\pm$2\%. The previous-stage row is the failed earlier validation (reference\_monitor\_final), read from paper\_package/NUMBER\_PROVENANCE.csv because its decision file is not in the evidence package. Source: decision\_rules.json (E).}
+\end{table}
+
+\begin{table}[H]
+\caption{AFE/ADC fault separation of PRr at $\pm$20\% reference amplitude.\label{tab:table10_afe_adc_separation}}
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Domain} & \textbf{Reference / monitor condition} & \textbf{Amplitude} & \textbf{AFE recall} & \textbf{ADC recall} & \textbf{AFE--ADC cross-confusion} \\
+\midrule
+Behavioral & Known reference & $\times$0.8 & 0.912 & 0.831 & 0.026 \\
+Behavioral & Known reference & $\times$1.2 & 0.898 & 0.797 & 0.089 \\
+Behavioral & Monitor E = 0\% & $\times$0.8 & 0.883 & 0.843 & 0.035 \\
+Behavioral & Monitor E = 0\% & $\times$1.2 & 0.865 & 0.797 & 0.085 \\
+Behavioral & Monitor E = $\pm$1\% & $\times$0.8 & 0.905 & 0.833 & 0.032 \\
+Behavioral & Monitor E = $\pm$1\% & $\times$1.2 & 0.876 & 0.790 & 0.087 \\
+Behavioral & Monitor E = $\pm$2\% & $\times$0.8 & 0.886 & 0.826 & 0.035 \\
+Behavioral & Monitor E = $\pm$2\% & $\times$1.2 & 0.885 & 0.797 & 0.079 \\
+Behavioral & Monitor E = $\pm$5\% & $\times$0.8 & 0.891 & 0.778 & 0.033 \\
+Behavioral & Monitor E = $\pm$5\% & $\times$1.2 & 0.878 & 0.777 & 0.083 \\
+ngspice & Known reference & $\times$0.8 & 0.909 & 0.833 & 0.028 \\
+ngspice & Known reference & $\times$1.2 & 0.898 & 0.799 & 0.088 \\
+ngspice & Monitor E = 0\% & $\times$0.8 & 0.879 & 0.845 & 0.036 \\
+ngspice & Monitor E = 0\% & $\times$1.2 & 0.863 & 0.800 & 0.083 \\
+ngspice & Monitor E = $\pm$1\% & $\times$0.8 & 0.899 & 0.835 & 0.033 \\
+ngspice & Monitor E = $\pm$1\% & $\times$1.2 & 0.874 & 0.792 & 0.086 \\
+ngspice & Monitor E = $\pm$2\% & $\times$0.8 & 0.883 & 0.832 & 0.036 \\
+ngspice & Monitor E = $\pm$2\% & $\times$1.2 & 0.885 & 0.797 & 0.078 \\
+ngspice & Monitor E = $\pm$5\% & $\times$0.8 & 0.887 & 0.773 & 0.034 \\
+ngspice & Monitor E = $\pm$5\% & $\times$1.2 & 0.875 & 0.778 & 0.081 \\
+Behavioral & No monitor (nominal levels assumed) & $\times$0.8 & 0.426 & 0.944 & 0.230 \\
+Behavioral & No monitor (nominal levels assumed) & $\times$1.2 & 0.375 & 0.820 & 0.336 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize PRr, layer classifier, pooled over the five phases (mean of three seeds $\times$ two initializations). Cross-confusion = fraction of AFE- and ADC-fault records assigned to the other of the two layers (gate C limit 0.15). Source: decision\_rules.json (C); no-monitor rows computed from seed\_*/predictions.npz with the same definition (the computation reproduces every saved C value exactly; see verification/RECOMPUTED\_FROM\_PREDICTIONS.csv).}
+\end{table}
+
+\begin{table}[H]
+\caption{Per-class recall (fine-fault and layer classes).\label{tab:table11_per_class_recall}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}}
+\toprule
+\textbf{Domain} & \textbf{Arm} & \textbf{Healthy} & \textbf{Sensor bias} & \textbf{Sensor gain} & \textbf{Sensor noise} & \textbf{AFE offset} & \textbf{AFE bandwidth} & \textbf{ADC offset} & \textbf{ADC gain} & \textbf{ADC clipping} & \textbf{Layer: Healthy} & \textbf{Layer: Sensor} & \textbf{Layer: AFE} & \textbf{Layer: ADC} \\
+\midrule
+Behavioral & A0 & 0.015 & 0.052 & 0.057 & 0.094 & 0.135 & 0.511 & 0.539 & 0.800 & 0.057 & 0.010 & 0.154 & 0.238 & 0.882 \\
+Behavioral & R1 & 0.230 & 0.231 & 0.312 & 0.988 & 0.763 & 0.938 & 0.992 & 0.948 & 0.398 & 0.098 & 0.703 & 0.866 & 0.822 \\
+Behavioral & R1r & 0.328 & 0.316 & 0.261 & 0.985 & 0.823 & 0.929 & 0.997 & 0.957 & 0.311 & 0.148 & 0.804 & 0.873 & 0.764 \\
+Behavioral & PR & 0.276 & 0.279 & 0.323 & 0.983 & 0.855 & 0.955 & 0.995 & 0.918 & 0.429 & 0.132 & 0.782 & 0.927 & 0.803 \\
+Behavioral & PRr & 0.294 & 0.260 & 0.314 & 0.984 & 0.857 & 0.955 & 0.997 & 0.922 & 0.447 & 0.142 & 0.780 & 0.911 & 0.806 \\
+Behavioral & PRrM & 0.355 & 0.256 & 0.338 & 0.983 & 0.921 & 0.942 & 0.997 & 0.927 & 0.368 & 0.238 & 0.742 & 0.940 & 0.775 \\
+ngspice & R1 & 0.229 & 0.235 & 0.312 & 0.988 & 0.755 & 0.918 & 0.990 & 0.938 & 0.382 & 0.094 & 0.694 & 0.860 & 0.815 \\
+ngspice & R1r & 0.310 & 0.326 & 0.264 & 0.986 & 0.814 & 0.910 & 0.996 & 0.947 & 0.304 & 0.143 & 0.795 & 0.867 & 0.756 \\
+ngspice & PR & 0.247 & 0.284 & 0.325 & 0.983 & 0.839 & 0.942 & 0.993 & 0.901 & 0.455 & 0.118 & 0.775 & 0.920 & 0.803 \\
+ngspice & PRr & 0.266 & 0.263 & 0.310 & 0.982 & 0.845 & 0.942 & 0.995 & 0.907 & 0.475 & 0.134 & 0.773 & 0.901 & 0.810 \\
+ngspice & PRrM & 0.320 & 0.256 & 0.347 & 0.983 & 0.912 & 0.928 & 0.995 & 0.915 & 0.399 & 0.220 & 0.735 & 0.933 & 0.776 \\
+Behavioral & PRr, no monitor ($\times$0.8/$\times$1.2) & --- & --- & --- & --- & --- & --- & --- & --- & --- & 0.000 & 0.039 & 0.400 & 0.882 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Recall, monitor E = $\pm$2\%, pooled over amplitudes and phases (mean of three seeds). Weak classes (recall < 0.5) for PRr: healthy, sensor bias, sensor gain and ADC clipping; healthy-layer recall 0.142 (behavioral) / 0.134 (ngspice). Source: per\_class\_recall\_fault.csv; per\_class\_recall\_layer.csv.}
+\end{table}
+
+\begin{table}[H]
+\caption{Model and computational complexity.\label{tab:table12_complexity}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{5.4cm}p{5.4cm}}
+\toprule
+\textbf{Quantity} & \textbf{Value} & \textbf{Source} \\
+\midrule
+MLP architecture & 20--96--48 hidden layout; 20 inputs; ReLU; output 4 (layer) or 9 (fault) & PAPER\_TABLES.csv T10; parameter count check \\
+MLP parameters & 6,868 (layer head); 7,113 (fault head) & timing\_and\_parameters.json \\
+Multiply-accumulates per inference & 6,720 (layer); 6,960 (fault) & derived from the architecture \\
+MLP inference time & 0.68 $\mu$s per record (batched, Python, mean of 3 seeds) & timing\_and\_parameters.json \\
+Descriptor extraction time & Phase-robust 0.79 ms; Revision-1 0.47 ms per record (Python, 1 core) & timing\_and\_parameters.json \\
+MLP training time (PRr models) & mean 0.72 s, max 1.49 s per model & seed\_*/model\_info.json \\
+ngspice runs & 13,878 per seed; 41,634 total & seed\_*/meta.json \\
+Validation runtime per seed & 20261026: total 1175.6 s (ngspice wall 908.1 s, behavioral 707.7 s); 20261027: total 1179.0 s (ngspice wall 908.9 s, behavioral 708.5 s); 20261028: total 1179.1 s (ngspice wall 905.9 s, behavioral 703.8 s) & seed\_*/meta.json \\
+ngspice workers & 3 parallel workers & timing\_and\_parameters.json \\
+Important assumptions & Timings are desktop Python (macOS arm64) measurements, not microcontroller measurements; no energy, power, area or hardware cost was measured & REPRODUCIBILITY\_CHECKLIST.md (environment) \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize No embedded-target timing or energy figure exists in the evidence package; none is claimed.}
+\end{table}

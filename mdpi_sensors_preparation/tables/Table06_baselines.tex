@@ -1,0 +1,24 @@
+\begin{table}[H]
+\caption{Baseline comparison (layer macro-F1, behavioral domain).\label{tab:table06_baselines}}
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Method} & \textbf{Layer macro-F1 $\times$0.8} & \textbf{Layer macro-F1 $\times$1.2} & \textbf{PRr -- method $\times$0.8 [95\% CI]} & \textbf{PRr -- method $\times$1.2 [95\% CI]} & \textbf{PRr -- method, E = $\pm$2\% pooled [95\% CI]} \\
+\midrule
+Passive (sensor signal only), old descriptors & 0.259 & 0.259 & +0.356 [+0.341, +0.371] & +0.384 [+0.368, +0.400] & --- \\
+Single-probe active test, old descriptors & 0.349 & 0.396 & +0.266 [+0.250, +0.282] & +0.246 [+0.230, +0.261] & --- \\
+AFE-only reference, old descriptors & 0.320 & 0.295 & +0.295 [+0.280, +0.311] & +0.348 [+0.329, +0.366] & --- \\
+ADC-only reference, old descriptors & 0.120 & 0.122 & +0.495 [+0.482, +0.508] & +0.521 [+0.507, +0.534] & --- \\
+A0: two-point, old descriptors (previous method) & 0.140 & 0.121 & +0.475 [+0.461, +0.489] & +0.521 [+0.507, +0.535] & +0.375 [+0.363, +0.387] \\
+AFE-only reference, PRr descriptors & 0.473 & 0.516 & +0.142 [+0.128, +0.155] & +0.126 [+0.112, +0.140] & --- \\
+ADC-only reference, PRr descriptors & 0.455 & 0.452 & +0.160 [+0.144, +0.175] & +0.190 [+0.176, +0.206] & --- \\
+R1: Revision-1 fixed-sample descriptors & 0.578 & 0.593 & --- & --- & +0.042 [+0.034, +0.050] \\
+R1r: R1 + phase-randomized training & 0.626 & 0.634 & --- & --- & +0.012 [+0.004, +0.019] \\
+PR: phase-robust descriptors, $\psi$ = 0 training & 0.612 & 0.635 & --- & --- & +0.000 [-0.005, +0.006] \\
+PRr: proposed (primary) & 0.615 & 0.643 & --- & --- & --- \\
+PRrM: PRr + mixed-domain training (secondary) & 0.660 & 0.670 & --- & --- & -0.017 [-0.025, -0.008] \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Behavioral domain, known reference, pooled over the five phases. Absolute layer macro-F1 values are computed from the saved per-sample predictions (they are not stored in a summary file); for every baseline the difference PRr -- method equals the saved paired difference in decision\_rules.json (B) to within 1e-9. Paired differences and CIs: decision\_rules.json (B) and attribution\_comparisons.csv; PRr -- PRrM is the sign-reversed PRrM -- PRr comparison (CI bounds reversed accordingly).}
+\end{table}

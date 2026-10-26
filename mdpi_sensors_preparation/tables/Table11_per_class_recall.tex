@@ -1,0 +1,24 @@
+\begin{table}[H]
+\caption{Per-class recall (fine-fault and layer classes).\label{tab:table11_per_class_recall}}
+\centering
+\footnotesize
+\begin{tabular}{p{3.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}p{1.2cm}}
+\toprule
+\textbf{Domain} & \textbf{Arm} & \textbf{Healthy} & \textbf{Sensor bias} & \textbf{Sensor gain} & \textbf{Sensor noise} & \textbf{AFE offset} & \textbf{AFE bandwidth} & \textbf{ADC offset} & \textbf{ADC gain} & \textbf{ADC clipping} & \textbf{Layer: Healthy} & \textbf{Layer: Sensor} & \textbf{Layer: AFE} & \textbf{Layer: ADC} \\
+\midrule
+Behavioral & A0 & 0.015 & 0.052 & 0.057 & 0.094 & 0.135 & 0.511 & 0.539 & 0.800 & 0.057 & 0.010 & 0.154 & 0.238 & 0.882 \\
+Behavioral & R1 & 0.230 & 0.231 & 0.312 & 0.988 & 0.763 & 0.938 & 0.992 & 0.948 & 0.398 & 0.098 & 0.703 & 0.866 & 0.822 \\
+Behavioral & R1r & 0.328 & 0.316 & 0.261 & 0.985 & 0.823 & 0.929 & 0.997 & 0.957 & 0.311 & 0.148 & 0.804 & 0.873 & 0.764 \\
+Behavioral & PR & 0.276 & 0.279 & 0.323 & 0.983 & 0.855 & 0.955 & 0.995 & 0.918 & 0.429 & 0.132 & 0.782 & 0.927 & 0.803 \\
+Behavioral & PRr & 0.294 & 0.260 & 0.314 & 0.984 & 0.857 & 0.955 & 0.997 & 0.922 & 0.447 & 0.142 & 0.780 & 0.911 & 0.806 \\
+Behavioral & PRrM & 0.355 & 0.256 & 0.338 & 0.983 & 0.921 & 0.942 & 0.997 & 0.927 & 0.368 & 0.238 & 0.742 & 0.940 & 0.775 \\
+ngspice & R1 & 0.229 & 0.235 & 0.312 & 0.988 & 0.755 & 0.918 & 0.990 & 0.938 & 0.382 & 0.094 & 0.694 & 0.860 & 0.815 \\
+ngspice & R1r & 0.310 & 0.326 & 0.264 & 0.986 & 0.814 & 0.910 & 0.996 & 0.947 & 0.304 & 0.143 & 0.795 & 0.867 & 0.756 \\
+ngspice & PR & 0.247 & 0.284 & 0.325 & 0.983 & 0.839 & 0.942 & 0.993 & 0.901 & 0.455 & 0.118 & 0.775 & 0.920 & 0.803 \\
+ngspice & PRr & 0.266 & 0.263 & 0.310 & 0.982 & 0.845 & 0.942 & 0.995 & 0.907 & 0.475 & 0.134 & 0.773 & 0.901 & 0.810 \\
+ngspice & PRrM & 0.320 & 0.256 & 0.347 & 0.983 & 0.912 & 0.928 & 0.995 & 0.915 & 0.399 & 0.220 & 0.735 & 0.933 & 0.776 \\
+Behavioral & PRr, no monitor ($\times$0.8/$\times$1.2) & --- & --- & --- & --- & --- & --- & --- & --- & --- & 0.000 & 0.039 & 0.400 & 0.882 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize Recall, monitor E = $\pm$2\%, pooled over amplitudes and phases (mean of three seeds). Weak classes (recall < 0.5) for PRr: healthy, sensor bias, sensor gain and ADC clipping; healthy-layer recall 0.142 (behavioral) / 0.134 (ngspice). Source: per\_class\_recall\_fault.csv; per\_class\_recall\_layer.csv.}
+\end{table}

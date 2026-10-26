@@ -1,0 +1,16 @@
+**Table 1.** Electronic system and circuit components of the simulated sensor interface.
+
+| Block | Model / parameters (simulation) | Role in the self-test | Source (code constant) |
+|---|---|---|---|
+| Sensor model | baseline U(0.78,1.18) V; carrier amplitude U(0.045,0.18) V; frequency U(0.45,3.0) Hz; sensor noise U(2,14) mV; slow component 25 mV at 0.12 Hz; random-walk drift 1.5 mV/step | Physical signal source; replaced by R1 during the AFE test window | src/simulate.py: make_condition, _base_signal |
+| MUX 1 / reference R1 | 140-260 ms; 0.90 V then 1.30 V (two 60 ms plateaus); replaces the sensor at the AFE input | Two-level reference at the AFE input; its response passes through AFE and ADC | src/simulate.py: _afe_reference |
+| AFE / filter | AFE gain U(1.65,2.05); AFE tau U(8,16) ms; first-order RC low-pass with gain and offset | Amplifies and filters; faults: offset, bandwidth | src/simulate.py: make_condition, _base_signal |
+| MUX 2 / reference R2 | 340-460 ms; 1.15 V then 1.75 V; bypasses the AFE at the ADC input | Two-level reference at the ADC input, bypassing the AFE; isolates the ADC transfer | src/simulate.py: _adc_reference |
+| ADC | 1 kHz, 512 samples per record (0.512 s), 12-bit ADC over 0-3.3 V, ADC noise 2.5 mV rms | Digitises all paths; faults: offset, gain, clipping | src/simulate.py: simulate_sample |
+| Reference monitor | buffered 12-bit channel, 16-sample mean, 0.25 mV rms after averaging, common gain error U(-E,E), E in {0,1,2,5}% | Measures the actual reference levels used in calibration (simulated, not built) | src/monitor_model.py |
+| Switches (ngspice) | Ron = 0.5 Ohm, Roff = 1 MOhm, threshold 2.5 V, hysteresis 0.1 V; 1 us edges | Circuit-level multiplexer model | src/spice_phase.py: render_phase |
+| Extra ngspice noise | 0.5 mV rms amplifier-input noise and 0.5 mV rms on each reference rail | Circuit-domain noise not present in the behavioral model | src/spice_domain.py: AMP_NOISE_V, REF_NOISE_V |
+| Digital classifier | MLP 20-96-48-{4 or 9}, ReLU, Adam, early stopping; 6,868 (layer) / 7,113 (fault) parameters; input: 20 (15 settled-plateau / calibration / sensor-domain + 5 phase-robust transient) | Classifies faulty layer (4 classes) and fault (9 classes) | phase_robust_results/timing_and_parameters.json; src/run_feasibility.py: _classifier |
+| Component tolerances (test) | AFE gain ±5%, AFE tau ±10%, ADC gain ±2%, ADC offset ±10 mV, sensor baseline ±5% (uniform per sample) | Applied in both domains, drawn per sample | src/run_reference_monitor.py: _draw_tol |
+
+*Values are code constants copied programmatically from paper_package/PAPER_TABLES.csv (Table T1/T10); the simulator source code is not part of the evidence package, so these constants cannot be re-verified here.*

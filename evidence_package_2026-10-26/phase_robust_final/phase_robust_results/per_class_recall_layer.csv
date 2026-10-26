@@ -1,0 +1,13 @@
+domain,arm,scope,healthy,sensor,afe,adc
+bh,A0,pooled E=2%,0.0097,0.1538,0.2383,0.8822
+bh,R1,pooled E=2%,0.0975,0.7025,0.8661,0.8216
+bh,R1r,pooled E=2%,0.1484,0.8042,0.8731,0.7643
+bh,PR,pooled E=2%,0.132,0.7817,0.9275,0.8032
+bh,PRr,pooled E=2%,0.142,0.7804,0.9109,0.806
+bh,PRrM,pooled E=2%,0.2378,0.7422,0.94,0.7754
+bh,"PRr known (no monitor, assumed levels)",unmonitored x0.8/x1.2,0.0,0.0394,0.4004,0.8818
+sp,R1,pooled E=2%,0.0938,0.6941,0.8603,0.8147
+sp,R1r,pooled E=2%,0.1431,0.7953,0.867,0.7563
+sp,PR,pooled E=2%,0.1182,0.7746,0.9201,0.8029
+sp,PRr,pooled E=2%,0.134,0.7728,0.9009,0.8102
+sp,PRrM,pooled E=2%,0.2202,0.7354,0.9329,0.7763

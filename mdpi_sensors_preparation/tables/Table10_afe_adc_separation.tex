@@ -1,0 +1,34 @@
+\begin{table}[H]
+\caption{AFE/ADC fault separation of PRr at $\pm$20\% reference amplitude.\label{tab:table10_afe_adc_separation}}
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Domain} & \textbf{Reference / monitor condition} & \textbf{Amplitude} & \textbf{AFE recall} & \textbf{ADC recall} & \textbf{AFE--ADC cross-confusion} \\
+\midrule
+Behavioral & Known reference & $\times$0.8 & 0.912 & 0.831 & 0.026 \\
+Behavioral & Known reference & $\times$1.2 & 0.898 & 0.797 & 0.089 \\
+Behavioral & Monitor E = 0\% & $\times$0.8 & 0.883 & 0.843 & 0.035 \\
+Behavioral & Monitor E = 0\% & $\times$1.2 & 0.865 & 0.797 & 0.085 \\
+Behavioral & Monitor E = $\pm$1\% & $\times$0.8 & 0.905 & 0.833 & 0.032 \\
+Behavioral & Monitor E = $\pm$1\% & $\times$1.2 & 0.876 & 0.790 & 0.087 \\
+Behavioral & Monitor E = $\pm$2\% & $\times$0.8 & 0.886 & 0.826 & 0.035 \\
+Behavioral & Monitor E = $\pm$2\% & $\times$1.2 & 0.885 & 0.797 & 0.079 \\
+Behavioral & Monitor E = $\pm$5\% & $\times$0.8 & 0.891 & 0.778 & 0.033 \\
+Behavioral & Monitor E = $\pm$5\% & $\times$1.2 & 0.878 & 0.777 & 0.083 \\
+ngspice & Known reference & $\times$0.8 & 0.909 & 0.833 & 0.028 \\
+ngspice & Known reference & $\times$1.2 & 0.898 & 0.799 & 0.088 \\
+ngspice & Monitor E = 0\% & $\times$0.8 & 0.879 & 0.845 & 0.036 \\
+ngspice & Monitor E = 0\% & $\times$1.2 & 0.863 & 0.800 & 0.083 \\
+ngspice & Monitor E = $\pm$1\% & $\times$0.8 & 0.899 & 0.835 & 0.033 \\
+ngspice & Monitor E = $\pm$1\% & $\times$1.2 & 0.874 & 0.792 & 0.086 \\
+ngspice & Monitor E = $\pm$2\% & $\times$0.8 & 0.883 & 0.832 & 0.036 \\
+ngspice & Monitor E = $\pm$2\% & $\times$1.2 & 0.885 & 0.797 & 0.078 \\
+ngspice & Monitor E = $\pm$5\% & $\times$0.8 & 0.887 & 0.773 & 0.034 \\
+ngspice & Monitor E = $\pm$5\% & $\times$1.2 & 0.875 & 0.778 & 0.081 \\
+Behavioral & No monitor (nominal levels assumed) & $\times$0.8 & 0.426 & 0.944 & 0.230 \\
+Behavioral & No monitor (nominal levels assumed) & $\times$1.2 & 0.375 & 0.820 & 0.336 \\
+\bottomrule
+\end{tabular}
+\par\vspace{2pt}\noindent{\footnotesize PRr, layer classifier, pooled over the five phases (mean of three seeds $\times$ two initializations). Cross-confusion = fraction of AFE- and ADC-fault records assigned to the other of the two layers (gate C limit 0.15). Source: decision\_rules.json (C); no-monitor rows computed from seed\_*/predictions.npz with the same definition (the computation reproduces every saved C value exactly; see verification/RECOMPUTED\_FROM\_PREDICTIONS.csv).}
+\end{table}

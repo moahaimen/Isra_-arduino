@@ -1,0 +1,37 @@
+# 7. Results (draft)
+
+All values are means over the {{N_SEEDS}} dataset seeds (each the mean of two initializations); intervals are pooled 95% paired cluster-bootstrap CIs ({{N_BOOT}} resamples). Unless stated otherwise, "layer macro-F1" refers to the four-class layer decision.
+
+## 7.1. Pre-registered decision
+
+Table 4 summarizes the main classification results and Table 5 the pre-registered criteria. The primary method PRr met every criterion in both domains (decision {{DECISION}}). Its nominal layer macro-F1 with a known reference at ×1.0 was N = {{N_BH}} (behavioral) and {{N_SP}} (ngspice). With monitor E = ±2%, pooled over amplitudes and phases, PRr reached a layer macro-F1 of {{ARM_bh_PRR_L}} on the behavioral grid and {{ARM_sp_PRR_L}} on the ngspice grid, and a fault macro-F1 of {{ARM_bh_PRR_F}} (behavioral) and {{ARM_sp_PRR_F}} (ngspice). The two grids differ (five versus three amplitudes), so these two values are not a transfer comparison; the matched-grid comparison is given in Section 7.5. The evidence for the individual criteria is given in Table 6 (criterion B, baselines), Table 7 (criteria A and D, reference amplitude and monitor error), Table 8 (criterion G, edge phase), Table 9 (criterion E, domain transfer) and Table 10 (criterion C, AFE/ADC separation).
+
+## 7.2. Sampling-phase sensitivity
+
+Fixed-sample descriptors are sensitive to the edge phase: the layer macro-F1 of R1 fell from {{ARM_bh_R1_P000}} at ψ = 0 to {{ARM_bh_R1_P999}} at ψ = 0.999 in the behavioral domain (range {{ARM_bh_R1_RANGE}}) and from {{ARM_sp_R1_P000}} to {{ARM_sp_R1_P999}} in ngspice (range {{ARM_sp_R1_RANGE}}) (Figure 5, Table 8). PRr varied by {{ARM_bh_PRR_RANGE}} (behavioral) and {{ARM_sp_PRR_RANGE}} (ngspice); over the four gate-G variants (known reference and E = ±2%, both domains) the PRr range was {{G_PRR_MIN}}–{{G_PRR_MAX}}, below the limit of {{G_THRESH}}.
+
+## 7.3. Reference-amplitude robustness and monitor error
+
+With a known or monitored reference, PRr retained at least {{A_MIN_RET}} of N at ×0.8 and ×1.2 (worst case: {{A_MIN_RET_WHERE}}) and at least {{D_MIN_RET}} with a ±5% monitor error (worst case: {{D_MIN_RET_WHERE}}) (Figure 6, Table 7). Without monitoring, the same classifier given the nominal levels reached {{NOMON_U_x08}} at ×0.8 and {{NOMON_U_x12}} at ×1.2, against {{NOMON_K_x08}} and {{NOMON_K_x12}} with the known reference (behavioral domain; the no-monitor control was not run in ngspice).
+
+## 7.4. Comparison with baselines and AFE/ADC separation
+
+In all {{B_N}} pre-registered superiority comparisons (behavioral, ×0.8 and ×1.2, known reference and E = 0 to ±5%), two-point PRr exceeded the old two-point method, the passive, single-probe, AFE-only and ADC-only baselines; the smallest pooled CI lower bound was {{B_MIN_CI}} ({{B_MIN_CI_WHERE}}) (Table 6). Against the old two-point descriptors pooled at E = ±2% (behavioral), the difference was {{ATT_bh_VS_A0}} {{CI:ATT_bh_VS_A0_LO:ATT_bh_VS_A0_HI}}.
+
+AFE–ADC cross-confusion stayed at or below {{C_MAX}} ({{C_MAX_WHERE}}) for every known/monitored condition at ×0.8 and ×1.2, with AFE recall ≥ {{C_MIN_AFE}} and ADC recall ≥ {{C_MIN_ADC}} (Figure 7, Table 10). Without monitoring (behavioral), cross-confusion rose to {{SEPX_bh_assumed_a80_X}} (×0.8) and {{SEPX_bh_assumed_a120_X}} (×1.2) and AFE recall fell to {{SEPX_bh_assumed_a80_AFE}} and {{SEPX_bh_assumed_a120_AFE}}.
+
+## 7.5. Behavioral-to-ngspice transfer
+
+On the matched ngspice grid with E = ±2%, the behavioral-trained PRr classifier reached {{E_PRIMARY_BB}} on behavioral data and {{E_PRIMARY_BS}} on ngspice data, a transfer loss of {{E_DROP}} {{CI:E_DROP_LO:E_DROP_HI}} (limit {{E_THRESH}}); across all reference conditions the loss stayed within the range of Table 9 (Figure 8). In the previous design stage, with fixed-sample descriptors, the same comparison lost {{PREV_DROP}} {{CI:PREV_DROP_LO:PREV_DROP_HI}}. The secondary mixed-domain variant PRrM reached {{E_PRIMARY_MS}} on ngspice data ({{E_E2_MSBS}} {{CI:E_E2_MSBS_LO:E_E2_MSBS_HI}} relative to PRr); it is reported as a secondary result.
+
+## 7.6. Ablation
+
+Pooled at E = ±2% (Figure 9), the phase-robust descriptors alone (PR − R1) improved layer macro-F1 by {{ATT_bh_DESC}} {{CI:ATT_bh_DESC_LO:ATT_bh_DESC_HI}} (behavioral) and {{ATT_sp_DESC}} {{CI:ATT_sp_DESC_LO:ATT_sp_DESC_HI}} (ngspice); phase randomization alone (R1r − R1) by {{ATT_bh_RAND}} {{CI:ATT_bh_RAND_LO:ATT_bh_RAND_HI}} and {{ATT_sp_RAND}} {{CI:ATT_sp_RAND_LO:ATT_sp_RAND_HI}}; and the descriptors given randomization (PRr − R1r) by {{ATT_bh_DESC_GIVEN_RAND}} {{CI:ATT_bh_DESC_GIVEN_RAND_LO:ATT_bh_DESC_GIVEN_RAND_HI}} and {{ATT_sp_DESC_GIVEN_RAND}} {{CI:ATT_sp_DESC_GIVEN_RAND_LO:ATT_sp_DESC_GIVEN_RAND_HI}}. Randomization given the phase-robust descriptors (PRr − PR) had no resolvable effect ({{ATT_bh_RAND_GIVEN_DESC}} {{CI:ATT_bh_RAND_GIVEN_DESC_LO:ATT_bh_RAND_GIVEN_DESC_HI}} behavioral, {{ATT_sp_RAND_GIVEN_DESC}} {{CI:ATT_sp_RAND_GIVEN_DESC_LO:ATT_sp_RAND_GIVEN_DESC_HI}} ngspice). Mixed-domain training (PRrM − PRr) added {{ATT_bh_MIXED}} {{CI:ATT_bh_MIXED_LO:ATT_bh_MIXED_HI}} (behavioral) and {{ATT_sp_MIXED}} {{CI:ATT_sp_MIXED_LO:ATT_sp_MIXED_HI}} (ngspice); PRrM remains a secondary variant.
+
+## 7.7. Per-class recall
+
+Per-class recall (Figure 10, Table 11) shows where the method is weak. For PRr (behavioral, E = ±2%) recall was high for sensor noise ({{RF_bh_PRR_SENSOR_NOISE}}), AFE offset ({{RF_bh_PRR_AFE_OFFSET}}), AFE bandwidth ({{RF_bh_PRR_AFE_BANDWIDTH}}), ADC offset ({{RF_bh_PRR_ADC_OFFSET}}) and ADC gain ({{RF_bh_PRR_ADC_GAIN}}), but low for healthy records ({{RF_bh_PRR_HEALTHY}}), sensor bias ({{RF_bh_PRR_SENSOR_BIAS}}), sensor gain ({{RF_bh_PRR_SENSOR_GAIN}}) and ADC clipping ({{RF_bh_PRR_ADC_CLIPPING}}). At the layer level, healthy recall was {{RL_bh_PRR_HEALTHY}} (behavioral) and {{RL_sp_PRR_HEALTHY}} (ngspice); healthy records are mostly assigned to the sensor layer.
+
+## 7.8. Model size and cost
+
+The layer classifier has {{PARAMS_LAYER}} parameters ({{MACS_LAYER}} multiply-accumulates) and the fault classifier {{PARAMS_FAULT}} (Table 12). In Python on a desktop CPU, phase-robust descriptor extraction took {{DESC_MS_PR}} ms per record (Revision-1: {{DESC_MS_R1}} ms) and batched MLP inference {{MLP_US}} µs per record. These are not embedded-target measurements.

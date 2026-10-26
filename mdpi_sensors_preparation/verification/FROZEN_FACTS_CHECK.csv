@@ -1,0 +1,37 @@
+fact,brief_value,source_value,status,note
+Validation dataset seeds,"20261026, 20261027, 20261028","20261026, 20261027, 20261028",MATCH,
+Training conditions per seed,222,222,MATCH,
+Validation conditions per seed,40,40,MATCH,
+Test conditions per seed,88,88,MATCH,
+Train/validation/test overlap,0,0,MATCH,
+Number of fault classes,9,9,MATCH,
+Edge phases psi,"0, 0.25, 0.5, 0.75, 0.999","0, 0.25, 0.5, 0.75, 0.999",MATCH,
+Reference amplitudes include ×0.8 and ×1.2,"×0.8, ×1.2","×0.8, ×0.9, ×1, ×1.1, ×1.2",MATCH_WITH_NOTE,"CAUTION: Behavioral grid ×0.8–×1.2 in 0.1 steps; ngspice grid ×0.8, ×1, ×1.2 only."
+Monitor-error levels,"0%, ±1%, ±2%, ±5%","0%, ±1%, ±2%, ±5%",MATCH,
+Bootstrap resamples,5000,5000,MATCH,
+MLP architecture,20–96–48,20–96–48,MATCH,Parameter counts recomputed from the architecture match the saved values.
+Layer-head parameters,"6,868","6,868",MATCH,
+Fault-head parameters,"7,113","7,113",MATCH,
+PRr behavioral layer macro-F1,0.656,0.656,MATCH_WITH_NOTE,"CAUTION: E = ±2%, pooled over the behavioral grid (5 amplitudes × 5 phases). NOT on the same grid as the ngspice value; on the matched ngspice grid the behavioral value is 0.650."
+PRr ngspice layer macro-F1,0.649,0.649,MATCH,"E = ±2%, ngspice grid (3 amplitudes × 5 phases); equals E.primary_E2.BS."
+Behavioral-to-ngspice transfer loss,0.002,0.002,MATCH_WITH_NOTE,CAUTION: BB − BS = 0.650 − 0.649 on the matched grid. 0.656 − 0.649 = 0.007 is NOT the transfer loss.
+Transfer-loss 95% CI,"[−0.003, +0.006]","[-0.003, +0.006]",MATCH,
+Previous-stage transfer loss,0.119,0.119,MATCH_WITH_NOTE,CAUTION: previous-stage value; its decision file is not in the evidence package (read via paper_package/NUMBER_PROVENANCE.csv and the frozen report text).
+PRr phase spread,≈0.006–0.011,0.005–0.011,DIFFERS_SLIGHTLY,"Gate-G variants: behavioral known 0.005, behavioral E2 0.006, ngspice known 0.011, ngspice E2 0.010. The lower end is 0.005 (behavioral, known reference), not 0.006."
+R1 (fixed-sample) phase spread,≈0.081,"0.081 (bh E2), 0.081 (sp E2)",MATCH_WITH_NOTE,"CAUTION: known-reference variants: behavioral 0.082, ngspice 0.085. 0.081 holds for E = ±2%."
+Largest AFE–ADC cross-confusion,0.089,0.089,MATCH,"At behavioral, known reference, ×1.2."
+Worst retention at ±20% reference change,0.916,0.916,MATCH,"At ngspice, monitor E = ±1%, ×0.8."
+Worst retention with ±5% monitor error,0.924,0.924,MATCH,"At ngspice, ×0.8."
+Smallest superiority CI lower bound,+0.112,+0.112,MATCH,"At known reference, ×1.2, vs AFE-only PRr; 70 comparisons."
+Known/monitored reference ×0.8,0.615,0.615,MATCH_WITH_NOTE,CAUTION: behavioral domain only; known reference.
+No monitor ×0.8,0.310,0.310,MATCH_WITH_NOTE,CAUTION: behavioral domain only.
+Known/monitored reference ×1.2,0.643,0.643,MATCH_WITH_NOTE,CAUTION: behavioral domain only; known reference.
+No monitor ×1.2,0.237,0.237,MATCH_WITH_NOTE,CAUTION: behavioral domain only.
+PR − R1 behavioral,+0.042,+0.042,MATCH,
+PR − R1 ngspice,+0.041,+0.041,MATCH,
+R1r − R1 behavioral,+0.030,+0.030,MATCH,
+R1r − R1 ngspice,+0.029,+0.029,MATCH,
+PRr − R1r behavioral,+0.012,+0.012,MATCH,
+PRr − R1r ngspice,+0.014,+0.014,MATCH,
+PRrM − PRr behavioral,+0.017,+0.017,MATCH,
+PRrM − PRr ngspice,+0.014,+0.014,MATCH,

@@ -1,0 +1,42 @@
+panel,variant,quantity,value,source,ci_low,ci_high,arm,domain,psi
+a,known,BB,0.6387424591562009,decision_rules.json E.all.known.BB,,,,,
+a,mon0,BB,0.6356574053932326,decision_rules.json E.all.mon0.BB,,,,,
+a,mon1,BB,0.6367169001591394,decision_rules.json E.all.mon1.BB,,,,,
+a,mon2,BB,0.6502110291155668,decision_rules.json E.all.mon2.BB,,,,,
+a,mon5,BB,0.6404997764999647,decision_rules.json E.all.mon5.BB,,,,,
+a,known,BS,0.6394762012036951,decision_rules.json E.all.known.BS,,,,,
+a,mon0,BS,0.6349578664166058,decision_rules.json E.all.mon0.BS,,,,,
+a,mon1,BS,0.6342477405010868,decision_rules.json E.all.mon1.BS,,,,,
+a,mon2,BS,0.6486150326165007,decision_rules.json E.all.mon2.BS,,,,,
+a,mon5,BS,0.6399249023948216,decision_rules.json E.all.mon5.BS,,,,,
+a,known,MS,0.6774440089238448,decision_rules.json E.all.known.MS,,,,,
+a,mon0,MS,0.6753762946726006,decision_rules.json E.all.mon0.MS,,,,,
+a,mon1,MS,0.6704314044693213,decision_rules.json E.all.mon1.MS,,,,,
+a,mon2,MS,0.663045809909223,decision_rules.json E.all.mon2.MS,,,,,
+a,mon5,MS,0.6548542602155328,decision_rules.json E.all.mon5.MS,,,,,
+b,known,BB-BS,-0.0007337420474942125,decision_rules.json E.all.known.drop/drop_ci,-0.005403816334436828,0.003944177098884532,,,
+b,mon0,BB-BS,0.000699538976626742,decision_rules.json E.all.mon0.drop/drop_ci,-0.0029412694303181585,0.004445768501465894,,,
+b,mon1,BB-BS,0.002469159658052574,decision_rules.json E.all.mon1.drop/drop_ci,-0.0011568331580517261,0.006001612948761753,,,
+b,mon2,BB-BS,0.0015959964990660547,decision_rules.json E.all.mon2.drop/drop_ci,-0.0028009652486403443,0.005924417922589621,,,
+b,mon5,BB-BS,0.0005748741051431564,decision_rules.json E.all.mon5.drop/drop_ci,-0.0034318561931144733,0.00450683805420076,,,
+b,previous stage mon2,BB-BS,0.11946245359243446,paper_package/NUMBER_PROVENANCE.csv PREV_E_* (previous-stage),0.10707017628030577,0.1318601312223764,,,
+c,,,0.6587,attribution_arms.csv,,,PRr,bh,0.0
+c,,,0.6577,attribution_arms.csv,,,PRr,bh,0.25
+c,,,0.6557,attribution_arms.csv,,,PRr,bh,0.5
+c,,,0.6532,attribution_arms.csv,,,PRr,bh,0.75
+c,,,0.6525,attribution_arms.csv,,,PRr,bh,0.999
+c,,,0.6538,attribution_arms.csv,,,PRr,sp,0.0
+c,,,0.6514,attribution_arms.csv,,,PRr,sp,0.25
+c,,,0.6487,attribution_arms.csv,,,PRr,sp,0.5
+c,,,0.6452,attribution_arms.csv,,,PRr,sp,0.75
+c,,,0.6435,attribution_arms.csv,,,PRr,sp,0.999
+c,,,0.6768,attribution_arms.csv,,,PRrM,bh,0.0
+c,,,0.6763,attribution_arms.csv,,,PRrM,bh,0.25
+c,,,0.6719,attribution_arms.csv,,,PRrM,bh,0.5
+c,,,0.6678,attribution_arms.csv,,,PRrM,bh,0.75
+c,,,0.6668,attribution_arms.csv,,,PRrM,bh,0.999
+c,,,0.6673,attribution_arms.csv,,,PRrM,sp,0.0
+c,,,0.6655,attribution_arms.csv,,,PRrM,sp,0.25
+c,,,0.6643,attribution_arms.csv,,,PRrM,sp,0.5
+c,,,0.659,attribution_arms.csv,,,PRrM,sp,0.75
+c,,,0.6581,attribution_arms.csv,,,PRrM,sp,0.999
