@@ -1,0 +1,111 @@
+{
+ "features": [
+  "m_raw",
+  "mog2_fg",
+  "m_tile0",
+  "m_tile1",
+  "m_tile2",
+  "m_max",
+  "m_avg3",
+  "m_avg10",
+  "m_d1",
+  "mog_avg3"
+ ],
+ "rule": "LOSO out-of-fold on validation; min cost s.t. R>=0.90 else max R",
+ "full_logreg": {
+  "model": "logreg",
+  "params": {
+   "tau": 0.056553,
+   "cool": 0,
+   "rho": null
+  },
+  "oof_R_timely": 0.9016393442622951,
+  "oof_cost_per_frame": 2.8989412897016362,
+  "oof_auroc_full_opportunity": 0.49272086037379914,
+  "met_0.90_oof": true
+ },
+ "msip_logreg": {
+  "model": "logreg",
+  "params": {
+   "tau": 0.001113,
+   "cool": 0,
+   "rho": 0.5
+  },
+  "oof_R_timely": 0.7213114754098361,
+  "oof_cost_per_frame": 1.0134744947064485,
+  "oof_auroc_full_opportunity": 0.49272086037379914,
+  "met_0.90_oof": false
+ },
+ "full_tree": {
+  "model": "tree",
+  "params": {
+   "tau": 0.0,
+   "cool": 0,
+   "rho": null
+  },
+  "oof_R_timely": 0.9180327868852459,
+  "oof_cost_per_frame": 3.0,
+  "oof_auroc_full_opportunity": 0.5315694235126462,
+  "met_0.90_oof": true
+ },
+ "msip_tree": {
+  "model": "tree",
+  "params": {
+   "tau": 0.428885,
+   "cool": 0,
+   "rho": 0.9
+  },
+  "oof_R_timely": 0.7704918032786885,
+  "oof_cost_per_frame": 0.6535129932627527,
+  "oof_auroc_full_opportunity": 0.5315694235126462,
+  "met_0.90_oof": false
+ },
+ "full_gbt": {
+  "model": "gbt",
+  "params": {
+   "tau": 0.039825,
+   "cool": 0,
+   "rho": null
+  },
+  "oof_R_timely": 0.9016393442622951,
+  "oof_cost_per_frame": 2.595765158806545,
+  "oof_auroc_full_opportunity": 0.49506094997898276,
+  "met_0.90_oof": true
+ },
+ "msip_gbt": {
+  "model": "gbt",
+  "params": {
+   "tau": 0.035761,
+   "cool": 0,
+   "rho": 0.7
+  },
+  "oof_R_timely": 0.819672131147541,
+  "oof_cost_per_frame": 1.1645813282001924,
+  "oof_auroc_full_opportunity": 0.49506094997898276,
+  "met_0.90_oof": false
+ },
+ "full_mlp": {
+  "model": "mlp",
+  "params": {
+   "tau": 0.000161,
+   "cool": 0,
+   "rho": null
+  },
+  "oof_R_timely": 0.9016393442622951,
+  "oof_cost_per_frame": 2.7978825794032725,
+  "oof_auroc_full_opportunity": 0.5053260746983258,
+  "met_0.90_oof": true
+ },
+ "msip_mlp": {
+  "model": "mlp",
+  "params": {
+   "tau": 0.000161,
+   "cool": 0,
+   "rho": 0.9
+  },
+  "oof_R_timely": 0.7704918032786885,
+  "oof_cost_per_frame": 1.6140519730510106,
+  "oof_auroc_full_opportunity": 0.5053260746983258,
+  "met_0.90_oof": false
+ }
+}
