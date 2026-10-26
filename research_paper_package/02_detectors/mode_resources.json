@@ -1,0 +1,55 @@
+{
+ "model": "EfficientDet-Lite0 INT8 (MediaPipe)",
+ "file_bytes": 4602795,
+ "peak_activation_bytes_lower_bound": 8719524,
+ "peak_op": "DEQUANTIZE",
+ "peak_activation_bytes_lower_bound_cnn_only": 3072000,
+ "note": "cnn_only = up to the last convolution, i.e. excluding the 19,206-anchor x 90-class COCO decode tail",
+ "const_weight_bytes": 4110320,
+ "ops": 266,
+ "input_shape": [
+  1,
+  320,
+  320,
+  3
+ ],
+ "complexity": {
+  "parameters": 3323396,
+  "macs": 973589696,
+  "model_bytes": 4602795,
+  "macs_note": "conv/depthwise/FC only"
+ },
+ "host_invoke_ms_per_invocation": [
+  {
+   "mode": "LOW",
+   "median_ms": 19.94537499990656,
+   "p95_ms": 28.32472039995082,
+   "n": 177
+  },
+  {
+   "mode": "ROI0",
+   "median_ms": 20.607922999943185,
+   "p95_ms": 26.55289000003904,
+   "n": 177
+  },
+  {
+   "mode": "ROI1",
+   "median_ms": 19.748832999994196,
+   "p95_ms": 26.84610240003167,
+   "n": 177
+  },
+  {
+   "mode": "ROI2",
+   "median_ms": 20.1753540000027,
+   "p95_ms": 26.352222400055325,
+   "n": 177
+  }
+ ],
+ "stm32h747": {
+  "internal_sram_bytes_total_incl_TCM": 1081344,
+  "largest_contiguous_axi_sram": 524288,
+  "internal_flash_bytes": 2097152,
+  "portenta_sdram_bytes": 8388608,
+  "portenta_qspi_bytes": 16777216
+ }
+}

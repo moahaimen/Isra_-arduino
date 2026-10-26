@@ -1,0 +1,19 @@
+{
+ "selected_controller": "full_gbt",
+ "baseline": "mog2_full",
+ "test_cost_ratio": 3.7461139896373057,
+ "test_cost_ratio_95ci": [
+  2.881081081081081,
+  5.863013698630137
+ ],
+ "test_R_controller": 1.0,
+ "test_R_baseline": 0.90625,
+ "test_dR_95ci": [
+  0.0,
+  0.2222222222222222
+ ],
+ "paired_tracks_controller_only": 3,
+ "paired_tracks_baseline_only": 0,
+ "E2_threshold_cost_ratio": 0.6,
+ "E2_pass": false
+}

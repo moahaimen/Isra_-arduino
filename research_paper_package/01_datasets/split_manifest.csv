@@ -1,0 +1,17 @@
+split_r3,role_here,segment,frames,first_event_id,last_event_id,gt_boxes_non_ignored,gt_tracks_non_ignored,moving_tracks,moving_tracks_person,moving_tracks_car
+development,debug,0001_0403,44,100403,100446,19,2,1,0,1
+development,debug,0002_0162,71,200162,200232,117,3,1,0,1
+development,debug,0020_0802,35,2000802,2000836,35,1,0,0,0
+validation,tuning/training,0006_0000,182,600000,600181,334,11,11,0,11
+validation,tuning/training,0012_0000,78,1200000,1200077,167,3,2,1,1
+validation,tuning/training,0015_0090,286,1500090,1500375,618,10,10,5,5
+validation,tuning/training,0016_0000,209,1600000,1600208,2650,23,16,16,0
+validation,tuning/training,0017_0000,145,1700000,1700144,718,9,9,9,0
+validation,tuning/training,0019_0618,89,1900618,1900706,674,15,11,10,1
+validation,tuning/training,0019_1003,50,1901003,1901052,97,2,2,1,1
+test,held-out,raw0017_0000,114,101700000,101700113,43,4,4,0,4
+test,held-out,raw0019_0413,54,101900413,101900466,186,6,2,0,2
+test,held-out,raw0029_0202,62,102900202,102900263,0,0,0,0,0
+test,held-out,raw0051_0208,156,105100208,105100363,322,14,13,0,13
+test,held-out,raw0057_0000,286,105700000,105700285,658,13,12,0,12
+test,held-out,raw0084_0000,51,108400000,108400050,198,5,1,0,1

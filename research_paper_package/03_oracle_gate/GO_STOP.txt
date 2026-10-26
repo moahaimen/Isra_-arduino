@@ -1,0 +1,14 @@
+DECISION: STOP (no controller training beyond the E2 check; no E3-E9 package)
+
+E1 oracle gate (preregistered, test split, privileged clairvoyant oracle): formally PASSES
+  P1 oracle cost / best feasible baseline (MOG2-event FULL) = 20 / 579 units = 0.035  (<= 0.60)  PASS
+  P2 oracle R_timely = 0.906 (29/32)                                                    (>= 0.90) PASS
+  S1 four-mode oracle / {SKIP,FULL} oracle = 20 / 57 = 0.35                             (<= 0.80) PASS
+E2 causal-controller gate (preregistered Addendum A, test split): FAILS
+  validation-selected controller (GBT, FULL-only) R_timely 1.00 at 3.75x the baseline cost (95% CI 2.9-5.9x)
+  no causal controller reaches R_timely >= 0.906 at <= 0.60 x baseline cost (<= 0.48 units/frame); best is 1.65 units/frame
+  out-of-fold AUROC of the M4 features for "an invocation now would timely-detect a track": 0.49-0.53 (chance)
+Deployability: EfficientDet-Lite0 INT8 (all modes) needs >= 3.1 MB activations and 4.1 MB weights; STM32H747 has ~1 MB SRAM, 2 MB flash -> NONDEPLOYABLE on internal memory
+Novelty: high collision risk (00_protocol/novelty_audit.md)
+
+Interpretation: the headroom exists only for an observer that knows when and where objects appear. The low-cost M4 signals available here do not carry that information, so the proposed minimum-sufficient-inference controller has no evidence of a deployable gain over simple motion/MOG2 triggering.
