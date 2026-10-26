@@ -91,3 +91,26 @@ Peak activation memory (tensor-liveness bound from the TFLite graph), weight siz
 Sequence-clustered bootstrap (resample segments, 10,000 replicates, seed 20261026) for R_timely of each policy and the oracle/baseline cost ratio.
 With 6–7 segments the intervals are wide; this is stated, not hidden. Secondary descriptive analyses: D ∈ {5, 20} frames, the
 0.25-unit overhead cost, and the per-frame quality oracle (cheapest mode whose matched set ⊇ Q_min of FULL's matched set, Q_min ∈ {0.8, 0.9, 1.0}).
+
+---
+
+# Addendum A (frozen 2026-10-26, after validation-only gate results, before any test result was computed)
+
+Validation-only gate (diagnostic, not the decision): P1, P2, S1 pass; oracle cost is 2.2 % of fixed-period FULL (P = 2).
+A clairvoyant oracle needs about one correctly placed invocation per track, so a pass mainly says the detector *can* see the
+tracks; it says nothing about whether an M4 controller can know *when and where*. 29 of 61 validation tracks start at a segment's
+first frame (left-censored by the segment cut).
+
+Because the user's prompt says to proceed to controller work on GO but also to stop when a mandatory gate fails and not to
+continue merely to produce figures, a second cheap gate is fixed now:
+
+**E2 gate (causal controller).** Controllers (Section 7 of the prompt: rule-based = frozen B3/B5, logistic regression,
+decision tree depth ≤ 4, gradient-boosted trees, MLP (16), and the proposed minimum-sufficient-inference predictor, MSIP)
+are trained on validation + development segments only, with leave-one-segment-out (LOSO) selection of the decision threshold,
+then frozen and evaluated once on test. Inputs are causal only: M4 features of frames ≤ t, frames since the last invocation,
+detections returned by earlier invocations. Training labels (GT, training only): "running mode a at t would timely-detect a
+moving track".
+* **GO to E3–E9** only if the best validation-selected controller reaches, on test, R_timely ≥ 0.90 (or ≥ the best feasible
+  baseline's R if higher) at cost ≤ 0.60 × that baseline's test cost.
+* Otherwise **STOP** after E2: report the negative result; do not build the full figure/table package.
+* Secondary (descriptive): the same comparison restricted to tracks whose onset is after the segment's first frame.
