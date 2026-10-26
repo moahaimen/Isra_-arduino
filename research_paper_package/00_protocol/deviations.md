@@ -16,3 +16,7 @@
 6. **Datasets.** BDD100K/MOT17 were not used: MOT17/HF/PyTorch hosts were blocked in R2/R3 and BDD100K needs a login. KITTI only.
 7. **Proposal .docx** (`Heterogeneous_Dual_Core_Object_Detection_Research_Proposal.docx`) was not found in the repo, the project files,
    or any git branch. The protocol follows the prompt text.
+8. **Boot frame** (fixed in code before the test split was opened): every triggered baseline (B3–B6) runs FULL on the first
+   frame of each segment, since frame differencing has no previous frame there. Fixed-period FULL runs at frame 0 by construction.
+9. **Grid floor.** The preregistered threshold grid starts at the validation median of the M4 score. Motion/MOG2 triggers did not
+   reach 0.90 on validation inside that grid (max 0.84 / 0.82); a lower threshold approaches fixed-period FULL at P = 1.

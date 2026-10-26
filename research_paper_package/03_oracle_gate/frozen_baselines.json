@@ -1,0 +1,68 @@
+{
+ "rule": "min validation cost s.t. validation R_timely >= 0.90, else max R_timely (ties: lower cost)",
+ "det_thr": 0.45,
+ "deadline_frames": 10,
+ "costs": {
+  "LOW": 1.0,
+  "ROI0": 1.0,
+  "ROI1": 1.0,
+  "ROI2": 1.0,
+  "FULL": 3.0
+ },
+ "validation_tracks": 61,
+ "validation_frames": 1039,
+ "validation_union_ceiling": 0.9180327868852459,
+ "families": {
+  "always_full": {
+   "params": {},
+   "val_R_timely": 0.9180327868852459,
+   "val_cost_per_frame": 3.0,
+   "met_0.90_on_validation": true
+  },
+  "fixed_period": {
+   "params": {
+    "P": 2
+   },
+   "val_R_timely": 0.9016393442622951,
+   "val_cost_per_frame": 1.5043310875842155,
+   "met_0.90_on_validation": true
+  },
+  "motion_full": {
+   "params": {
+    "thr": 0.031576,
+    "cool": 0
+   },
+   "val_R_timely": 0.8360655737704918,
+   "val_cost_per_frame": 1.5187680461982676,
+   "met_0.90_on_validation": false
+  },
+  "mog2_full": {
+   "params": {
+    "thr": 0.040039,
+    "cool": 0
+   },
+   "val_R_timely": 0.819672131147541,
+   "val_cost_per_frame": 1.2704523580365736,
+   "met_0.90_on_validation": false
+  },
+  "adaptive_res": {
+   "params": {
+    "thr": 0.031576,
+    "thr_hi": 0.031576,
+    "cool": 0
+   },
+   "val_R_timely": 0.8360655737704918,
+   "val_cost_per_frame": 1.5187680461982676,
+   "met_0.90_on_validation": false
+  },
+  "roi_motion": {
+   "params": {
+    "thr": 0.048177,
+    "cool": 0
+   },
+   "val_R_timely": 0.639344262295082,
+   "val_cost_per_frame": 0.37054860442733395,
+   "met_0.90_on_validation": false
+  }
+ }
+}
