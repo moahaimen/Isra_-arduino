@@ -17,6 +17,7 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle  # noqa: E402
 
+from common import round_exact  # noqa: E402
 from common import (AMPS_BH, FAULT_LABELS, FAULTS, LAYER_LABELS, OUT, PHASE_VALUES, PP, RES,  # noqa: E402
                     load_csv, load_json, rel)
 
@@ -555,7 +556,7 @@ def fig07(R, extra):
         ax.imshow(mn, cmap="Blues", vmin=0, vmax=1)
         for i in range(4):
             for j in range(4):
-                ax.text(j, i, f"{mn[i, j]:.2f}", ha="center", va="center", fontsize=6,
+                ax.text(j, i, round_exact(mn[i, j], 2), ha="center", va="center", fontsize=6,
                         color="white" if mn[i, j] > 0.55 else C["ink"])
                 rows.append(dict(panel="abcd"[k], variant=var, amplitude=a / 100, true=LAYER_LABELS[i],
                                  predicted=LAYER_LABELS[j], row_normalized=mn[i, j], mean_count=m[i, j]))
@@ -789,7 +790,7 @@ def fig10(R):
         for i, a in enumerate(order):
             for j, f in enumerate(FAULTS):
                 v = M[i, j]
-                ax.text(j, i, f"{v:.2f}", ha="center", va="center", fontsize=6,
+                ax.text(j, i, round_exact(v, 2), ha="center", va="center", fontsize=6,
                         color="white" if v > 0.6 else C["ink"], fontweight="bold" if a == "PRr" else "normal")
                 if v < weak:
                     ax.add_patch(Rectangle((j - 0.5, i - 0.5), 1, 1, fill=False, ec=C["nomon"], lw=0.9))
@@ -811,7 +812,7 @@ def fig10(R):
     for i in range(M.shape[0]):
         for j in range(4):
             v = M[i, j]
-            ax.text(j, i, f"{v:.2f}", ha="center", va="center", fontsize=6, color="white" if v > 0.6 else C["ink"])
+            ax.text(j, i, round_exact(v, 2), ha="center", va="center", fontsize=6, color="white" if v > 0.6 else C["ink"])
             if v < weak:
                 ax.add_patch(Rectangle((j - 0.5, i - 0.5), 1, 1, fill=False, ec=C["nomon"], lw=0.9))
             rows.append(dict(panel="c", domain=keep.domain.iloc[i], arm=keep.arm.iloc[i], class_=("healthy", "sensor", "afe", "adc")[j],

@@ -41,8 +41,9 @@ VARIANTS = ("known", "mon0", "mon1", "mon2", "mon5")
 VARIANT_LABEL = {"known": "Known reference", "mon0": "Monitor E = 0%", "mon1": "Monitor E = ±1%",
                  "mon2": "Monitor E = ±2%", "mon5": "Monitor E = ±5%"}
 
-ROUNDING_RULE = ("Python format() to the stated number of decimals (round-half-to-even on the "
-                 "stored binary value); signed differences carry an explicit '+'.")
+ROUNDING_RULE = ("Decimal round-half-to-even of the value expressed with 12 significant digits, so that exact decimal "
+                 "ties such as 1287/13200 = 0.0975 are not rounded by their binary representation; signed differences "
+                 "carry an explicit '+'.")
 
 
 def rel(p: Path) -> str:
@@ -65,10 +66,23 @@ def load_csv(p: Path) -> pd.DataFrame:
     return pd.read_csv(p)
 
 
+def round_exact(x: float, decimals: int) -> str:
+    """Round a float to a decimal string without binary-representation artifacts.
+
+    Ratios of counts such as 1287/13200 = 0.0975 are exact decimal ties, but the nearest binary float lies just
+    below the tie, so format(x, ".3f") prints 0.097. The value is therefore first expressed with 12 significant
+    digits (which recovers the exact decimal) and then rounded half-to-even in decimal arithmetic.
+    """
+    from decimal import ROUND_HALF_EVEN, Decimal
+
+    d = Decimal(format(x, ".12g")).quantize(Decimal(1).scaleb(-decimals), rounding=ROUND_HALF_EVEN)
+    return format(d, f".{decimals}f")
+
+
 def fmt(x: float, decimals: int = 3, signed: bool = False) -> str:
     if x is None or (isinstance(x, float) and math.isnan(x)):
         return "—"
-    s = format(float(x), f".{decimals}f")
+    s = round_exact(float(x), decimals)
     if s.startswith("-") and float(s) == 0.0:
         s = s[1:]
     if signed and not s.startswith("-"):
