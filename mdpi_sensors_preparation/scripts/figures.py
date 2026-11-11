@@ -190,8 +190,8 @@ def fig01(R):
     for a, b in ((12, 17), (27, 32), (47, 52), (62, 67)):
         arrow(ax, a, y0 + h / 2, b, y0 + h / 2)
     # references
-    box(ax, 15.5, 16, 13, 7, "Reference R1\n(two-level,\nAFE input)", fc="#fff7e0", fs=6.5)
-    box(ax, 50.5, 16, 13, 7, "Reference R2\n(two-level,\nbypasses AFE)", fc="#fff7e0", fs=6.5)
+    box(ax, 15.5, 16, 13, 7, "AFE reference\n(two-level,\nat AFE input)", fc="#fff7e0", fs=6.5)
+    box(ax, 50.5, 16, 13, 7, "ADC reference\n(two-level,\nbypasses AFE)", fc="#fff7e0", fs=6.5)
     arrow(ax, 22, 23, 22, y0)
     arrow(ax, 57, 23, 57, y0)
     # monitor
@@ -222,19 +222,17 @@ def fig01(R):
     def bracket(x0, x1, yb, text):
         ax.plot([x0, x0, x1, x1], [yb - 1, yb, yb, yb - 1], color=C["ink"], lw=0.7)
         ax.text((x0 + x1) / 2, yb + 0.7, text, ha="center", va="bottom", fontsize=6.5, style="italic")
-    bracket(27, 79, 50.5, "R1 window observes AFE + ADC")
-    bracket(62, 79, 46.6, "R2 window: ADC only")
-    ax.text(1, 52.6, "AFE transfer = (R1 response) after removing the ADC transfer estimated from R2",
-            fontsize=6.3, color=C["muted"], ha="left", va="bottom")
-    cap = ("Electronic architecture of the reference-monitored two-point active self-test. During the AFE test "
-           "window MUX 1 (S1/S2) replaces the sensor by the two-level reference R1, so the response passes through the "
-           "AFE and the ADC; during the ADC test window MUX 2 (S3/S4) injects the two-level reference R2 directly at the "
-           "ADC input, so its response depends on the ADC only. The ADC transfer estimated from R2 is removed before the "
-           "AFE transfer is estimated from R1, which separates AFE and ADC fault observability. A buffered reference-"
-           "monitor channel (S5) measures the actual reference levels (gain error bounded by ±E). The digital back-end "
-           "computes settled-plateau calibration and phase-robust transient descriptors and classifies them with a "
-           f"compact {R.v('ARCH')} multilayer perceptron into the faulty layer (4 classes) and the fault class (9 classes). "
-           "Stars mark the simulated fault locations. Schematic; not a measured result.")
+    bracket(27, 79, 50.5, "AFE-reference window: response passes through AFE and ADC")
+    bracket(62, 79, 46.6, "ADC-reference window: ADC only")
+    cap = ("Electronic architecture of the reference-monitored two-point active self-test (schematic). During the AFE "
+           "test window, MUX 1 (S1/S2) replaces the sensor with the two-level AFE reference, so the response passes "
+           "through the AFE and the ADC. During the ADC test window, MUX 2 (S3/S4) applies the two-level ADC reference "
+           "directly to the ADC input, so the response depends on the ADC alone. The ADC transfer estimated in the second "
+           "window is removed from the record before the AFE transfer is estimated from the first. A buffered monitor "
+           "channel (S5) measures the reference levels that are actually applied, with a gain error bounded by ±E. The "
+           "digital back-end computes settled-plateau calibration values and phase-robust transient descriptors and "
+           f"classifies them with a {R.v('ARCH')} multilayer perceptron into the faulty layer (four classes) and the fault "
+           "class (nine classes). Stars mark the locations of the simulated faults.")
     save(fig, "Fig01_architecture", "schematic", [("all", "phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md; paper_package/PAPER_TABLES.csv (T1, T10)",
                                                     "architecture description; ARCH token")],
          pd.DataFrame([{"item": "MLP architecture", "value": R.v("ARCH"), "source": R.entries["ARCH"].source_file}]), cap)
@@ -257,7 +255,7 @@ def fig02(R):
     a = fig.add_subplot(gs[0, :])
     a.step(t.t_ms, t.afe_ctrl + 1.4, where="post", color=C["afe"], lw=1.1)
     a.step(t.t_ms, t.adc_ctrl, where="post", color=C["adc"], lw=1.1)
-    a.set_yticks([0.5, 1.9], ["MUX 2 (R2)", "MUX 1 (R1)"])
+    a.set_yticks([0.5, 1.9], ["MUX 2 (ADC ref.)", "MUX 1 (AFE ref.)"])
     a.set_ylim(-0.2, 2.6)
     a.set_xlim(0, t.t_ms.max())
     a.grid(False)
@@ -276,8 +274,8 @@ def fig02(R):
     ylo, yhi = b.get_ylim()
     b.set_ylim(ylo - 0.12 * (yhi - ylo), yhi + 0.35 * (yhi - ylo))
     ytop = yhi + 0.22 * (yhi - ylo)
-    b.text((edges_afe[0] + edges_afe[2]) / 2, ytop, "R1 window", ha="center", fontsize=7, color=C["afe"], fontweight="bold")
-    b.text((edges_adc[0] + edges_adc[2]) / 2, ytop, "R2 window", ha="center", fontsize=7, color=C["adc"], fontweight="bold")
+    b.text((edges_afe[0] + edges_afe[2]) / 2, ytop, "AFE ref.", ha="center", fontsize=7, color=C["afe"], fontweight="bold")
+    b.text((edges_adc[0] + edges_adc[2]) / 2, ytop, "ADC ref.", ha="center", fontsize=7, color=C["adc"], fontweight="bold")
     b.text(edges_afe[0] / 2, ytop, "sensor", ha="center", fontsize=7, color=C["muted"])
     b.text((edges_afe[2] + edges_adc[0]) / 2, ytop, "sensor", ha="center", fontsize=7, color=C["muted"])
     b.text((edges_adc[2] + t.t_ms.max()) / 2, ytop, "sensor", ha="center", fontsize=7, color=C["muted"])
@@ -313,14 +311,15 @@ def fig02(R):
     c.set_ylabel("Normalized AFE response")
     c.legend(loc="upper left", handlelength=1.2)
     panel(c, "c", "Edge phase ψ (analytic)")
-    cap = (f"Active self-test timing. (a) Multiplexer states: MUX 1 connects the two-level reference R1 to the AFE input "
-           f"({edges_afe[0]:g}–{edges_afe[2]:g} ms) and MUX 2 connects R2 to the ADC input ({edges_adc[0]:g}–{edges_adc[2]:g} ms). "
-           f"(b) Illustrative ADC record from development seed {R.v('DEV_SEED')} (not validation data): sensor intervals, "
-           f"R1 and R2 reference windows with their {int(guard*100)}% settling guards (dark) and settled plateaus (light); ADC "
-           f"samples are taken every 1 ms. (c) Analytic illustration of the edge phase ψ: a reference edge occurring ψT after "
-           f"an ADC sample shifts every sampled value of the first-order response (τ = {tau:g} ms, the midpoint of the simulated "
-           f"AFE time-constant range), so a descriptor that reads fixed samples after the edge depends on ψ, whereas a fit "
-           f"over the whole transient with a free edge time does not. Panels (b) and (c) are illustrative.")
+    cap = (f"Timing of the active self-test. (a) Multiplexer states: MUX 1 connects the AFE reference to the AFE input "
+           f"from {edges_afe[0]:g} to {edges_afe[2]:g} ms, and MUX 2 connects the ADC reference to the ADC input from "
+           f"{edges_adc[0]:g} to {edges_adc[2]:g} ms. (b) Example of a simulated ADC record (behavioral model, development "
+           f"seed {R.v('DEV_SEED')}, not part of the validation data) with the sensor intervals, the two reference windows, "
+           f"the {int(guard*100)}% settling guards (dark) and the settled plateaus (light); the sampling period is 1 ms. "
+           f"(c) Analytic illustration of the edge phase ψ: a reference edge that occurs ψT after an ADC sample shifts "
+           f"every sampled value of the first-order response (τ = {tau:g} ms, the midpoint of the simulated AFE "
+           f"time-constant range), so a descriptor read at fixed sample indices depends on ψ, whereas a fit over the whole "
+           f"transient with a free edge time does not.")
     src = t.copy()
     src.insert(0, "panel", "a,b")
     save(fig, "Fig02_timing", "illustrative", [
@@ -358,12 +357,13 @@ def fig03(R):
     ax.text(50, 27.5, "Training: behavioral, ×1.0 reference, ψ ~ U[0,1) (PRr); PRrM adds ngspice rows. "
                       f"Test: {R.v('N_SEEDS')} unseen seeds × {R.v('TEST_COND')} conditions × {R.v('N_FAULTS')} faults.",
             ha="center", fontsize=6.5, color=C["ink"])
-    cap = ("Processing and evaluation pipeline. Behavioral and ngspice circuit simulations generate records with injected "
-           f"faults ({R.v('N_FAULTS')} classes), component tolerances, noise and 12-bit quantization; the two-point active "
-           "reference test is applied at five edge phases ψ; the reference monitor reports the reference levels with a bounded "
-           f"gain error E; 20 phase-robust descriptors are extracted and classified by the compact MLP ({R.v('ARCH')}); "
-           f"performance is evaluated with macro-F1, the pre-registered gates A–G and a {R.v('N_BOOT')}-resample paired "
-           "condition-level cluster bootstrap. Schematic.")
+    cap = ("Processing and evaluation pipeline (schematic). The behavioral model and the ngspice netlists generate records "
+           f"with injected faults ({R.v('N_FAULTS')} classes), component tolerances, noise and 12-bit quantization. The "
+           "two-point reference test is applied at five edge phases ψ, and the reference monitor reports the reference "
+           "levels with a bounded gain error E. Twenty descriptors are extracted from each record and classified by the "
+           f"{R.v('ARCH')} multilayer perceptron. Performance is summarized by macro-F1, compared with the acceptance "
+           f"criteria A–G of the frozen protocol, and its uncertainty is estimated with a {R.v('N_BOOT')}-resample paired "
+           "cluster bootstrap over operating conditions.")
     save(fig, "Fig03_pipeline", "schematic", [("all", "phase_robust_final/PROTOCOL_PHASE_ROBUST_FROZEN.md; seed_*/meta.json",
                                                 "N_FAULTS, PHASES, MON_E, ARCH, N_BOOT, N_SEEDS, TEST_COND tokens")],
          pd.DataFrame([{"token": k, "value": R.v(k)} for k in ("N_FAULTS", "PHASES", "MON_E", "ARCH", "N_BOOT", "N_SEEDS", "TEST_COND")]), cap)
@@ -374,8 +374,9 @@ def fig03(R):
 
 def fig04(R):
     d = load_csv(PP / "figure_data" / "fig05_fault_signature_descriptors_dev_seed.csv")
-    desc = [("g_adc", "ADC gain ĝ_ADC"), ("o_adc", "ADC offset ô_ADC (V)"), ("G_afe", "AFE gain Ĝ_AFE"),
-            ("o_afe", "AFE offset ô_AFE (V)"), ("tau_norm", "τ/P (normalized)"), ("sens_hf", "Sensor HF noise (V)")]
+    desc = [("g_adc", r"ADC gain $\hat{g}_{\mathrm{ADC}}$"), ("o_adc", r"ADC offset $\hat{o}_{\mathrm{ADC}}$ (V)"),
+            ("G_afe", r"AFE gain $\hat{G}_{\mathrm{AFE}}$"), ("o_afe", r"AFE offset $\hat{o}_{\mathrm{AFE}}$ (V)"),
+            ("tau_norm", "τ/P (normalized)"), ("sens_hf", "Sensor HF noise (V)")]
     layer_of = dict(zip(FAULTS, ["healthy", "sensor", "sensor", "sensor", "afe", "afe", "adc", "adc", "adc"]))
     fig, axs = plt.subplots(2, 3, figsize=(FULL_W, 4.4), sharex=True)
     rows = []
@@ -399,20 +400,19 @@ def fig04(R):
     fig.legend(handles=[Patch(fc=C[k], alpha=0.55, ec=C["ink"], lw=0.5, label=l) for k, l in
                         (("healthy", "Healthy"), ("sensor", "Sensor fault"), ("afe", "AFE fault"), ("adc", "ADC fault"))],
                loc="upper center", ncol=4, bbox_to_anchor=(0.5, 1.035))
-    fig.text(0.5, -0.06, f"ILLUSTRATIVE — development seed {R.v('DEV_SEED')}, 60 records per class; not validation data",
-             ha="center", fontsize=6.8, color=C["nomon"], fontweight="bold")
+    fig.text(0.5, -0.06, f"Illustrative: behavioral model, development seed {R.v('DEV_SEED')}, 60 records per class; not validation data",
+             ha="center", fontsize=6.8, color=C["muted"])
     fig.tight_layout(h_pad=1.0, w_pad=0.8)
-    cap = (f"Example fault signatures (illustrative, development seed {R.v('DEV_SEED')}, 60 records per class; not used for "
-           "any decision). Box plots (median, interquartile range, whiskers at 1.5 IQR; outliers hidden) of six of the 20 "
-           "descriptors for the nine classes, colored by faulty layer. (a) ADC gain and (b) ADC offset, estimated from the R2 "
-           "window that bypasses the AFE, separate ADC gain and ADC offset faults and stay flat for sensor and AFE faults. "
-           "(c) AFE gain and (d) AFE offset, estimated from the R1 window after ADC calibration, shift for AFE faults: offset "
-           "faults widen the offset distribution, while bandwidth faults lower the apparent gain and raise the apparent offset "
-           "because the plateaus do not fully settle. (e) The fitted time constant τ/P marks AFE bandwidth faults. (f) "
-           "Sensor-domain high-frequency noise marks sensor-noise faults (and, more weakly, AFE bandwidth faults). Sensor bias "
-           "and sensor gain faults are not separated by these six descriptors, which is consistent with their low recall "
-           "(Figure 10). Raw per-fault waveforms are not included in the evidence package, so descriptor-level signatures are "
-           "shown instead of waveforms.")
+    cap = (f"Fault signatures in descriptor space (illustrative; behavioral model, development seed {R.v('DEV_SEED')}, "
+           "60 records per class, not used for any decision). Box plots show the median, the interquartile range and "
+           "whiskers at 1.5 times the interquartile range (outliers omitted) of six of the 20 descriptors for the nine "
+           "classes, colored by faulty layer. (a) ADC gain and (b) ADC offset, estimated from the ADC-reference window, "
+           "respond to ADC gain and ADC offset faults and stay flat for sensor and AFE faults. (c) AFE gain and (d) AFE "
+           "offset, estimated from the AFE-reference window after ADC calibration, respond to AFE faults; a bandwidth "
+           "fault lowers the apparent gain and raises the apparent offset because the plateaus no longer settle. (e) The "
+           "fitted time constant τ/P isolates AFE bandwidth faults. (f) High-frequency noise in the sensor intervals "
+           "isolates sensor-noise faults. None of the six descriptors separates sensor bias or sensor gain faults from "
+           "the healthy class.")
     save(fig, "Fig04_fault_signatures", "illustrative",
          [("a–f", "paper_package/figure_data/fig05_fault_signature_descriptors_dev_seed.csv", "columns g_adc, o_adc, G_afe, o_afe, tau_norm, sens_hf; grouped by 'fault'")],
          pd.DataFrame(rows), cap)
@@ -466,15 +466,15 @@ def fig05(R):
     c.set_ylabel("Descriptor shift (σ units)")
     c.legend(loc="upper left", handlelength=2.0)
     panel(c, "c", "Descriptor shift (dev. seed)")
-    cap = (f"Sampling-phase sensitivity. Layer macro-F1 (monitor E = ±2%, pooled over reference amplitudes; mean of "
-           f"{R.v('N_SEEDS')} dataset seeds × 2 initializations) versus edge phase ψ in (a) the behavioral and (b) the ngspice "
-           f"domain. The fixed-sample Revision-1 descriptors (R1) lose accuracy as ψ grows (phase spread {R.v('ARM_bh_R1_RANGE')} "
-           f"behavioral, {R.v('ARM_sp_R1_RANGE')} ngspice), whereas the proposed PRr is nearly flat ({R.v('ARM_bh_PRR_RANGE')} and "
-           f"{R.v('ARM_sp_PRR_RANGE')}); over the pre-registered gate-G variants (known reference and E = ±2%, both domains) "
-           f"the PRr spread is {R.v('G_PRR_MIN')}–{R.v('G_PRR_MAX')} (threshold {R.v('G_THRESH')}). R1r, PR and PRrM are shown "
-           f"for attribution. (c) Illustrative mechanism on development seed {R.v('DEV_SEED')}: mean absolute descriptor shift "
-           f"relative to ψ = 0 in units of the across-record standard deviation; the fixed-sample rise fraction rise_2 shifts "
-           f"by up to {R.v('DEV_RISE2_SHIFT')} σ, the phase-robust descriptors by at most {R.v('DEV_PR_MAX_SHIFT')} σ.")
+    cap = (f"Sensitivity to the sampling phase (simulation). Layer macro-F1 at monitor error E = ±2%, pooled over reference "
+           f"amplitudes and averaged over {R.v('N_SEEDS')} dataset seeds and two initializations, against the edge phase ψ "
+           f"in (a) the behavioral domain and (b) the ngspice domain. The fixed-sample descriptors (R1) lose accuracy as "
+           f"ψ grows, with a phase spread of {R.v('ARM_bh_R1_RANGE')} (behavioral) and {R.v('ARM_sp_R1_RANGE')} (ngspice), "
+           f"whereas PRr varies by {R.v('ARM_bh_PRR_RANGE')} and {R.v('ARM_sp_PRR_RANGE')}. R1r, PR and PRrM are the "
+           f"ablation variants. (c) Mechanism, illustrated on development seed {R.v('DEV_SEED')}: mean absolute shift of "
+           f"each transient descriptor relative to ψ = 0, in units of its standard deviation across records. The "
+           f"fixed-sample rise fraction rise_2 moves by up to {R.v('DEV_RISE2_SHIFT')} standard deviations, and the "
+           f"phase-robust descriptors by at most {R.v('DEV_PR_MAX_SHIFT')}.")
     save(fig, "Fig05_phase_sensitivity", "result (a,b); illustrative (c)",
          [("a,b", "phase_robust_final/phase_robust_results/attribution_arms.csv", "columns layer_f1_p000…p999, all arms"),
           ("a,b annotations", "phase_robust_final/phase_robust_results/attribution_arms.csv", "max−min of layer_f1_p*"),
@@ -495,7 +495,7 @@ def fig06(R):
     series = [("PRr known", "PRr, known reference", BLUES[0], "o", "-"), ("PRr E=0%", "PRr, monitor E = 0%", BLUES[1], "o", "-"),
               ("PRr E=1%", "PRr, monitor E = ±1%", BLUES[2], "o", "-"), ("PRr E=2%", "PRr, monitor E = ±2%", BLUES[3], "o", "-"),
               ("PRr E=5%", "PRr, monitor E = ±5%", BLUES[4], "o", "-"), ("R1 known", "R1, known reference", C["R1"], "s", "--"),
-              ("A0 old", "A0 old descriptors", C["A0"], "x", ":")]
+              ("A0 old", "A0 (earlier descriptor set)", C["A0"], "x", ":")]
     for ax, dom, letter in zip(axs, ("bh", "sp"), "ab"):
         for ser, lab, col, mk, ls in series:
             r = amp[(amp.domain == dom) & (amp.series == ser) & (amp.target == "layer")]
@@ -516,7 +516,7 @@ def fig06(R):
                 ax.annotate(f"{R.v('NOMON_U_x' + key)}", (x, R.raw("NOMON_U_x" + key)), textcoords="offset points",
                             xytext=(0, -9), ha="center", fontsize=6.3, color=C["nomon"])
                 ax.annotate(f"{R.v('NOMON_K_x' + key)}", (x, R.raw("NOMON_K_x" + key)), textcoords="offset points",
-                            xytext=(0, -11), ha="center", fontsize=6.3, color=BLUES[0])
+                            xytext=(0, 9), ha="center", fontsize=6.3, color=BLUES[0])
         ax.set_xticks(xs, ["×0.8", "×0.9", "×1.0", "×1.1", "×1.2"])
         ax.set_xlabel("Reference amplitude (× nominal)")
         panel(ax, letter, "Behavioral" if dom == "bh" else "ngspice (×0.8, ×1.0, ×1.2 tested)")
@@ -525,14 +525,14 @@ def fig06(R):
     h, l = axs[0].get_legend_handles_labels()
     fig.legend(h, l, loc="upper center", ncol=4, bbox_to_anchor=(0.5, 1.10), handlelength=2.2, columnspacing=1.0)
     fig.tight_layout()
-    cap = ("Reference-amplitude robustness. Layer macro-F1 (pooled over the five edge phases; mean of three dataset seeds) "
-           "versus the actual reference amplitude for the primary PRr classifier with a known reference and with the "
-           "simulated reference monitor (gain error E = 0, ±1, ±2, ±5%), for the Revision-1 descriptors (R1, known reference) "
-           "and the old descriptors (A0), in (a) the behavioral and (b) the ngspice domain. In (a) the no-monitor control "
-           "applies the same PRr known-reference classifier with the nominal (assumed) reference levels: at ×0.8 and ×1.2 its "
-           f"layer macro-F1 falls to {R.v('NOMON_U_x08')} and {R.v('NOMON_U_x12')}, against {R.v('NOMON_K_x08')} and "
-           f"{R.v('NOMON_K_x12')} with the known reference. The no-monitor control was evaluated in the behavioral domain only; "
-           "ngspice was simulated at ×0.8, ×1.0 and ×1.2.")
+    cap = ("Robustness to the reference amplitude (simulation). Layer macro-F1, pooled over the five edge phases and "
+           "averaged over three dataset seeds, against the actual reference amplitude in (a) the behavioral domain and "
+           "(b) the ngspice domain, which was simulated at ×0.8, ×1.0 and ×1.2 only. The PRr classifier is shown with "
+           "known reference levels and with the simulated reference monitor (gain error E = 0, ±1%, ±2%, ±5%), together "
+           "with the R1 descriptors (known reference) and the earlier descriptor set A0. The no-monitor control in (a) "
+           "gives the PRr known-reference classifier the nominal reference levels instead of the actual ones; it was "
+           f"evaluated in the behavioral domain only. At ×0.8 and ×1.2 its layer macro-F1 is {R.v('NOMON_U_x08')} and "
+           f"{R.v('NOMON_U_x12')}, against {R.v('NOMON_K_x08')} and {R.v('NOMON_K_x12')} with known levels.")
     save(fig, "Fig06_reference_amplitude", "result",
          [("a,b", "phase_robust_final/phase_robust_results/amplitude_curves.csv", "rows target=layer; series PRr known/E=0..5%, R1 known, A0 old"),
           ("a", "phase_robust_final/phase_robust_results/no_monitor_control.json", "no_monitor_control_layer_macro_f1.*.unmonitored/known")],
@@ -589,7 +589,7 @@ def fig07(R, extra):
     ax.bar(x, [g[2] for g in groups], wb, color=C["adc"], label="ADC recall", ec="white", lw=0.5)
     ax.bar(x + wb, [g[3] for g in groups], wb, color=C["A0"], label="AFE–ADC cross-confusion", ec="white", lw=0.5,
            hatch="////")
-    ax.axhline(R.raw("C_THRESH"), color=C["ink"], ls="--", lw=0.8, label=f"Gate C limit ({R.v('C_THRESH')})")
+    ax.axhline(R.raw("C_THRESH"), color=C["ink"], ls="--", lw=0.8, label=f"Criterion C limit ({R.v('C_THRESH')})")
     ax.axvline(5.5, color=C["grid"], lw=0.8)
     ax.set_xticks(x, [g[0] for g in groups], fontsize=6.5)
     ax.set_ylim(0, 1.08)
@@ -597,15 +597,14 @@ def fig07(R, extra):
     ax.legend(loc="upper left", ncol=4, bbox_to_anchor=(0.0, 1.0), fontsize=6.5)
     ax.set_ylim(0, 1.18)
     panel(ax, "e", "Behavioral, PRr, pooled over phases")
-    cap = ("AFE/ADC fault separation of the primary PRr classifier in the behavioral domain (pooled over the five edge phases; "
-           "mean of three dataset seeds × two initializations). (a,b) Row-normalized layer confusion matrices with the known "
-           "reference at ×0.8 and ×1.2 reference amplitude; (c,d) the same classifier without reference monitoring (nominal "
-           "levels assumed). H = healthy, S = sensor; red boxes mark the AFE↔ADC cells. (e) AFE recall, ADC recall and AFE–ADC "
-           "cross-confusion for the known reference, the monitor with E = 0 to ±5% and the no-monitor control at ×0.8 and ×1.2. "
-           f"With a known or monitored reference the cross-confusion stays at or below {R.v('C_MAX')} (gate C limit "
-           f"{R.v('C_THRESH')}); without monitoring it rises to {R.v('SEPX_bh_assumed_a80_X')} (×0.8) and "
-           f"{R.v('SEPX_bh_assumed_a120_X')} (×1.2). Panels (a–d) and the no-monitor bars in (e) are computed from the saved "
-           "per-sample predictions; the other bars are read from decision_rules.json. The ngspice values are listed in Table 10.")
+    cap = ("Separation of AFE and ADC faults by the PRr classifier in the behavioral domain (simulation; pooled over the "
+           "five edge phases and averaged over three dataset seeds and two initializations). (a,b) Row-normalized layer "
+           "confusion matrices with known reference levels at ×0.8 and ×1.2 reference amplitude. (c,d) The same classifier "
+           "without reference monitoring, given the nominal levels. H, healthy; S, sensor; the red boxes mark the two "
+           "cells that exchange AFE and ADC faults. (e) AFE recall, ADC recall and AFE–ADC cross-confusion with known "
+           "levels, with the monitor at E = 0 to ±5%, and without monitoring at ×0.8 and ×1.2. With known or monitored "
+           f"levels the cross-confusion does not exceed {R.v('C_MAX')} (criterion C limit {R.v('C_THRESH')}); without "
+           f"monitoring it reaches {R.v('SEPX_bh_assumed_a80_X')} at ×0.8 and {R.v('SEPX_bh_assumed_a120_X')} at ×1.2.")
     save(fig, "Fig07_afe_adc_separation", "result",
          [("a–d", "phase_robust_final/phase_robust_results/seed_*/predictions.npz", "keys bh_a{80,120}_p*_{known,assumed}|two_point_mlp@PRr_k|{11,22}|layer"),
           ("e", "phase_robust_final/phase_robust_results/decision_rules.json", "C.detail['bh|*|a80/a120']"),
@@ -620,7 +619,9 @@ def fig08(R):
     E = load_json(RES / "decision_rules.json")["E"]["all"]
     arms = load_csv(RES / "attribution_arms.csv")
     fig = plt.figure(figsize=(FULL_W, 2.9))
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.35, 1.1, 1.0], wspace=0.45)
+    # Keep the panel-b title clear of panel-c's top y-tick at the narrow
+    # full-width layout used for the manuscript figure.
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.35, 1.1, 1.0], wspace=0.60)
     rows = []
     vars_ = ["known", "mon0", "mon1", "mon2", "mon5"]
     labs = ["Known", "E 0%", "E ±1%", "E ±2%", "E ±5%"]
@@ -634,7 +635,7 @@ def fig08(R):
         for v, val in zip(vars_, vals):
             rows.append(dict(panel="a", variant=v, quantity=key, value=val, source=f"decision_rules.json E.all.{v}.{key}"))
     ax.set_xticks(x, labs, rotation=45, ha="right")
-    ax.set_ylim(0.55, 0.75)
+    ax.set_ylim(0.0, 0.95)
     ax.set_ylabel("Layer macro-F1")
     ax.legend(loc="upper left", ncol=1, handlelength=1.4, fontsize=6.5)
     panel(ax, "a", "Matched ngspice grid")
@@ -648,13 +649,13 @@ def fig08(R):
                          source=f"decision_rules.json E.all.{v}.drop/drop_ci"))
     pv, pl, ph = R.raw("PREV_DROP"), R.raw("PREV_DROP_LO"), R.raw("PREV_DROP_HI")
     b.errorbar([5.3], [pv], yerr=[[pv - pl], [ph - pv]], fmt="s", color=C["R1"], capsize=2.5, lw=1.0, ms=4,
-               label="Previous stage (E ±2%)")
+               label="Earlier stage (E ±2%)")
     rows.append(dict(panel="b", variant="previous stage mon2", quantity="BB-BS", value=pv, ci_low=pl, ci_high=ph,
                      source="paper_package/NUMBER_PROVENANCE.csv PREV_E_* (previous-stage)"))
     b.axhline(R.raw("E_THRESH"), color=C["ink"], ls="--", lw=0.8)
-    b.text(2.0, R.raw("E_THRESH") - 0.009, f"gate E limit {R.v('E_THRESH')}", fontsize=6.3, ha="center")
+    b.text(2.0, R.raw("E_THRESH") - 0.009, f"criterion E limit {R.v('E_THRESH')}", fontsize=6.3, ha="center")
     b.axhline(0, color=C["muted"], lw=0.5)
-    b.set_xticks(list(range(5)) + [5.3], labs + ["Prev."], rotation=45, ha="right")
+    b.set_xticks(list(range(5)) + [5.3], labs + ["Earlier"], rotation=45, ha="right")
     b.set_ylim(-0.02, 0.14)
     b.set_ylabel("Transfer loss BB − BS (Δ layer macro-F1)")
     b.legend(loc="center left", bbox_to_anchor=(0.0, 0.55), handlelength=1.0, fontsize=6.5)
@@ -672,17 +673,22 @@ def fig08(R):
     c.set_xlabel("Edge phase ψ")
     c.set_ylabel("Layer macro-F1")
     c.set_ylim(0.62, 0.70)
+    # The top tick label sits at the same height as panel (b)'s title in the
+    # compact three-panel layout.  The 0.68 tick still covers the plotted
+    # range while leaving the inter-panel label area clear.
+    c.set_yticks([0.62, 0.64, 0.66, 0.68])
     c.legend(loc="lower left", ncol=2, handlelength=1.8, columnspacing=0.6, fontsize=6.3)
     panel(c, "c", "Per phase, E = ±2%")
-    cap = (f"Behavioral-to-ngspice transfer. (a) Layer macro-F1 on the ngspice test grid (×0.8, ×1.0, ×1.2 × five phases) "
-           f"of the behavioral-trained PRr classifier on behavioral (BB) and ngspice (BS) data and of the mixed-domain "
-           f"secondary variant PRrM on ngspice data (MS), for each reference condition. (b) Transfer loss BB − BS with paired "
-           f"{R.v('N_BOOT')}-resample cluster-bootstrap 95% CIs; for the pre-registered primary case (E = ±2%) the loss is "
-           f"{R.v('E_DROP')} {R.ci('E_DROP_LO', 'E_DROP_HI')}, against {R.v('PREV_DROP')} "
-           f"{R.ci('PREV_DROP_LO', 'PREV_DROP_HI')} in the previous, failed validation stage (previous-stage value, shown for "
-           f"context only); dashed line: gate E limit {R.v('E_THRESH')}. (c) Layer macro-F1 per edge phase (E = ±2%, pooled "
-           "over amplitudes) of PRr and PRrM in both domains. PRrM is a secondary mixed-training variant, not the "
-           "pre-registered primary method.")
+    cap = (f"Transfer from the behavioral model to ngspice (simulation). (a) Layer macro-F1 on the ngspice amplitude grid "
+           f"(×0.8, ×1.0, ×1.2, five phases) for the behavioral-trained PRr classifier tested on behavioral data and on "
+           f"ngspice data, and for the mixed-domain variant PRrM tested on ngspice data, for each reference condition. "
+           f"(b) Transfer loss of PRr (behavioral minus ngspice) with paired {R.v('N_BOOT')}-resample cluster-bootstrap 95% "
+           f"confidence intervals. For the primary case (E = ±2%) the loss is {R.v('E_DROP')} "
+           f"{R.ci('E_DROP_LO', 'E_DROP_HI')}; the dashed line marks the limit of {R.v('E_THRESH')} set by criterion E. The "
+           f"square shows the loss of {R.v('PREV_DROP')} {R.ci('PREV_DROP_LO', 'PREV_DROP_HI')} reported for the earlier "
+           "design stage, which used fixed-sample descriptors, a single edge placement, a different amplitude grid and "
+           "different seeds; it is included as context and is not a controlled comparison. (c) Layer macro-F1 per edge "
+           "phase at E = ±2%, pooled over amplitudes, for PRr and PRrM in both domains.")
     save(fig, "Fig08_domain_transfer", "result (previous-stage point marked)",
          [("a,b", "phase_robust_final/phase_robust_results/decision_rules.json", "E.all.*.BB/BS/MS/drop/drop_ci"),
           ("b (previous stage)", "paper_package/NUMBER_PROVENANCE.csv", "tokens PREV_E_DROP, PREV_E_LO, PREV_E_HI"),
@@ -728,7 +734,7 @@ def fig09(R):
     ax.set_ylabel("Layer macro-F1")
     panel(ax, "a", "Layer macro-F1, E = ±2%")
     bx.axhline(R.raw("G_THRESH"), color=C["ink"], ls="--", lw=0.8)
-    bx.text(5.6, R.raw("G_THRESH") + 0.002, f"gate G limit {R.v('G_THRESH')}", ha="right", fontsize=6.3)
+    bx.text(5.6, R.raw("G_THRESH") + 0.002, f"criterion G limit {R.v('G_THRESH')}", ha="right", fontsize=6.3)
     bx.set_xticks(x, order)
     bx.set_ylim(0, 0.095)
     bx.set_ylabel("Phase spread (Δ layer macro-F1)")
@@ -750,17 +756,14 @@ def fig09(R):
     c.set_xlabel("Δ layer macro-F1 (paired bootstrap 95% CI)")
     c.legend(loc="lower right")
     panel(c, "c", "Attribution (E = ±2%, pooled over amplitudes and phases)")
-    cap = ("Ablation study. (a) Layer macro-F1 (monitor E = ±2%, pooled over amplitudes and phases) of the old descriptors (A0), "
-           "the fixed-sample Revision-1 descriptors (R1), R1 with phase-randomized training (R1r), the phase-robust descriptors "
-           "(PR), the proposed PRr and the mixed-domain secondary variant PRrM; solid bars behavioral, hatched bars ngspice (A0 "
-           f"was not simulated in ngspice). (b) Phase spread (max − min over the five edge phases); dashed line: gate G limit "
-           f"{R.v('G_THRESH')}. (c) Paired-bootstrap differences with 95% CIs: descriptors alone (PR − R1) "
-           f"{R.v('ATT_bh_DESC')} behavioral / {R.v('ATT_sp_DESC')} ngspice; randomisation alone (R1r − R1) {R.v('ATT_bh_RAND')} / "
-           f"{R.v('ATT_sp_RAND')}; descriptors given randomisation (PRr − R1r) {R.v('ATT_bh_DESC_GIVEN_RAND')} / "
-           f"{R.v('ATT_sp_DESC_GIVEN_RAND')}; randomisation given robust descriptors (PRr − PR) {R.v('ATT_bh_RAND_GIVEN_DESC')} "
-           f"{R.ci('ATT_bh_RAND_GIVEN_DESC_LO', 'ATT_bh_RAND_GIVEN_DESC_HI')} / {R.v('ATT_sp_RAND_GIVEN_DESC')} "
-           f"{R.ci('ATT_sp_RAND_GIVEN_DESC_LO', 'ATT_sp_RAND_GIVEN_DESC_HI')} (not resolvable); mixed-domain training (PRrM − PRr) "
-           f"{R.v('ATT_bh_MIXED')} / {R.v('ATT_sp_MIXED')}.")
+    cap = ("Ablation of the phase-robust design (simulation; monitor error E = ±2%, pooled over amplitudes and phases). "
+           "(a) Layer macro-F1 of the earlier descriptor set (A0), the fixed-sample descriptors (R1), R1 with "
+           "phase-randomized training (R1r), the phase-robust descriptors (PR), the proposed PRr and the mixed-domain "
+           "variant PRrM; solid bars, behavioral domain; hatched bars, ngspice domain (A0 was not evaluated in ngspice). "
+           f"(b) Phase spread, the difference between the largest and smallest layer macro-F1 over the five edge phases; "
+           f"the dashed line marks the limit of {R.v('G_THRESH')} set by criterion G. (c) Paired-bootstrap differences in "
+           "layer macro-F1 with 95% confidence intervals for the individual design steps. The interval for "
+           "phase-randomized training applied to the phase-robust descriptors (PRr − PR) includes zero in both domains.")
     save(fig, "Fig09_ablation", "result",
          [("a,b", "phase_robust_final/phase_robust_results/attribution_arms.csv", "layer_macro_f1; max−min of layer_f1_p*"),
           ("c", "phase_robust_final/phase_robust_results/attribution_comparisons.csv", "diff, ci_low, ci_high")],
@@ -820,13 +823,12 @@ def fig10(R):
     ax.grid(False)
     panel(ax, "c", "Layer recall")
     weak_prr = [FAULT_LABELS[j] for j, f in enumerate(FAULTS) if R.raw(f"RF_bh_PRR_{f.upper()}") < weak]
-    cap = ("Per-class recall (monitor E = ±2%, pooled over amplitudes and phases; mean of three dataset seeds). (a,b) "
-           "Fine-fault recall of every arm in the behavioral and ngspice domains (PRr, the primary method, in bold). (c) Layer "
-           "recall of R1, PRr and PRrM in both domains and of the no-monitor control (behavioral, ×0.8/×1.2). Red outlines mark "
-           f"weak classes with recall below {weak:.2f} (display threshold chosen for this figure, not a pre-registered "
-           f"criterion). For PRr the weak fine classes are {', '.join(weak_prr).lower()}; healthy-layer recall is "
-           f"{R.v('RL_bh_PRR_HEALTHY')} (behavioral) and {R.v('RL_sp_PRR_HEALTHY')} (ngspice), so the classifier is a "
-           "fault-localisation aid rather than a healthy/faulty detector.")
+    cap = ("Per-class recall (simulation; monitor error E = ±2%, pooled over amplitudes and phases and averaged over three "
+           "dataset seeds). (a,b) Recall of the nine fault classes for every variant in the behavioral and ngspice "
+           "domains; PRr is set in bold. (c) Layer recall of R1, PRr and PRrM in both domains and of the no-monitor "
+           f"control (behavioral domain, ×0.8 and ×1.2). Red outlines mark recall below {weak:.2f}, a display threshold "
+           f"chosen for this figure. For PRr these classes are {', '.join(weak_prr).lower()}; the recall of the healthy "
+           f"layer is {R.v('RL_bh_PRR_HEALTHY')} (behavioral) and {R.v('RL_sp_PRR_HEALTHY')} (ngspice).")
     save(fig, "Fig10_per_class_recall", "result",
          [("a,b", "phase_robust_final/phase_robust_results/per_class_recall_fault.csv", "all rows"),
           ("c", "phase_robust_final/phase_robust_results/per_class_recall_layer.csv", "rows R1, PRr, PRrM, no-monitor control")],

@@ -1,0 +1,28 @@
+token,source_key,stored_four_decimal_value,print_from_stored_value,full_precision_value,correct_print,note
+ARM_bh_R1R_LBA,"row domain=bh, arm=R1r, layer_balanced_accuracy",0.6475,0.647,0.647509,0.648,point estimate recomputed from predictions
+ARM_sp_R1_FBA,"row domain=sp, arm=R1, fault_balanced_accuracy",0.6385,0.638,0.638538,0.639,point estimate recomputed from predictions
+ARM_sp_PRR_P999,"row domain=sp, arm=PRr, layer_f1_p999",0.6435,0.643,0.643523,0.644,point estimate recomputed from predictions
+ATT_bh_MIXED,"row domain=bh, comparison='PRrM - PRr (mixed training)', diff",0.0165,+0.017,0.016456,+0.016,point estimate recomputed from predictions
+ATT_sp_DESC,"row domain=sp, comparison='PR - R1 (descriptors alone)', diff",0.0405,+0.041,0.040460,+0.040,point estimate recomputed from predictions
+AMP_bh_A0_old_fault_x11,"row domain=bh, series='A0 old', target=fault, column x1.1",0.1425,0.142,0.142549,0.143,point estimate recomputed from predictions
+AMP_bh_PRr_known_layer_x09,"row domain=bh, series='PRr known', target=layer, column x0.9",0.6455,0.645,0.645529,0.646,point estimate recomputed from predictions
+AMP_bh_PRr_known_layer_x10,"row domain=bh, series='PRr known', target=layer, column x1.0",0.6585,0.658,0.658502,0.659,point estimate recomputed from predictions
+AMP_bh_PRr_known_layer_x12,"row domain=bh, series='PRr known', target=layer, column x1.2",0.6425,0.642,0.642507,0.643,point estimate recomputed from predictions
+AMP_bh_PRr_E5_layer_x10,"row domain=bh, series='PRr E=5%', target=layer, column x1.0",0.6615,0.661,0.661545,0.662,point estimate recomputed from predictions
+AMP_sp_PRr_E2_fault_x10,"row domain=sp, series='PRr E=2%', target=fault, column x1.0",0.6835,0.683,0.683533,0.684,point estimate recomputed from predictions
+AMP_sp_PRr_E5_fault_x12,"row domain=sp, series='PRr E=5%', target=fault, column x1.2",0.6415,0.641,0.641525,0.642,point estimate recomputed from predictions
+SEP_bh_PRR_x1_ADC,"row domain=bh, arm=PRr, amplitude=1.0, adc_recall",0.8005,0.800,0.800505,0.801,point estimate recomputed from predictions
+SEP_sp_R1R_x08_X,"row domain=sp, arm=R1r, amplitude=0.8, cross_confusion",0.0575,0.058,0.057500,0.057,point estimate recomputed from predictions
+SEP_sp_R1R_x12_AFE,"row domain=sp, arm=R1r, amplitude=1.2, afe_recall",0.8795,0.879,0.879545,0.880,point estimate recomputed from predictions
+SEP_sp_R1R_x12_ADC,"row domain=sp, arm=R1r, amplitude=1.2, adc_recall",0.7225,0.723,0.722475,0.722,point estimate recomputed from predictions
+SEP_sp_PR_x08_ADC,"row domain=sp, arm=PR, amplitude=0.8, adc_recall",0.8215,0.822,0.821465,0.821,point estimate recomputed from predictions
+SEP_sp_PRR_x08_X,"row domain=sp, arm=PRr, amplitude=0.8, cross_confusion",0.0355,0.035,0.035530,0.036,point estimate recomputed from predictions
+SEP_sp_PRR_x1_ADC,"row domain=sp, arm=PRr, amplitude=1.0, adc_recall",0.8015,0.801,0.801515,0.802,point estimate recomputed from predictions
+RL_bh_R1_HEALTHY,"row domain=bh, arm='R1', scope='pooled E=2%', column healthy",0.0975,0.098,0.097500,0.097,point estimate recomputed from predictions
+RL_bh_PR_AFE,"row domain=bh, arm='PR', scope='pooled E=2%', column afe",0.9275,0.927,0.927500,0.928,point estimate recomputed from predictions
+RF_bh_R1R_SENSOR_BIAS,"row domain=bh, arm=R1r, column sensor_bias",0.3155,0.316,0.315455,0.315,point estimate recomputed from predictions
+RF_bh_PRRM_HEALTHY,"row domain=bh, arm=PRrM, column healthy",0.3555,0.355,0.355530,0.356,point estimate recomputed from predictions
+RF_bh_PRRM_SENSOR_BIAS,"row domain=bh, arm=PRrM, column sensor_bias",0.2555,0.256,0.255455,0.255,point estimate recomputed from predictions
+RF_sp_PR_ADC_GAIN,"row domain=sp, arm=PR, column adc_gain",0.9015,0.901,0.901515,0.902,point estimate recomputed from predictions
+ATT_bh_RAND_GIVEN_DESC_LO,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low",-0.0055,ambiguous (fourth decimal is 5),not recomputable (bootstrap seeds not saved),-0.006,interval bound rounded outward
+ATT_bh_MIXED_HI,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_high",0.0255,ambiguous (fourth decimal is 5),not recomputable (bootstrap seeds not saved),+0.026,interval bound rounded outward

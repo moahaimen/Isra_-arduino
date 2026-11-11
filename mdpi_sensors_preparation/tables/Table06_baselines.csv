@@ -8,6 +8,6 @@ Method,Layer macro-F1 ×0.8,Layer macro-F1 ×1.2,PRr − method ×0.8 [95% CI],P
 "ADC-only reference, PRr descriptors",0.455,0.452,"+0.160 [+0.144, +0.175]","+0.190 [+0.176, +0.206]",—
 R1: Revision-1 fixed-sample descriptors,0.578,0.593,—,—,"+0.042 [+0.034, +0.050]"
 R1r: R1 + phase-randomized training,0.626,0.634,—,—,"+0.012 [+0.004, +0.019]"
-"PR: phase-robust descriptors, ψ = 0 training",0.612,0.635,—,—,"+0.000 [-0.005, +0.006]"
+"PR: phase-robust descriptors, ψ = 0 training",0.612,0.635,—,—,"+0.000 [-0.006, +0.006]"
 PRr: proposed (primary),0.615,0.643,—,—,—
-PRrM: PRr + mixed-domain training (secondary),0.660,0.670,—,—,"-0.017 [-0.025, -0.008]"
+PRrM: PRr + mixed-domain training (secondary),0.660,0.670,—,—,"-0.016 [-0.026, -0.008]"

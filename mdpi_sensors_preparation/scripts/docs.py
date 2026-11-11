@@ -655,7 +655,13 @@ def build_all(R, caps, tabs, ff_rows, summary):
                 e = R.entries[t]
                 w.writerow([d, t, e.value, e.status, e.source_file, e.key])
     # compiled draft (Markdown + Word via pandoc when available)
-    comp = "\n\n".join(rendered[d] for d in DRAFTS)
+    # Do not carry Markdown thematic-break lines into the single compiled
+    # document.  With pandoc's markdown-yaml_metadata_block reader, two such
+    # breaks in one stream can be interpreted as the bounds of a one-column
+    # simple table, which makes all intervening prose render as a very narrow
+    # vertical table in DOCX.  The individual section drafts retain their
+    # original separators; the compiled manuscript only needs blank space.
+    comp = "\n\n".join(rendered[d].replace("\n---\n", "\n\n") for d in DRAFTS)
     comp += "\n\n# Figures\n\n" + (OUT / "figures/FIGURE_CAPTIONS.md").read_text()
     comp += "\n\n# Tables\n\n" + (OUT / "tables/ALL_TABLES.md").read_text()
     (MAN / "MANUSCRIPT_DRAFT_COMPILED.md").write_text(comp)

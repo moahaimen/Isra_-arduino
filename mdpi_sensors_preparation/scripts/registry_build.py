@@ -378,7 +378,107 @@ def build() -> tuple[Registry, dict]:
                   "ADC layer recall, same pooling", status=st)
             R.add(f"SEPX_bh_{var}_a{a}_X", xc, pr, f"keys bh_a{a}_p*_{var}|{mdl}|{{11,22}}|layer",
                   "(C[AFE,ADC]+C[ADC,AFE])/(n_AFE+n_ADC), same pooling", status=st)
+    extra["refined"] = refine_full_precision(R)
     return R, extra
+
+
+def refine_full_precision(R):
+    """Replace values that the result CSVs store with four decimals by full-precision values.
+
+    amplitude_curves.csv, attribution_arms.csv, attribution_comparisons.csv, afe_adc_separation.csv and the
+    per-class recall files store four decimals. Rounding such a value to three decimals is a second rounding
+    and can differ from the correctly rounded value in the last digit (e.g. 0.6585 -> 0.658, whereas the
+    underlying 0.658502 rounds to 0.659). Every point estimate of these families is therefore recomputed
+    from the saved per-record predictions; the recomputed value must agree with the stored one to within
+    half a unit of the fourth decimal, otherwise the build stops. Bootstrap interval bounds cannot be
+    recomputed (the resampling seeds are not in the package); a bound whose stored fourth decimal is exactly 5
+    is rounded outward (away from the point estimate), which is the conservative choice.
+    """
+    import re as _re
+
+    from common import AMPS_SP as _SP, PHASES as _PH, macro_f1 as _f1, model_for, recall as _rec
+
+    tol, changed, ties = 5.1e-5, 0, []
+    amps_of = {"bh": AMPS_BH, "sp": _SP}
+
+    def put(token, value, what):
+        nonlocal changed
+        e = R.entries.get(token)
+        if e is None:
+            return
+        stored = float(e.raw)
+        if abs(stored - value) > tol:
+            raise AssertionError(f"{token}: stored {stored} vs recomputed {value}")
+        e.raw = float(value)
+        e.calculation = (e.calculation + f"; recomputed from seed_*/predictions.npz at full precision ({what}); "
+                         f"the CSV stores {stored}")
+        changed += 1
+
+    bal = lambda m: float(_rec(m).mean())
+    arms = {"A0": "A0", "R1": "R1", "R1R": "R1r", "PR": "PR", "PRR": "PRr", "PRRM": "PRrM"}
+    for dom in ("bh", "sp"):
+        amps = amps_of[dom]
+        score = {}
+        for tk, arm in arms.items():
+            t = f"ARM_{dom}_{tk}"
+            if t + "_L" not in R.entries:
+                continue
+            mdl = model_for(arm, "mon2")
+            score[arm] = mean_metric(_f1, dom, "mon2", mdl, "layer", amps)
+            put(t + "_L", score[arm], "layer macro-F1, E = ±2%, pooled")
+            put(t + "_LBA", mean_metric(bal, dom, "mon2", mdl, "layer", amps), "layer balanced accuracy")
+            put(t + "_F", mean_metric(_f1, dom, "mon2", mdl, "fault", amps), "fault macro-F1")
+            put(t + "_FBA", mean_metric(bal, dom, "mon2", mdl, "fault", amps), "fault balanced accuracy")
+            ph = [mean_metric(_f1, dom, "mon2", mdl, "layer", amps, (p,)) for p in _PH]
+            for name, v in zip(("P000", "P250", "P500", "P750", "P999"), ph):
+                put(f"{t}_{name}", v, "layer macro-F1 per phase")
+            e = R.entries[t + "_RANGE"]
+            e.raw = float(max(ph) - min(ph))
+            e.calculation += "; max − min of the full-precision per-phase values"
+            rc = mean_metric(_rec, dom, "mon2", mdl, "layer", amps)
+            for i, c in enumerate(LAYERS):
+                put(f"RL_{dom}_{tk}_{c.upper()}", float(rc[i]), "layer recall")
+            rc = mean_metric(_rec, dom, "mon2", mdl, "fault", amps)
+            for i, c in enumerate(FAULTS):
+                put(f"RF_{dom}_{tk}_{c.upper()}", float(rc[i]), "fault recall")
+            for a in amps:
+                k = f"SEP_{dom}_{tk}_" + f"x{a / 100:g}".replace(".", "")
+                put(k + "_AFE", mean_metric(lambda m: _rec(m)[2], dom, "mon2", mdl, "layer", (a,)), "AFE recall")
+                put(k + "_ADC", mean_metric(lambda m: _rec(m)[3], dom, "mon2", mdl, "layer", (a,)), "ADC recall")
+                put(k + "_X", mean_metric(cross_confusion, dom, "mon2", mdl, "layer", (a,)), "cross-confusion")
+        pairs = {"DESC": ("PR", "R1"), "RAND": ("R1r", "R1"), "DESC_GIVEN_RAND": ("PRr", "R1r"),
+                 "RAND_GIVEN_DESC": ("PRr", "PR"), "COMB": ("PRr", "R1"), "MIXED": ("PRrM", "PRr"), "VS_A0": ("PRr", "A0")}
+        for k, (a, b) in pairs.items():
+            if f"ATT_{dom}_{k}" in R.entries and a in score and b in score:
+                put(f"ATT_{dom}_{k}", score[a] - score[b], f"difference of layer macro-F1, {a} − {b}")
+    rc = mean_metric(_rec, "bh", "assumed", "two_point_mlp@PRr_k", "layer", (80, 120))
+    for i, c in enumerate(LAYERS):
+        put(f"RL_bh_UNMON_{c.upper()}", float(rc[i]), "layer recall, no-monitor control")
+    vmap = {"PRr_known": ("PRr", "known"), "PRr_E0": ("PRr", "mon0"), "PRr_E1": ("PRr", "mon1"), "PRr_E2": ("PRr", "mon2"),
+            "PRr_E5": ("PRr", "mon5"), "R1_known": ("R1", "known"), "R1_E2": ("R1", "mon2")}
+    cols = {"x08": (80,), "x09": (90,), "x10": (100,), "x11": (110,), "x12": (120,)}
+    for dom in ("bh", "sp"):
+        for ser, (arm, var) in vmap.items():
+            for tgt in ("layer", "fault"):
+                for col, amps in list(cols.items()) + [("pooled", amps_of[dom])]:
+                    tok = f"AMP_{dom}_{ser}_{tgt}_{col}"
+                    if tok in R.entries:
+                        put(tok, mean_metric(_f1, dom, var, model_for(arm, var), tgt, amps), "macro-F1 per amplitude")
+    for tgt in ("layer", "fault"):
+        for col, amps in list(cols.items()) + [("pooled", AMPS_BH)]:
+            tok = f"AMP_bh_A0_old_{tgt}_{col}"
+            if tok in R.entries:
+                put(tok, mean_metric(_f1, "bh", "known", "two_point_mlp@A0", tgt, amps), "macro-F1 per amplitude, A0")
+    for tok, e in R.entries.items():
+        if tok.startswith("ATT_") and tok.endswith(("_LO", "_HI")) and isinstance(e.raw, float):
+            txt = repr(e.raw)
+            if _re.fullmatch(r"-?\d+\.\d{3}5", txt):
+                e.raw = e.raw + (1e-5 if tok.endswith("_HI") else -1e-5)
+                e.calculation += f"; stored bound {txt} ends in 5 at the fourth decimal and is rounded outward"
+                ties.append(tok)
+    left = [t for t, e in R.entries.items() if t.startswith(("ARM_", "AMP_", "SEP_", "RL_", "RF_")) and isinstance(e.raw, float)
+            and "full precision" not in e.calculation and "full-precision" not in e.calculation]
+    return {"changed": changed, "ci_ties_rounded_outward": ties, "not_refined": left}
 
 
 def pooled_cm(seed, init, var, model, amp):

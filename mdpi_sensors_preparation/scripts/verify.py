@@ -196,12 +196,12 @@ def frozen_facts(R):
         ("Known/monitored reference ×1.2", "0.643", v("NOMON_K_x12"), "CAUTION: behavioral domain only; known reference."),
         ("No monitor ×1.2", "0.237", v("NOMON_U_x12"), "CAUTION: behavioral domain only."),
         ("PR − R1 behavioral", "+0.042", v("ATT_bh_DESC"), ""),
-        ("PR − R1 ngspice", "+0.041", v("ATT_sp_DESC"), ""),
+        ("PR − R1 ngspice", "+0.041", v("ATT_sp_DESC"), "ROUNDING: the brief value is the stored four-decimal CSV value rounded again; the value computed from the unrounded per-record predictions and rounded once differs by one unit in the last digit."),
         ("R1r − R1 behavioral", "+0.030", v("ATT_bh_RAND"), ""),
         ("R1r − R1 ngspice", "+0.029", v("ATT_sp_RAND"), ""),
         ("PRr − R1r behavioral", "+0.012", v("ATT_bh_DESC_GIVEN_RAND"), ""),
         ("PRr − R1r ngspice", "+0.014", v("ATT_sp_DESC_GIVEN_RAND"), ""),
-        ("PRrM − PRr behavioral", "+0.017", v("ATT_bh_MIXED"), ""),
+        ("PRrM − PRr behavioral", "+0.017", v("ATT_bh_MIXED"), "ROUNDING: the brief value is the stored four-decimal CSV value rounded again; the value computed from the unrounded per-record predictions and rounded once differs by one unit in the last digit."),
         ("PRrM − PRr ngspice", "+0.014", v("ATT_sp_MIXED"), ""),
     ]
     out = []
@@ -213,6 +213,8 @@ def frozen_facts(R):
             status = "MATCH_WITH_NOTE"
         elif claim in ("PRr phase spread",):
             status = "DIFFERS_SLIGHTLY"
+        elif note.startswith("ROUNDING") and abs(float(norm(brief)) - float(norm(found))) < 0.0011:
+            status = "DIFFERS_IN_LAST_DIGIT"
         else:
             status = "MISMATCH"
         out.append(dict(fact=claim, brief_value=brief, source_value=found, status=status, note=note))

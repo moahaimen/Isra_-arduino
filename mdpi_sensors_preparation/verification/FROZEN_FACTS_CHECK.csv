@@ -28,10 +28,10 @@ No monitor ×0.8,0.310,0.310,MATCH_WITH_NOTE,CAUTION: behavioral domain only.
 Known/monitored reference ×1.2,0.643,0.643,MATCH_WITH_NOTE,CAUTION: behavioral domain only; known reference.
 No monitor ×1.2,0.237,0.237,MATCH_WITH_NOTE,CAUTION: behavioral domain only.
 PR − R1 behavioral,+0.042,+0.042,MATCH,
-PR − R1 ngspice,+0.041,+0.041,MATCH,
+PR − R1 ngspice,+0.041,+0.040,DIFFERS_IN_LAST_DIGIT,ROUNDING: the brief value is the stored four-decimal CSV value rounded again; the value computed from the unrounded per-record predictions and rounded once differs by one unit in the last digit.
 R1r − R1 behavioral,+0.030,+0.030,MATCH,
 R1r − R1 ngspice,+0.029,+0.029,MATCH,
 PRr − R1r behavioral,+0.012,+0.012,MATCH,
 PRr − R1r ngspice,+0.014,+0.014,MATCH,
-PRrM − PRr behavioral,+0.017,+0.017,MATCH,
+PRrM − PRr behavioral,+0.017,+0.016,DIFFERS_IN_LAST_DIGIT,ROUNDING: the brief value is the stored four-decimal CSV value rounded again; the value computed from the unrounded per-record predictions and rounded once differs by one unit in the last digit.
 PRrM − PRr ngspice,+0.014,+0.014,MATCH,

@@ -11,7 +11,7 @@
 | ngspice | R1 | 0.642 | 0.625 | 0.606 | 0.584 | 0.561 | 0.081 | no |
 | ngspice | R1r | 0.643 | 0.642 | 0.638 | 0.631 | 0.617 | 0.026 | yes |
 | ngspice | PR | 0.649 | 0.648 | 0.647 | 0.644 | 0.642 | 0.007 | yes |
-| ngspice | PRr | 0.654 | 0.651 | 0.649 | 0.645 | 0.643 | 0.010 | yes |
+| ngspice | PRr | 0.654 | 0.651 | 0.649 | 0.645 | 0.644 | 0.010 | yes |
 | ngspice | PRrM | 0.667 | 0.665 | 0.664 | 0.659 | 0.658 | 0.009 | yes |
 
 *Layer macro-F1 per edge phase, monitor E = ±2%, pooled over amplitudes; range computed as max − min of the five stored phase values. Gate G itself applies to PRr (known reference and E = ±2%; Table 5): PRr ranges 0.005 / 0.006 (behavioral known / E2) and 0.011 / 0.010 (ngspice). A0 was not simulated in ngspice; its flat profile reflects uniformly low accuracy. Source: attribution_arms.csv; decision_rules.json (G).*
