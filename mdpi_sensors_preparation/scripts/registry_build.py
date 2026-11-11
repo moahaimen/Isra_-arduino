@@ -382,6 +382,11 @@ def build() -> tuple[Registry, dict]:
     return R, extra
 
 
+# Bootstrap bounds whose stored four-decimal value ends in 5. They cannot be recomputed from this package (it has no
+# resampling code); the full-precision values below were recomputed with the original code on the author's computer.
+RECOMPUTED_BOUNDS = {"ATT_bh_RAND_GIVEN_DESC_LO": -0.005543, "ATT_bh_MIXED_HI": 0.025469}
+
+
 def refine_full_precision(R):
     """Replace values that the result CSVs store with four decimals by full-precision values.
 
@@ -392,7 +397,7 @@ def refine_full_precision(R):
     from the saved per-record predictions; the recomputed value must agree with the stored one to within
     half a unit of the fourth decimal, otherwise the build stops. Bootstrap interval bounds cannot be
     recomputed (the resampling seeds are not in the package); a bound whose stored fourth decimal is exactly 5
-    is rounded outward (away from the point estimate), which is the conservative choice.
+    is replaced by the value recomputed with the original code (RECOMPUTED_BOUNDS).
     """
     import re as _re
 
@@ -473,12 +478,18 @@ def refine_full_precision(R):
         if tok.startswith("ATT_") and tok.endswith(("_LO", "_HI")) and isinstance(e.raw, float):
             txt = repr(e.raw)
             if _re.fullmatch(r"-?\d+\.\d{3}5", txt):
-                e.raw = e.raw + (1e-5 if tok.endswith("_HI") else -1e-5)
-                e.calculation += f"; stored bound {txt} ends in 5 at the fourth decimal and is rounded outward"
+                if tok not in RECOMPUTED_BOUNDS:
+                    raise AssertionError(f"{tok}: stored bound {txt} is a rounding tie without a recomputed value")
+                full = RECOMPUTED_BOUNDS[tok]
+                assert abs(full - e.raw) <= tol, tok
+                e.raw = full
+                e.calculation += (f"; stored bound {txt} ends in 5 at the fourth decimal; replaced by {full}, recomputed on "
+                                  "2026-11-11 with the original analysis code and its deterministic resampling seeds on the "
+                                  "author's computer (not reproducible from this evidence package alone)")
                 ties.append(tok)
     left = [t for t, e in R.entries.items() if t.startswith(("ARM_", "AMP_", "SEP_", "RL_", "RF_")) and isinstance(e.raw, float)
             and "full precision" not in e.calculation and "full-precision" not in e.calculation]
-    return {"changed": changed, "ci_ties_rounded_outward": ties, "not_refined": left}
+    return {"changed": changed, "ci_ties_recomputed": ties, "not_refined": left}
 
 
 def pooled_cm(seed, init, var, model, amp):

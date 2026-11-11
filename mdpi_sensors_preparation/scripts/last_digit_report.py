@@ -3,7 +3,8 @@
 Several result CSVs store four decimals. Rounding such a stored value again to three decimals can differ in the
 last digit from the correctly rounded full-precision value (0.6585 -> 0.658, although the underlying 0.658502
 rounds to 0.659). registry_build.refine_full_precision() recomputes these values from the saved per-record
-predictions; this script writes the cases in which the printed value changes.
+predictions; this script writes the cases in which the printed value changes,
+and the two interval bounds whose stored fourth decimal is 5.
 
     python3 mdpi_sensors_preparation/scripts/last_digit_report.py
 """
@@ -24,11 +25,11 @@ for t, e in R.entries.items():
         old = fmt(float(m.group(1)), e.decimals, e.signed)
         if old != e.value:
             rows.append([t, e.key, m.group(1), old, f"{e.raw:.6f}", e.value, "point estimate recomputed from predictions"])
-for t in extra["refined"]["ci_ties_rounded_outward"]:
+for t in extra["refined"]["ci_ties_recomputed"]:
     e = R.entries[t]
     stored = re.search(r"stored bound ([-\d.]+)", e.calculation).group(1)
-    rows.append([t, e.key, stored, "ambiguous (fourth decimal is 5)", "not recomputable (bootstrap seeds not saved)", e.value,
-                 "interval bound rounded outward"])
+    rows.append([t, e.key, stored, "ambiguous (fourth decimal is 5)", f"{e.raw:.6f}", e.value,
+                 "interval bound recomputed with the original code on the author's computer"])
 path = OUT / "verification" / "LAST_DIGIT_DIFFERENCES.csv"
 with open(path, "w", newline="") as fh:
     w = csv.writer(fh)

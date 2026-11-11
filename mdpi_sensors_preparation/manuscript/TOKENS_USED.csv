@@ -67,7 +67,7 @@ RESULTS_SECTION_DRAFT,ATT_bh_DESC_GIVEN_RAND_LO,+0.004,primary,phase_robust_fina
 RESULTS_SECTION_DRAFT,ATT_bh_DESC_HI,+0.051,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PR - R1 (descriptors alone)', ci_high"
 RESULTS_SECTION_DRAFT,ATT_bh_DESC_LO,+0.033,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PR - R1 (descriptors alone)', ci_low"
 RESULTS_SECTION_DRAFT,ATT_bh_MIXED,+0.016,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', diff"
-RESULTS_SECTION_DRAFT,ATT_bh_MIXED_HI,+0.026,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_high"
+RESULTS_SECTION_DRAFT,ATT_bh_MIXED_HI,+0.025,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_high"
 RESULTS_SECTION_DRAFT,ATT_bh_MIXED_LO,+0.008,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_low"
 RESULTS_SECTION_DRAFT,ATT_bh_RAND,+0.030,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='R1r - R1 (phase randomisation alone)', diff"
 RESULTS_SECTION_DRAFT,ATT_bh_RAND_GIVEN_DESC,+0.000,primary,phase_robust_final/phase_robust_results/attribution_comparisons.csv,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', diff"

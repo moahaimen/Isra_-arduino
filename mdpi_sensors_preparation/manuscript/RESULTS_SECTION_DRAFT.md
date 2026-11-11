@@ -26,7 +26,7 @@ On the matched ngspice grid with E = ±2%, the behavioral-trained PRr classifier
 
 ## 7.6. Ablation
 
-Pooled at E = ±2% (Figure 9), the phase-robust descriptors alone (PR − R1) improved layer macro-F1 by +0.042 [+0.033, +0.051] (behavioral) and +0.040 [+0.032, +0.049] (ngspice); phase randomization alone (R1r − R1) by +0.030 [+0.023, +0.038] and +0.029 [+0.022, +0.037]; and the descriptors given randomization (PRr − R1r) by +0.012 [+0.004, +0.019] and +0.014 [+0.006, +0.022]. Randomization given the phase-robust descriptors (PRr − PR) had no resolvable effect (+0.000 [-0.006, +0.006] behavioral, +0.003 [-0.004, +0.009] ngspice). Mixed-domain training (PRrM − PRr) added +0.016 [+0.008, +0.026] (behavioral) and +0.014 [+0.005, +0.024] (ngspice); PRrM remains a secondary variant.
+Pooled at E = ±2% (Figure 9), the phase-robust descriptors alone (PR − R1) improved layer macro-F1 by +0.042 [+0.033, +0.051] (behavioral) and +0.040 [+0.032, +0.049] (ngspice); phase randomization alone (R1r − R1) by +0.030 [+0.023, +0.038] and +0.029 [+0.022, +0.037]; and the descriptors given randomization (PRr − R1r) by +0.012 [+0.004, +0.019] and +0.014 [+0.006, +0.022]. Randomization given the phase-robust descriptors (PRr − PR) had no resolvable effect (+0.000 [-0.006, +0.006] behavioral, +0.003 [-0.004, +0.009] ngspice). Mixed-domain training (PRrM − PRr) added +0.016 [+0.008, +0.025] (behavioral) and +0.014 [+0.005, +0.024] (ngspice); PRrM remains a secondary variant.
 
 ## 7.7. Per-class recall
 

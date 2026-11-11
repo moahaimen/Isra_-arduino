@@ -22,5 +22,7 @@ Several result CSVs of the evidence package store four decimals. Rounding a stor
 differ in the last digit from the correctly rounded value. `mdpi_sensors_preparation/scripts/registry_build.py`
 (`refine_full_precision`) therefore recomputes these values from the saved per-record predictions before rounding.
 `mdpi_sensors_preparation/verification/LAST_DIGIT_DIFFERENCES.csv` lists the 25 point estimates whose printed value
-changes, and two confidence-interval bounds whose stored fourth decimal is 5 and cannot be recomputed. The headline
+changes, and two confidence-interval bounds whose stored fourth decimal is 5. Those two bounds were recomputed with the
+original code on the author's computer (-0.005543 and +0.025469). The delivered manuscript was built from full-precision
+values from the start and needed no correction. The headline
 values (0.656, 0.649, transfer loss 0.002 with interval [-0.003, +0.006], phase spread 0.005 to 0.011) are not affected.

@@ -18,4 +18,4 @@ No component is claimed as new in isolation: two-point testing, reference monito
 
 ## Secondary finding (not a contribution claim)
 
-PRrM (mixed-domain training) improves layer macro-F1 by +0.016 [+0.008, +0.026] (behavioral) and +0.014 [+0.005, +0.024] (ngspice) relative to PRr, but uses circuit-level training data and was not pre-registered as primary.
+PRrM (mixed-domain training) improves layer macro-F1 by +0.016 [+0.008, +0.025] (behavioral) and +0.014 [+0.005, +0.024] (ngspice) relative to PRr, but uses circuit-level training data and was not pre-registered as primary.

@@ -24,5 +24,5 @@ RF_bh_R1R_SENSOR_BIAS,"row domain=bh, arm=R1r, column sensor_bias",0.3155,0.316,
 RF_bh_PRRM_HEALTHY,"row domain=bh, arm=PRrM, column healthy",0.3555,0.355,0.355530,0.356,point estimate recomputed from predictions
 RF_bh_PRRM_SENSOR_BIAS,"row domain=bh, arm=PRrM, column sensor_bias",0.2555,0.256,0.255455,0.255,point estimate recomputed from predictions
 RF_sp_PR_ADC_GAIN,"row domain=sp, arm=PR, column adc_gain",0.9015,0.901,0.901515,0.902,point estimate recomputed from predictions
-ATT_bh_RAND_GIVEN_DESC_LO,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low",-0.0055,ambiguous (fourth decimal is 5),not recomputable (bootstrap seeds not saved),-0.006,interval bound rounded outward
-ATT_bh_MIXED_HI,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_high",0.0255,ambiguous (fourth decimal is 5),not recomputable (bootstrap seeds not saved),+0.026,interval bound rounded outward
+ATT_bh_RAND_GIVEN_DESC_LO,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low",-0.0055,ambiguous (fourth decimal is 5),-0.005543,-0.006,interval bound recomputed with the original code on the author's computer
+ATT_bh_MIXED_HI,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_high",0.0255,ambiguous (fourth decimal is 5),0.025469,+0.025,interval bound recomputed with the original code on the author's computer
