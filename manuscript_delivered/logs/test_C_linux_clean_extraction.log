@@ -1,0 +1,49 @@
+Linux 6.18.44-fc-v378 x86_64
+Python 3.13.17
+pandoc 3.1.3
+LibreOffice 24.2.7.2 420(Build:2)
+Thu Nov 12 04:05:16 UTC 2026
+environment: python 3.13.17; platform Linux-6.18.44-fc-v378-x86_64-with-glibc2.39; numpy 2.5.3; pandas 3.0.5; matplotlib 3.11.2; python-docx 1.2.0; Pillow 12.3.0; pandoc pandoc 3.1.3; soffice available; osascript not available
+38 files match the freeze record, 0 mismatch, 0 missing
+files added after the freeze (not used by the phase-robust run): build_paper_package.py, build_phase_robust_report.py, lit_build.py, lit_search.py, lit_search2.py, lit_verify.py, paper_figures.py, paper_values.py
+488 checks, 0 failures
+last-digit rows: 27; exact ties at 2 or 3 decimals among stored values: 2
+evidence verified: 475 quantities recomputed from predictions, 0 mismatches
+figures and tables written to <clean directory>/Phase_Robust_Sensors_Submission_Package_2026-11-11/mdpi_sensors_preparation
+52 rows, 24 differ -> <clean directory>/Phase_Robust_Sensors_Submission_Package_2026-11-11/mdpi_sensors_preparation/verification/LAST_DIGIT_DIFFERENCES.csv
+exact tie: SEP_sp_R1R_x08_X 0.0575 759/13200 = 23/400 -> 0.058
+exact tie: RL_bh_R1_HEALTHY 0.0975 1287/13200 = 39/400 -> 0.098
+exact tie: RL_bh_PR_AFE 0.9275 24486/26400 = 371/400 -> 0.928
+abstract words: 199 | references: 56 | equations: 12
+equation tables: 12 | tables: 12 | highlighted author items: 5
+exact ties formatted: [('0.0975', 3)]
+supplementary built
+56 entries -> manuscript/references.bib
+REFERENCE_VERIFICATION.md written
+cover letter -> <clean directory>/Phase_Robust_Sensors_Submission_Package_2026-11-11/manuscript/Cover_Letter_DRAFT.docx
+89 checks, 0 failed
+Phase_Robust_Sensors_Manuscript.pdf written (libreoffice)
+Phase_Robust_Sensors_Supplementary.pdf written (libreoffice)
+done
+
+real	1m14.739s
+user	0m59.768s
+sys	0m5.237s
+exit=0
+
+--- comparison of regenerated files with the shipped files ---
+byte-identical: 243 | differing: 83 | new: 0
+differing by extension: {'.docx': 16, '.pdf': 23, '.png': 21, '.svg': 20, '.md': 1, '.csv': 2}
+differing text/data files: ['manuscript_build/Phase_Robust_Sensors_Manuscript.generated.md', 'mdpi_sensors_preparation/figure_source_data/Fig02_timing_c.csv', 'mdpi_sensors_preparation/figure_source_data/Fig04_fault_signatures.csv']
+new files: []
+Phase_Robust_Sensors_Manuscript.docx document text identical: False 93136 92988
+Phase_Robust_Sensors_Supplementary.docx document text identical: True 10580 10580
+Cover_Letter_DRAFT.docx document text identical: False 2492 2494
+Phase_Robust_Sensors_Manuscript.pdf shipped 30 pages
+Phase_Robust_Sensors_Manuscript.pdf regenerated 42 pages
+Phase_Robust_Sensors_Supplementary.pdf shipped 5 pages
+Phase_Robust_Sensors_Supplementary.pdf regenerated 7 pages
+Phase_Robust_Sensors_Manuscript.docx: text outside equations identical: True (89454 characters); equation objects: shipped 151, regenerated 151
+Cover_Letter_DRAFT.docx: text outside equations identical: True (2469 characters); equation objects: shipped 0, regenerated 0
+Phase_Robust_Sensors_Supplementary.docx: text outside equations identical: True (9684 characters); equation objects: shipped 1, regenerated 1
+analysis/values.json identical: True
