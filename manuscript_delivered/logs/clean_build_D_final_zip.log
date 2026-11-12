@@ -1,0 +1,28 @@
+### command: sh run_all.sh --pdf
+### directory: <clean directory>/Phase_Robust_Sensors_Submission_Package_2026-11-11
+### platform: Darwin arm64, macOS 27.2.1
+Thu Nov 12 04:12:11 UTC 2026
+environment: python 3.12.12; platform macOS-27.2.1-arm64-arm-64bit; numpy 2.2.6; pandas 2.3.3; matplotlib 3.10.7; python-docx 1.2.0; Pillow 12.0.0; pandoc pandoc 3.12.1; soffice available; osascript available
+38 files match the freeze record, 0 mismatch, 0 missing
+files added after the freeze (not used by the phase-robust run): build_paper_package.py, build_phase_robust_report.py, lit_build.py, lit_search.py, lit_search2.py, lit_verify.py, paper_figures.py, paper_values.py
+488 checks, 0 failures
+last-digit rows: 27; exact ties at 2 or 3 decimals among stored values: 2
+evidence verified: 475 quantities recomputed from predictions, 0 mismatches
+figures and tables written to <clean directory>/Phase_Robust_Sensors_Submission_Package_2026-11-11/mdpi_sensors_preparation
+52 rows, 24 differ -> <clean directory>/Phase_Robust_Sensors_Submission_Package_2026-11-11/mdpi_sensors_preparation/verification/LAST_DIGIT_DIFFERENCES.csv
+exact tie: SEP_sp_R1R_x08_X 0.0575 759/13200 = 23/400 -> 0.058
+exact tie: RL_bh_R1_HEALTHY 0.0975 1287/13200 = 39/400 -> 0.098
+exact tie: RL_bh_PR_AFE 0.9275 24486/26400 = 371/400 -> 0.928
+abstract words: 199 | references: 56 | equations: 12
+equation tables: 12 | tables: 12 | highlighted author items: 5
+exact ties formatted: [('0.0975', 3)]
+supplementary built
+56 entries -> manuscript/references.bib
+REFERENCE_VERIFICATION.md written
+cover letter -> <clean directory>/Phase_Robust_Sensors_Submission_Package_2026-11-11/manuscript/Cover_Letter_DRAFT.docx
+89 checks, 0 failed
+Phase_Robust_Sensors_Manuscript.pdf written (word)
+Phase_Robust_Sensors_Supplementary.pdf written (word)
+done
+sh run_all.sh --pdf  37.90s user 1.94s system 51% cpu 1:16.65 total
+### exit code: 0

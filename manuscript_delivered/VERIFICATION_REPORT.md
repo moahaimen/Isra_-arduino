@@ -19,7 +19,7 @@ Date: 12 November 2026. Package: `Phase_Robust_Sensors_Submission_Package_2026-1
 - **The other 52 references.** These were checked against Crossref records and their abstracts, not their full texts. The full texts of [14], [15] and [16] were read.
 - **Link between the code and the run.** The hashes show the code equals the frozen code. The run logs do not record the code hash, the software versions or the number of epochs; versions come from the reproducibility checklist written on the day of the run on the same machine.
 - **No retraining or re-simulation.** Simulation and training were not rerun on any machine, so reproducibility is shown from the saved predictions onwards only.
-- **Platforms not tested here.** Linux and pandoc 3.1.x were not tested on this Mac; the independent Linux test is pending.
+- **No other platforms.** Windows and pandoc versions other than 3.1.3 and 3.12.1 were not tested.
 - **Simulation only.** The results come from simulation and are not a hardware validation (manuscript, Section 8.4).
 
 ## C. Author information still required
@@ -37,4 +37,13 @@ Two clean-directory tests were run on macOS 27.2 (arm64). In each, the ZIP was e
 
 **Missing-tool behavior.** With LibreOffice absent, `export_pdfs.py --pdf=libreoffice` prints a one-line message and exits with code 3. With pandas absent or Python older than 3.11, `check_environment.py` stops with a clear message. The second case occurred on this Mac after a system update put the system Python 3.9 first on PATH.
 
-**Scope of the tests.** Linux, pandoc 3.1.x and a machine without the author's files were not tested here. The logs were added to the package after the tests; apart from `logs/` and this report, the final ZIP contains the same files that were tested.
+**Independent Linux test (C).** This was run separately on a Linux machine without any of the author's files (`logs/test_C_linux_clean_extraction.log`): Linux x86_64, Python 3.13.17, numpy 2.5.3, pandas 3.0.5, matplotlib 3.11.2, python-docx 1.2.0, Pillow 12.3.0, pandoc 3.1.3, LibreOffice 24.2.7.2. The command was `sh run_all.sh --pdf=libreoffice`.
+
+- **Result:** passed (exit 0, 1 min 15 s). Hashes 38/38, recomputation 488/488, evidence 475/475, QC 89/89.
+- **Identical to the shipped files:** `values.json`, and the text outside equations in the manuscript (89,454 characters), the supplement and the cover letter. All CSV files are identical except `Fig02_timing_c.csv` and `Fig04_fault_signatures.csv`, which differ by at most 4.4e-16.
+- **Expected differences:**
+  - pandoc 3.1.3 encodes brackets inside equations differently from 3.12.1, so the equation XML differs; all 151 equation objects are present.
+  - Figure pixels differ.
+  - The LibreOffice PDFs have 42 and 7 pages, against 30 and 5 from Word.
+
+**Final ZIP.** After these tests, three changes were made: the intermediate manuscript Markdown now uses package-relative image paths (absolute home-directory paths removed), the Linux log was added, and the README and this report were updated. The final ZIP was then rebuilt and the clean-extraction test was rerun (`logs/clean_build_D_final_zip.log`).
