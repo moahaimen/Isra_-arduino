@@ -1,0 +1,27 @@
+### command: sh run_all.sh --pdf=libreoffice   (python3 = Python 3.13 venv)
+### directory: <scratch>/clean_B/Phase_Robust_Sensors_Submission_Package_2026-11-11
+Thu Nov 12 07:02:22 +03 2026
+environment: python 3.13.7; platform macOS-27.2.1-arm64-arm-64bit-Mach-O; numpy 2.5.3; pandas 3.0.5; matplotlib 3.11.2; python-docx 1.2.0; Pillow 13.0.0; pandoc pandoc 3.12.1; soffice available; osascript available
+38 files match the freeze record, 0 mismatch, 0 missing
+files added after the freeze (not used by the phase-robust run): build_paper_package.py, build_phase_robust_report.py, lit_build.py, lit_search.py, lit_search2.py, lit_verify.py, paper_figures.py, paper_values.py
+488 checks, 0 failures
+last-digit rows: 27; exact ties at 2 or 3 decimals among stored values: 2
+evidence verified: 475 quantities recomputed from predictions, 0 mismatches
+figures and tables written to <scratch>/clean_B/Phase_Robust_Sensors_Submission_Package_2026-11-11/mdpi_sensors_preparation
+52 rows, 24 differ -> <scratch>/clean_B/Phase_Robust_Sensors_Submission_Package_2026-11-11/mdpi_sensors_preparation/verification/LAST_DIGIT_DIFFERENCES.csv
+exact tie: SEP_sp_R1R_x08_X 0.0575 759/13200 = 23/400 -> 0.058
+exact tie: RL_bh_R1_HEALTHY 0.0975 1287/13200 = 39/400 -> 0.098
+exact tie: RL_bh_PR_AFE 0.9275 24486/26400 = 371/400 -> 0.928
+abstract words: 199 | references: 56 | equations: 12
+equation tables: 12 | tables: 12 | highlighted author items: 5
+exact ties formatted: [('0.0975', 3)]
+supplementary built
+56 entries -> manuscript/references.bib
+REFERENCE_VERIFICATION.md written
+cover letter -> <scratch>/clean_B/Phase_Robust_Sensors_Submission_Package_2026-11-11/manuscript/Cover_Letter_DRAFT.docx
+89 checks, 0 failed
+Phase_Robust_Sensors_Manuscript.pdf written (libreoffice)
+Phase_Robust_Sensors_Supplementary.pdf written (libreoffice)
+done
+PATH=$S/venv313/bin:$PATH sh run_all.sh --pdf=libreoffice  32.02s user 2.98s system 90% cpu 38.560 total
+### exit code: 0

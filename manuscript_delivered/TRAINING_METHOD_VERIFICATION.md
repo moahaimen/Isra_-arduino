@@ -61,17 +61,64 @@ The condition-level split in `run_phase_robust.py`:
 
 Rows of the 40 validation conditions are skipped when the training and test sets are built (`if r not in train_set and r not in test_set: continue`), so they are never simulated, used for training or used for model selection.
 
-With scikit-learn 1.7.2 (the recorded version), `MLPClassifier.fit` with `early_stopping=True` does the following (`sklearn/neural_network/_multilayer_perceptron.py`):
+With scikit-learn 1.7.2 (the version recorded for the run), `MLPClassifier.fit` with `early_stopping=True` executes the following. The quoted line numbers are from `sklearn/neural_network/_multilayer_perceptron.py` of the installed 1.7.2, which matches https://github.com/scikit-learn/scikit-learn/blob/1.7.2/sklearn/neural_network/_multilayer_perceptron.py.
 
-- It holds out `validation_fraction` = 15% of the **training rows** with `train_test_split(..., stratify=y, random_state=<the MLP's random_state>)`. The hold-out is stratified by class and drawn by row, not by operating condition, so hold-out rows share conditions with the rows that remain for training.
-- After every epoch, it computes the **accuracy** on the hold-out. If the accuracy does not exceed the best value so far by `tol` = 1e-4 (the default), a counter is increased; otherwise the counter is reset.
-- Training stops when the counter exceeds `n_iter_no_change` = 35, that is after 36 consecutive epochs without improvement, or after `max_iter` = 700 epochs.
-- At the end of training, the weights with the best hold-out accuracy are restored.
-- Other settings that executed: Adam, initial learning rate 8e-4 (constant schedule, the default), mini-batches of 64, L2 penalty 1e-4, shuffling on (default), and initialization seeds 11 and 22. `StandardScaler` is fitted on all training rows, including the internal hold-out.
+**Internal hold-out: random, not stratified, for these networks.**
+
+```python
+ 642          if early_stopping:
+ 643              # don't stratify in multilabel classification
+ 644              should_stratify = is_classifier(self) and self.n_outputs_ == 1
+ 645              stratify = y if should_stratify else None
+ 646              if sample_weight is None:
+ 647                  X_train, X_val, y_train, y_val = train_test_split(
+ 648                      X,
+ 649                      y,
+ 650                      random_state=self._random_state,
+ 651                      test_size=self.validation_fraction,
+ 652                      stratify=stratify,
+ 653                  )
+```
+
+Stratification applies only when `self.n_outputs_ == 1`. For a multiclass target, `MLPClassifier` one-hot encodes the labels, so `n_outputs_` equals the number of classes: 4 for the layer network and 9 for the fault network. I confirmed this with the installed 1.7.2 on synthetic 4-class and 9-class data (`n_outputs_` = 4 and 9). The split was therefore a **plain random 15% of the training rows**, drawn by row and not by operating condition, with `random_state` equal to the network's initialization seed (11 or 22).
+
+**Stopping criterion.** After every epoch the hold-out accuracy is computed (`_score` with `accuracy_score`):
+
+```python
+ 809              if last_valid_score < (self.best_validation_score_ + self.tol):
+ 810                  self._no_improvement_count += 1
+ 811              else:
+ 812                  self._no_improvement_count = 0
+ 813  
+ 814              if last_valid_score > self.best_validation_score_:
+ 815                  self.best_validation_score_ = last_valid_score
+ 816                  self._best_coefs = [c.copy() for c in self.coefs_]
+ 817                  self._best_intercepts = [i.copy() for i in self.intercepts_]
+```
+
+```python
+ 755                  if self._no_improvement_count > self.n_iter_no_change:
+ 756                      # not better than last `n_iter_no_change` iterations by tol
+ 757                      # stop or decrease learning rate
+ 758                      if early_stopping:
+```
+
+The counter increases whenever the accuracy fails to exceed the best value so far by at least `tol` = 1e-4, and resets otherwise. Training stops when the counter exceeds `n_iter_no_change` = 35, that is after 36 consecutive epochs without such an improvement, or after `max_iter` = 700 epochs.
+
+**Restoration of the best weights.** At the end of training, whether it stopped early or reached `max_iter`, the weights and intercepts with the highest hold-out accuracy are restored:
+
+```python
+ 790          if early_stopping:
+ 791              # restore best weights
+ 792              self.coefs_ = self._best_coefs
+ 793              self.intercepts_ = self._best_intercepts
+```
+
+**Other settings that executed:** Adam, constant initial learning rate 8e-4, mini-batches of 64, L2 penalty 1e-4, shuffling on (the default). `StandardScaler` is fitted on all training rows, including the internal hold-out.
 
 ## 4. Discrepancy
 
-The frozen protocol states that no early-stopped model is trained. **This is not what the frozen code does:** every MLP in the validation run, primary method included, was trained with scikit-learn's internal early stopping on a 15% row-level hold-out of its own training rows. The protocol's statement that the 40-condition validation split is unused is correct; its statement about early stopping is not.
+The frozen protocol states that no early-stopped model is trained. **This is not what the frozen code does:** every MLP in the validation run, primary method included, was trained with scikit-learn's internal early stopping on a random (not class-stratified) 15% row-level hold-out of its own training rows. The protocol's statement that the 40-condition validation split is unused is correct; its statement about early stopping is not.
 
 The discrepancy is in the protocol text, not in the executed procedure. The code was frozen and hashed before the validation data existed, and the reported results are those of the code. It cannot be resolved retrospectively by reinterpreting the protocol. The manuscript therefore reports the procedure as implemented and states the discrepancy explicitly (Section 5). Consequences:
 

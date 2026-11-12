@@ -1,0 +1,53 @@
+token,source_key,stored_four_decimal_value,full_precision_value,exact_fraction_of_counts,unreduced_counts_3_seeds_x_2_inits,exact_tie_at_full_precision,correct_print,print_by_float_format_of_stored_value,differs,note
+ARM_bh_A0_L,"row domain=bh, arm=A0, layer_macro_f1",0.2805,0.280530616573,,,no,0.281,0.281,no,point estimate recomputed from predictions
+ARM_bh_R1R_LBA,"row domain=bh, arm=R1r, layer_balanced_accuracy",0.6475,0.647509469697,,,no,0.648,0.647,yes,point estimate recomputed from predictions
+ARM_bh_PRR_P999,"row domain=bh, arm=PRr, layer_f1_p999",0.6525,0.652498097238,,,no,0.652,0.652,no,point estimate recomputed from predictions
+ARM_sp_R1_FBA,"row domain=sp, arm=R1, fault_balanced_accuracy",0.6385,0.638538159371,,,no,0.639,0.638,yes,point estimate recomputed from predictions
+ARM_sp_R1_P750,"row domain=sp, arm=R1, layer_f1_p750",0.5835,0.583502197926,,,no,0.584,0.584,no,point estimate recomputed from predictions
+ARM_sp_R1R_F,"row domain=sp, arm=R1r, fault_macro_f1",0.6475,0.647482141183,,,no,0.647,0.647,no,point estimate recomputed from predictions
+ARM_sp_PRR_LBA,"row domain=sp, arm=PRr, layer_balanced_accuracy",0.6545,0.654450757576,,,no,0.654,0.654,no,point estimate recomputed from predictions
+ARM_sp_PRR_P999,"row domain=sp, arm=PRr, layer_f1_p999",0.6435,0.643523399845,,,no,0.644,0.643,yes,point estimate recomputed from predictions
+ARM_sp_PRRM_P250,"row domain=sp, arm=PRrM, layer_f1_p250",0.6655,0.665498051947,,,no,0.665,0.665,no,point estimate recomputed from predictions
+ATT_bh_MIXED,"row domain=bh, comparison='PRrM - PRr (mixed training)', diff",0.0165,0.0164557129689,,,no,+0.016,+0.017,yes,point estimate recomputed from predictions
+ATT_sp_DESC,"row domain=sp, comparison='PR - R1 (descriptors alone)', diff",0.0405,0.0404604708503,,,no,+0.040,+0.041,yes,point estimate recomputed from predictions
+ATT_sp_RAND,"row domain=sp, comparison='R1r - R1 (phase randomisation alone)', diff",0.0295,0.0294550988889,,,no,+0.029,+0.029,no,point estimate recomputed from predictions
+AMP_bh_A0_old_layer_x09,"row domain=bh, series='A0 old', target=layer, column x0.9",0.2235,0.223540916739,,,no,0.224,0.224,no,point estimate recomputed from predictions
+AMP_bh_A0_old_layer_pooled,"row domain=bh, series='A0 old', target=layer, column pooled",0.2805,0.280530616573,,,no,0.281,0.281,no,point estimate recomputed from predictions
+AMP_bh_A0_old_fault_x11,"row domain=bh, series='A0 old', target=fault, column x1.1",0.1425,0.14254895467,,,no,0.143,0.142,yes,point estimate recomputed from predictions
+AMP_bh_PRr_known_layer_x09,"row domain=bh, series='PRr known', target=layer, column x0.9",0.6455,0.645528616796,,,no,0.646,0.645,yes,point estimate recomputed from predictions
+AMP_bh_PRr_known_layer_x10,"row domain=bh, series='PRr known', target=layer, column x1.0",0.6585,0.658501967177,,,no,0.659,0.658,yes,point estimate recomputed from predictions
+AMP_bh_PRr_known_layer_x12,"row domain=bh, series='PRr known', target=layer, column x1.2",0.6425,0.642507073405,,,no,0.643,0.642,yes,point estimate recomputed from predictions
+AMP_bh_PRr_E2_fault_x08,"row domain=bh, series='PRr E=2%', target=fault, column x0.8",0.6395,0.639498959893,,,no,0.639,0.639,no,point estimate recomputed from predictions
+AMP_bh_PRr_E5_layer_x09,"row domain=bh, series='PRr E=5%', target=layer, column x0.9",0.6445,0.644478690989,,,no,0.644,0.644,no,point estimate recomputed from predictions
+AMP_bh_PRr_E5_layer_x10,"row domain=bh, series='PRr E=5%', target=layer, column x1.0",0.6615,0.661545343128,,,no,0.662,0.661,yes,point estimate recomputed from predictions
+AMP_bh_PRr_E5_layer_pooled,"row domain=bh, series='PRr E=5%', target=layer, column pooled",0.6485,0.64849357151,,,no,0.648,0.648,no,point estimate recomputed from predictions
+AMP_sp_PRr_known_layer_pooled,"row domain=sp, series='PRr known', target=layer, column pooled",0.6395,0.639476201204,,,no,0.639,0.639,no,point estimate recomputed from predictions
+AMP_sp_PRr_known_fault_x12,"row domain=sp, series='PRr known', target=fault, column x1.2",0.6635,0.66348085517,,,no,0.663,0.663,no,point estimate recomputed from predictions
+AMP_sp_PRr_E1_fault_x12,"row domain=sp, series='PRr E=1%', target=fault, column x1.2",0.6705,0.67046632614,,,no,0.670,0.670,no,point estimate recomputed from predictions
+AMP_sp_PRr_E1_fault_pooled,"row domain=sp, series='PRr E=1%', target=fault, column pooled",0.6665,0.666484698755,,,no,0.666,0.666,no,point estimate recomputed from predictions
+AMP_sp_PRr_E2_fault_x10,"row domain=sp, series='PRr E=2%', target=fault, column x1.0",0.6835,0.683532641075,,,no,0.684,0.683,yes,point estimate recomputed from predictions
+AMP_sp_PRr_E5_layer_x12,"row domain=sp, series='PRr E=5%', target=layer, column x1.2",0.6465,0.646492705587,,,no,0.646,0.646,no,point estimate recomputed from predictions
+AMP_sp_PRr_E5_fault_x10,"row domain=sp, series='PRr E=5%', target=fault, column x1.0",0.6755,0.675468419432,,,no,0.675,0.675,no,point estimate recomputed from predictions
+AMP_sp_PRr_E5_fault_x12,"row domain=sp, series='PRr E=5%', target=fault, column x1.2",0.6415,0.641525105833,,,no,0.642,0.641,yes,point estimate recomputed from predictions
+SEP_bh_A0_x1_X,"row domain=bh, arm=A0, amplitude=1.0, cross_confusion",0.0535,0.0534848484848,353/6600,706/13200,no,0.053,0.053,no,point estimate recomputed from predictions
+SEP_bh_R1R_x1_AFE,"row domain=bh, arm=R1r, amplitude=1.0, afe_recall",0.9025,0.902462121212,953/1056,4765/5280,no,0.902,0.902,no,point estimate recomputed from predictions
+SEP_bh_PR_x1_ADC,"row domain=bh, arm=PR, amplitude=1.0, adc_recall",0.7965,0.796464646465,1577/1980,6308/7920,no,0.796,0.796,no,point estimate recomputed from predictions
+SEP_bh_PRR_x1_ADC,"row domain=bh, arm=PRr, amplitude=1.0, adc_recall",0.8005,0.800505050505,317/396,6340/7920,no,0.801,0.800,yes,point estimate recomputed from predictions
+SEP_sp_R1R_x08_X,"row domain=sp, arm=R1r, amplitude=0.8, cross_confusion",0.0575,0.0575,23/400,759/13200,yes,0.058,0.058,no,point estimate recomputed from predictions
+SEP_sp_R1R_x12_AFE,"row domain=sp, arm=R1r, amplitude=1.2, afe_recall",0.8795,0.879545454545,387/440,4644/5280,no,0.880,0.879,yes,point estimate recomputed from predictions
+SEP_sp_R1R_x12_ADC,"row domain=sp, arm=R1r, amplitude=1.2, adc_recall",0.7225,0.722474747475,2861/3960,5722/7920,no,0.722,0.723,yes,point estimate recomputed from predictions
+SEP_sp_PR_x08_ADC,"row domain=sp, arm=PR, amplitude=0.8, adc_recall",0.8215,0.821464646465,3253/3960,6506/7920,no,0.821,0.822,yes,point estimate recomputed from predictions
+SEP_sp_PRR_x08_X,"row domain=sp, arm=PRr, amplitude=0.8, cross_confusion",0.0355,0.0355303030303,469/13200,469/13200,no,0.036,0.035,yes,point estimate recomputed from predictions
+SEP_sp_PRR_x1_ADC,"row domain=sp, arm=PRr, amplitude=1.0, adc_recall",0.8015,0.801515151515,529/660,6348/7920,no,0.802,0.801,yes,point estimate recomputed from predictions
+RL_bh_R1_HEALTHY,"row domain=bh, arm='R1', scope='pooled E=2%', column healthy",0.0975,0.0975,39/400,1287/13200,yes,0.098,0.098,no,point estimate recomputed from predictions
+RL_bh_R1_SENSOR,"row domain=bh, arm='R1', scope='pooled E=2%', column sensor",0.7025,0.702525252525,1391/1980,27820/39600,no,0.703,0.703,no,point estimate recomputed from predictions
+RL_bh_PR_AFE,"row domain=bh, arm='PR', scope='pooled E=2%', column afe",0.9275,0.9275,371/400,24486/26400,yes,0.928,0.927,yes,point estimate recomputed from predictions
+RF_bh_R1_SENSOR_BIAS,"row domain=bh, arm=R1, column sensor_bias",0.2305,0.23053030303,3043/13200,3043/13200,no,0.231,0.231,no,point estimate recomputed from predictions
+RF_bh_R1R_SENSOR_BIAS,"row domain=bh, arm=R1r, column sensor_bias",0.3155,0.315454545455,347/1100,4164/13200,no,0.315,0.316,yes,point estimate recomputed from predictions
+RF_bh_PR_ADC_GAIN,"row domain=bh, arm=PR, column adc_gain",0.9185,0.918484848485,3031/3300,12124/13200,no,0.918,0.918,no,point estimate recomputed from predictions
+RF_bh_PRRM_HEALTHY,"row domain=bh, arm=PRrM, column healthy",0.3555,0.35553030303,4693/13200,4693/13200,no,0.356,0.355,yes,point estimate recomputed from predictions
+RF_bh_PRRM_SENSOR_BIAS,"row domain=bh, arm=PRrM, column sensor_bias",0.2555,0.255454545455,281/1100,3372/13200,no,0.255,0.256,yes,point estimate recomputed from predictions
+RF_sp_R1_SENSOR_BIAS,"row domain=sp, arm=R1, column sensor_bias",0.2355,0.23547979798,373/1584,1865/7920,no,0.235,0.235,no,point estimate recomputed from predictions
+RF_sp_PR_ADC_GAIN,"row domain=sp, arm=PR, column adc_gain",0.9015,0.901515151515,119/132,7140/7920,no,0.902,0.901,yes,point estimate recomputed from predictions
+ATT_bh_RAND_GIVEN_DESC_LO,"row domain=bh, comparison='PRr - PR (randomisation, given robust descriptors)', ci_low",-0.0055,-0.0055426391391,,,no,-0.006,-0.005,yes,interval bound recomputed by analysis/values.py with the original code's deterministic resampling seeds
+ATT_bh_MIXED_HI,"row domain=bh, comparison='PRrM - PRr (mixed training)', ci_high",0.0255,0.025468739335,,,no,+0.025,+0.025,no,interval bound recomputed by analysis/values.py with the original code's deterministic resampling seeds

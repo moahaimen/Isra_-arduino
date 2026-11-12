@@ -1,0 +1,32 @@
+## A (Python 3.12.12, numpy 2.2.6, pandas 2.3.3, matplotlib 3.10.7, Word PDF)
+  values.json identical to package: True
+  analysis/values_check.csv identical: True
+  analysis/exact_fraction_crosscheck.csv identical: True
+  analysis/exact_ties.csv identical: True
+  mdpi_sensors_preparation/verification/LAST_DIGIT_DIFFERENCES.csv identical: True
+  mdpi_sensors_preparation/NUMBER_PROVENANCE_MDPI.csv identical: True
+  manuscript/references.bib identical: True
+  manuscript/REFERENCE_VERIFICATION.md identical: True
+  manuscript/QC_REPORT.md identical: True
+  Phase_Robust_Sensors_Manuscript.docx text identical: True
+  Phase_Robust_Sensors_Supplementary.docx text identical: True
+  Cover_Letter_DRAFT.docx text identical: True
+  Phase_Robust_Sensors_Manuscript.pdf: 30 pages; text identical to delivered PDF: True
+  Phase_Robust_Sensors_Supplementary.pdf: 5 pages; text identical to delivered PDF: True
+  figure PNGs differing in pixels: none
+## B (Python 3.13.7, numpy 2.5.3, pandas 3.0.5, matplotlib 3.11.2, LibreOffice PDF)
+  values.json identical to package: True
+  analysis/values_check.csv identical: True
+  analysis/exact_fraction_crosscheck.csv identical: True
+  analysis/exact_ties.csv identical: True
+  mdpi_sensors_preparation/verification/LAST_DIGIT_DIFFERENCES.csv identical: True
+  mdpi_sensors_preparation/NUMBER_PROVENANCE_MDPI.csv identical: True
+  manuscript/references.bib identical: True
+  manuscript/REFERENCE_VERIFICATION.md identical: True
+  manuscript/QC_REPORT.md identical: True
+  Phase_Robust_Sensors_Manuscript.docx text identical: True
+  Phase_Robust_Sensors_Supplementary.docx text identical: True
+  Cover_Letter_DRAFT.docx text identical: True
+  Phase_Robust_Sensors_Manuscript.pdf: 31 pages; text identical to delivered PDF: False
+  Phase_Robust_Sensors_Supplementary.pdf: 5 pages; text identical to delivered PDF: False
+  figure PNGs differing in pixels: ['Fig01_architecture.png', 'Fig02_timing.png', 'Fig03_pipeline.png', 'Fig04_fault_signatures.png', 'Fig05_phase_sensitivity.png', 'Fig06_reference_amplitude.png', 'Fig07_afe_adc_separation.png', 'Fig08_domain_transfer.png', 'Fig09_ablation.png', 'Fig10_per_class_recall.png']
